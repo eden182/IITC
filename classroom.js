@@ -105,3 +105,13 @@ function maskEmail(email) {
   return "replace:", email.replace("eden9876102", "***********");
 }
 console.log(maskEmail(email));
+
+// console.log("hello world");
+
+// let level = 1;
+// console.log(level);
+// function levelUp() {
+//   level++;
+//   console.log(level);
+// }
+// console.log(levelUp(level));
