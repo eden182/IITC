@@ -1,31 +1,31 @@
-const firstName = "eden ";
-const lastName = "shabi";
-const age = 24;
-let isStudent = true;
-if (true) {
-  console.log(firstName + lastName + " is student");
-}
-let isAdult = age >= 18;
-if (age < 18) {
-  console.log("is not adult");
-} else age >= 18;
-{
-  console.log("is adult");
-}
-const isJohn = "is john";
-if (isJohn === firstName) {
-  console.log("is john");
-} else {
-  console.log("is not john");
-}
+// const firstName = "eden ";
+// const lastName = "shabi";
+// const age = 24;
+// let isStudent = true;
+// if (true) {
+//   console.log(firstName + lastName + " is student");
+// }
+// let isAdult = age >= 18;
+// if (age < 18) {
+//   console.log("is not adult");
+// } else age >= 18;
+// {
+//   console.log("is adult");
+// }
+// const isJohn = "is john";
+// if (isJohn === firstName) {
+//   console.log("is john");
+// } else {
+//   console.log("is not john");
+// }
 
-function greet(firstName, lastName) {
-  console.log(
-    "hello " + fullName.toUpperCase() + " welcome to the IITC bootcamp"
-  );
-}
-let fullName = firstName + lastName;
-greet();
+// function greet(firstName, lastName) {
+//   console.log(
+//     "hello " + fullName.toUpperCase() + " welcome to the IITC bootcamp"
+//   );
+// }
+// let fullName = firstName + lastName;
+// greet();
 
 //function checkAge(age) {
 //if (age < 13) return "is a child";
@@ -79,32 +79,32 @@ greet();
 // else return ("you do not get a discount")}};
 // console.log (checkDiscount(age , isMember));
 
-const storedUserName = "theGreat";
-const storedPassword = "1620";
-function validateLogin(userName, password) {
-  if (storedUserName === userName) {
-    if (storedPassword === password) return "login successful";
-    else return "invalid login name or password";
-  }
-}
+// const storedUserName = "theGreat";
+// const storedPassword = "1620";
+// function validateLogin(userName, password) {
+//   if (storedUserName === userName) {
+//     if (storedPassword === password) return "login successful";
+//     else return "invalid login name or password";
+//   }
+// }
 
-let userName = "theGreat";
-let password = "1620";
-console.log(validateLogin(userName, password));
+// let userName = "theGreat";
+// let password = "1620";
+// console.log(validateLogin(userName, password));
 
-function extractInitials(firstName, lastName) {
-  console.log(
-    ("first character:", firstName[0]) + "." + ("first character:", lastName[0])
-  );
-}
+// function extractInitials(firstName, lastName) {
+//   console.log(
+//     ("first character:", firstName[0]) + "." + ("first character:", lastName[0])
+//   );
+// }
 
-console.log(extractInitials(firstName.toUpperCase(), lastName.toUpperCase()));
+// console.log(extractInitials(firstName.toUpperCase(), lastName.toUpperCase()));
 
-const email = "eden9876102@gmail.com";
-function maskEmail(email) {
-  return "replace:", email.replace("eden9876102", "***********");
-}
-console.log(maskEmail(email));
+// const email = "eden9876102@gmail.com";
+// function maskEmail(email) {
+//   return "replace:", email.replace("eden9876102", "***********");
+// }
+// console.log(maskEmail(email));
 
 // console.log("hello world");
 
