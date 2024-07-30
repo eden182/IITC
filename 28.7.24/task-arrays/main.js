@@ -31,7 +31,8 @@ console.log(seasons[3]);
 //13
 //....??....
 //14
-//....??....
+let notIndex = fruits[4];
+console.log(notIndex);
 //15
 console.log(`the second color is ${colors[1]}`);
 //16
