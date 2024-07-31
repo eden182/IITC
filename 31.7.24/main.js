@@ -135,11 +135,8 @@ let car = {
   make: "mazda",
   model: "RX7",
   year: 2004,
-  allKeys: function () {
-    console.log(`details of car`, this.make, this.model, this.year, this.color);
-  },
 };
-console.log(car.allKeys());
+
 console.log(car.year);
 car.year = 2000;
 car.color = "red";
