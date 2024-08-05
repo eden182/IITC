@@ -1,7 +1,7 @@
 // question 1
 function stars(g) {
   let star = "";
-  for (let i = 1; i <= 2; i++) {
+  for (let i = 1; i <= g; i++) {
     for (let j = 0; j < g; j++) {
       star += "* ";
     }
@@ -9,13 +9,13 @@ function stars(g) {
   }
   console.log(star);
 }
-stars(12);
+stars(2);
 
 // answer 1
 for (let i = 0; i < 2; i++) {
   let star = "";
   for (let j = 0; j < 2; j++) {
-    star += " *";
+    star += "* ";
   }
   console.log(star);
 }
@@ -307,3 +307,73 @@ function Tri(g) {
   }
 }
 Tri(4);
+
+// question 25
+for (let i = 0; i <= 4; i++) {
+  let row = "";
+  for (let j = 0; j <= 4; j++) {
+    row += i * 2 + j + " ";
+  }
+  console.log(row);
+}
+
+// question 26
+let g = 5;
+for (let i = 0; i < g; i++) {
+  let hash = "";
+  for (let j = 0; j < g; j++) {
+    if (i === 0 || i === 4 || j === 0 || j === 4) {
+      hash += "#";
+    } else {
+      hash += " ";
+    }
+  }
+  console.log(hash);
+}
+
+// question 27
+for (let i = 0; i < 4; i++) {
+  let row = "";
+  for (let j = 0; j < 4; j++) {
+    let product = i * j;
+    row += Math.min(product, 5) + " ";
+  }
+  console.log(row);
+}
+
+// question 28
+for (let i = 0; i < 5; i++) {
+  let star = "";
+  for (let j = 0; j <= i; j++) {
+    if (i !== 2) {
+      star += "*";
+    }
+  }
+  console.log(star);
+}
+
+// question 29
+for (let i = 0; i < 5; i++) {
+  let row = "";
+  for (let j = 0; j < 5; j++) {
+    if (i === j) {
+      row += " " + 1;
+    } else {
+      row += " " + 0;
+    }
+  }
+  console.log(row);
+}
+
+// question 30
+function sum(g) {
+  for (let i = 0; i < g; i++) {
+    let row = "";
+    for (let j = 0; j < g; j++) {
+      let value = i + j + 1;
+      row += value + " ";
+    }
+    console.log(row);
+  }
+}
+sum(4);
