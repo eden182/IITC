@@ -139,7 +139,7 @@ console.log("Average Price:", averagePrice);
 // 🤨 Task 9: Add Grade to Student 🤨
 // TODO: Write a function to add a grade to a student (You can mutate the original object)
 function addGrade(student, subject, grade) {
-  student[subject] = grade;
+  student.grades[subject] = grade;
 }
 
 addGrade(student_1, "english", 85);
@@ -194,25 +194,23 @@ console.log("Uppercase Strings:", uppercaseStrings);
 // TODO: Write a function to group strings by the number of spaces in the string.
 // The function should return an object where keys are the number of spaces and values are arrays of strings.
 
-// function groupStringsBySpaces(strings) {
-//   let obj = {};
-//   let count = 0;
-//   for (let i = 0; i < strings.length; i++) {
-//     for (let j = 0; j < strings[i].length; j++) {
-//       if (strings[i][j] === " ") {
-//         count++;
-//       }
-//       if (!obj[count]) {
-//         obj[count] = [];
-//       }
-//       obj[count].push(strings[i]);
-//     }
-//   }
-//   return obj;
-// }
+function groupStringsBySpaces(strings) {
+  let obj = {};
+  let count = 0;
+  obj[count] = [];
+  for (let i = 0; i < strings.length; i++) {
+    for (let j = 0; j < strings[i].length; j++) {
+      if (strings[i][j] === " ") {
+        count++;
+        obj.count.push(strings[i]);
+      }
+    }
+  }
+  return obj;
+}
 
-// const groupedStrings_1 = groupStringsBySpaces(strings);
-// console.log("Grouped Strings By Spaces:", groupedStrings_1);
+const groupedStrings_1 = groupStringsBySpaces(strings);
+console.log("Grouped Strings By Spaces:", groupedStrings_1);
 
 // 🥵 Task 14: group strings by length 🥵
 //TODO: Write a function to group strings by length.
@@ -228,22 +226,22 @@ const groupedStrings_2 = groupStringsByLength(strings);
 // 🥵 Task 15: Capitalize Strings 🥵
 // TODO: Write a function to capitalize the first letter of each string in the array (You should return a new array)
 // Bonus: Capitalize the first letter of each word in the string (split by space)
-function capitalizeStrings(strings) {
-  let arr = [];
-  for (let i = 0; i < strings.length; i++) {
-    let str = "";
-    for (let j = 0; j < strings[i].length; j++) {
-      let char = strings[j];
-      if (char === strings[i][j]) {
-        str += char.toUpperCase();
-      } else {
-        str += char;
-      }
-      arr.push(str);
-    }
-  }
-  return arr;
-}
+// function capitalizeStrings(strings) {
+//   let arr = [];
+//   for (let i = 0; i < strings.length; i++) {
+//     let str = "";
+//     for (let j = 0; j < strings[i].length; j++) {
+//       let char = strings[j];
+//       if (char === strings[i][j]) {
+//         str += char.toUpperCase();
+//       } else {
+//         str += char;
+//       }
+//       arr.push(str);
+//     }
+//   }
+//   return arr;
+// }
 
-const capitalizedStrings = capitalizeStrings(strings);
-console.log("Capitalized Strings:", capitalizedStrings);
+// const capitalizedStrings = capitalizeStrings(strings);
+// console.log("Capitalized Strings:", capitalizedStrings);

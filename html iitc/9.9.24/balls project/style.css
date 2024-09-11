@@ -1,0 +1,143 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  color: red;
+  font-size: 16px;
+  font-weight: 500;
+  flex: auto;
+  text-align: left;
+}
+.padding {
+  padding: 8px;
+}
+
+.container {
+  background-color: yellow;
+  outline: solid;
+  outline-color: blue;
+  outline-width: 4px;
+  margin-top: 20px;
+  width: 500px;
+  position: relative;
+  left: 30%;
+  margin: 45px;
+}
+
+#top {
+  text-align: left;
+  padding: 20px;
+  margin-top: 20px;
+  padding-bottom: 20px;
+}
+
+#top p {
+  padding: 10px;
+}
+
+#thirdP {
+  background-color: grey;
+  color: white;
+  border-radius: 10px;
+  line-height: 30px;
+  padding-left: 10px;
+}
+
+.ball {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 5px;
+  text-align: left;
+}
+
+#mid {
+  text-align: left;
+  padding: 20px;
+  display: inline-block;
+  display: flex;
+}
+
+#red {
+  background-color: red;
+}
+
+#blue {
+  background-color: blue;
+}
+
+#green {
+  background-color: green;
+}
+
+#bot {
+  padding: 20px;
+  display: inline-block;
+  display: flex;
+  position: relative;
+}
+
+.red-box {
+  background-color: red;
+  padding: 0px;
+  width: 450px;
+  height: 220px;
+  position: relative;
+  margin-left: 20px;
+  display: flex;
+  display: inline-block;
+}
+
+#left {
+  width: 40px;
+  height: 28px;
+  background-color: black;
+  color: white;
+  margin-top: 0;
+  text-align: center;
+  padding-top: 12px;
+}
+
+#right {
+  width: 40px;
+  height: 28px;
+  background-color: black;
+  color: white;
+  margin-left: 410px;
+  text-align: center;
+  padding-top: 12px;
+}
+
+#middle {
+  border-radius: 50%;
+  width: 60px;
+  height: 25px;
+  background-color: black;
+  color: white;
+  margin-top: 20px;
+  text-align: center;
+  padding-top: 8px;
+  margin-left: 190px;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.925);
+}
+
+#join {
+  background-color: rgb(155, 58, 204);
+  width: 60px;
+  height: 35px;
+  border-radius: 40%;
+  color: white;
+  border: 0;
+}
+
+#explore {
+  background-color: rgb(155, 58, 204);
+  width: 100px;
+  height: 35px;
+  border-radius: 10%;
+  color: white;
+  border: 0;
+  margin-left: 475px;
+}
