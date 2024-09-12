@@ -194,23 +194,23 @@ console.log("Uppercase Strings:", uppercaseStrings);
 // TODO: Write a function to group strings by the number of spaces in the string.
 // The function should return an object where keys are the number of spaces and values are arrays of strings.
 
-function groupStringsBySpaces(strings) {
-  let obj = {};
-  let count = 0;
-  obj[count] = [];
-  for (let i = 0; i < strings.length; i++) {
-    for (let j = 0; j < strings[i].length; j++) {
-      if (strings[i][j] === " ") {
-        count++;
-        obj.count.push(strings[i]);
-      }
-    }
-  }
-  return obj;
-}
+// function groupStringsBySpaces(strings) {
+//   let obj = {};
+//   let count = 0;
+//   obj[count] = [];
+//   for (let i = 0; i < strings.length; i++) {
+//     for (let j = 0; j < strings[i].length; j++) {
+//       if (strings[i][j] === " ") {
+//         count++;
+//         obj.count.push(strings[i]);
+//       }
+//     }
+//   }
+//   return obj;
+// }
 
-const groupedStrings_1 = groupStringsBySpaces(strings);
-console.log("Grouped Strings By Spaces:", groupedStrings_1);
+// const groupedStrings_1 = groupStringsBySpaces(strings);
+// console.log("Grouped Strings By Spaces:", groupedStrings_1);
 
 // 🥵 Task 14: group strings by length 🥵
 //TODO: Write a function to group strings by length.
