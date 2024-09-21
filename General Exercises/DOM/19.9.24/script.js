@@ -26,5 +26,5 @@ balls.forEach((ball) => {
 });
 
 document.getElementById("Button").addEventListener("click", function () {
-  window.open("file:///C:/IITC/html%20iitc/DOM/19.9.24/index2.html");
+  window.open("file:///C:/IITC/General%20Exercises/DOM/19.9.24/index2.html");
 });
