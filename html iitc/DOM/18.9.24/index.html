@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TO DO LIST</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>My Lists</header>
+    <div class="container">
+      <div class="inCon" id="toDo1">
+        <h1 id="h1">
+          <input type="text" id="headline" placeholder="List name" />
+        </h1>
+        <button class="toggle-btn">Hide List</button>
+        <div class="count">Completed: 0</div>
+        <input type="text" id="ToDo1Input" placeholder="To Do Today" />
+        <ul class="TD"></ul>
+      </div>
+
+      <div class="inCon" id="toDo2">
+        <h1 id="h2">
+          <input type="text" id="headline2" placeholder="List name" />
+        </h1>
+        <button class="toggle-btn">Hide List</button>
+        <div class="count">Completed: 0</div>
+        <input type="text" id="ToDo2Input" placeholder="To Do This Week" />
+        <ul class="TD"></ul>
+      </div>
+    </div>
+
+    <div class="notes-container">
+      <textarea class="notes" placeholder="Add your notes here..."></textarea>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
