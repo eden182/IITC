@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>THANK YOU</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container" id="con-2">
+      <img
+        src="images/illustration-thank-you.svg"
+        alt="insert photo"
+        class="pic2"
+      />
+      <div class="select"><p id="sel">You selected out of 5</p></div>
+      <h1 id="HL">Thank you!</h1>
+      <p id="p2">
+        We appreciate you taking the time to give a rating. if you ever need
+        more support, don't hesitate to get in touch!
+      </p>
+    </div>
+    <script>
+      const selectedRating = localStorage.getItem("selectedRating") || 0;
+
+      document.getElementById(
+        "sel"
+      ).innerText = `You selected ${selectedRating} out of 5`;
+    </script>
+    <script src="script.js"></script>
+  </body>
+</html>
