@@ -26,5 +26,11 @@ balls.forEach((ball) => {
 });
 
 document.getElementById("Button").addEventListener("click", function () {
-  window.open("file:///C:/IITC/General%20Exercises/DOM/19.9.24/index2.html");
+  if (!selectedBall) {
+    alert(
+      "Please select a rating before proceeding, It is important for us to get your opinion!"
+    );
+  } else {
+    window.open("file:///C:/IITC/General%20Exercises/DOM/19.9.24/index2.html");
+  }
 });
