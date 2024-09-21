@@ -4,21 +4,31 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>first DOM assign</title>
-    <link rel="styleSheets" href="main.js" />
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div id="content">
-      <p class="text">abcdefg</p>
-      <p class="text">hijklmn</p>
-      <p class="text">opqrstu</p>
+    <div class="container">
+      <div id="content">
+        <p class="text">abcdefg</p>
+        <p class="text">hijklmn</p>
+        <p class="text">opqrstu</p>
+      </div>
+      <ul id="list">
+        <li>item 1</li>
+        <li>item 2</li>
+        <li>item 3</li>
+        <li>item 4</li>
+        <li>item 5</li>
+      </ul>
     </div>
-    <ul id="#list li">
-      <li>item 1</li>
-      <li>item 2</li>
-      <li>item 3</li>
-      <li>item 4</li>
-      <li>item 5</li>
-    </ul>
     <button id="highlightButton">highlight list items</button>
+    <div>
+      <ul id="buttons"></ul>
+      <button id="addItemButton">Add Item</button>
+      <button id="removeFirstButton">Remove First Item</button>
+      <button id="removeLastButton">Remove Last Item</button>
+      <button id="removeSelectedButton">Remove Selected Item</button>
+    </div>
+    <script src="script.js"></script>
   </body>
 </html>
