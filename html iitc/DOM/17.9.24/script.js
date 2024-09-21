@@ -64,3 +64,17 @@ removeSelectedButton.addEventListener("click", function () {
     buttons.removeChild(selectedItem);
   }
 });
+
+const nameInput = document.getElementById("nameInput");
+const greetingDiv = document.getElementById("greeting");
+const clearButton = document.getElementById("clearButton");
+
+nameInput.addEventListener("input", function () {
+  const name = nameInput.value;
+  greetingDiv.textContent = `Hello, ${name}!`;
+});
+
+clearButton.addEventListener("click", function () {
+  nameInput.value = "";
+  greetingDiv.textContent = "";
+});
