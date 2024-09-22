@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product List</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container-1">
+      <h1 id="HL">Desserts</h1>
+      <div class="picture">
+        <img
+          src="assets/images/image-waffle-desktop.jpg"
+          alt="Waffle"
+          class="pic"
+          id="waffle"
+        />
+        <button class="add" data-product="Waffle">Add to cart</button>
+        <p class="picName">Waffle</p>
+        <p class="picDesc">Waffle With Berries</p>
+        <p class="price">$6.50</p>
+      </div>
+      <div class="picture">
+        <img
+          src="assets/images/image-creme-brulee-desktop.jpg"
+          alt="Creme Brulee"
+          class="pic"
+          id="creme"
+        />
+        <button class="add" data-product="Creme Brulee">Add to cart</button>
+        <p class="picName">Creme Brulee</p>
+        <p class="picDesc">Vanilla Bean Creme Brulee</p>
+        <p class="price">$7.00</p>
+      </div>
+      <div class="picture">
+        <img
+          src="assets/images/image-macaron-desktop.jpg"
+          alt="Macaron"
+          class="pic"
+          id="macaron"
+        />
+        <button class="add" data-product="Macaron">Add to cart</button>
+        <p class="picName">Macaron</p>
+        <p class="picDesc">Macaron Mix Of Five</p>
+        <p class="price">$8.00</p>
+      </div>
+      <div class="picture">
+        <img
+          src="assets/images/image-tiramisu-desktop.jpg"
+          alt="Tiramisu"
+          class="pic"
+          id="tiramisu"
+        />
+        <button class="add" data-product="Tiramisu">Add to cart</button>
+        <p class="picName">Tiramisu</p>
+        <p class="picDesc">Classic Tiramisu</p>
+        <p class="price">$5.50</p>
+      </div>
+      <div class="picture">
+        <img
+          src="assets/images/image-baklava-desktop.jpg"
+          alt="Baklava"
+          class="pic"
+          id="baklava"
+        />
+        <button class="add" data-product="Baklava">Add to cart</button>
+        <p class="picName">Baklava</p>
+        <p class="picDesc">Pistachio Baklava</p>
+        <p class="price">$4.00</p>
+      </div>
+      <div class="picture">
+        <img
+          src="assets/images/image-meringue-desktop.jpg"
+          alt="Pie"
+          class="pic"
+          id="pie"
+        />
+        <button class="add" data-product="Pie">Add to cart</button>
+        <p class="picName">Pie</p>
+        <p class="picDesc">Lemon Meringue Pie</p>
+        <p class="price">$5.00</p>
+      </div>
+      <div class="picture">
+        <img
+          src="assets/images/image-cake-desktop.jpg"
+          alt="Cake"
+          class="pic"
+          id="cake"
+        />
+        <button class="add" data-product="Cake">Add to cart</button>
+        <p class="picName">Cake</p>
+        <p class="picDesc">Red Velvet Cake</p>
+        <p class="price">$4.50</p>
+      </div>
+      <div class="picture">
+        <img
+          src="assets/images/image-brownie-desktop.jpg"
+          alt="Brownie"
+          class="pic"
+          id="brownie"
+        />
+        <button class="add" data-product="Brownie">Add to cart</button>
+        <p class="picName">Brownie</p>
+        <p class="picDesc">Salted Caramel Brownie</p>
+        <p class="price">$5.50</p>
+      </div>
+      <div class="picture">
+        <img
+          src="assets/images/image-panna-cotta-desktop.jpg"
+          alt="Panna Cotta"
+          class="pic"
+          id="panna"
+        />
+        <button class="add" data-product="Panna Cotta">Add to cart</button>
+        <p class="picName">Panna Cotta</p>
+        <p class="picDesc">Vanilla Panna Cotta</p>
+        <p class="price">$6.50</p>
+      </div>
+    </div>
+    <div class="container-2">
+      <h2 id="hl">Your Cart (<span id="cartCount">0</span>)</h2>
+      <ul id="cartItems"></ul>
+      <img
+        src="assets/images/illustration-empty-cart.svg"
+        alt="insert photo"
+        class="pic2"
+      />
+      <p class="picName" id="cartDesc">Your added items will appear here</p>
+
+      <button id="confirmOrderButton" style="display: none">
+        Confirm Order
+      </button>
+
+      <div id="orderConfirmation">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2>Order Confirmed</h2>
+          <div>
+            <ul id="orderItems"></ul>
+            <br />
+            <p>Total Price: <span id="totalPrice"></span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
