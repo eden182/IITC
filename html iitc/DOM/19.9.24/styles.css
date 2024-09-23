@@ -89,7 +89,8 @@ body {
 .container-2 {
   background-color: rgba(255, 255, 255, 0.726);
   width: 300px;
-  height: 240px;
+  height: 400px;
+  position: relative;
   padding: 15px;
   margin-top: 80px;
   border-radius: 10px;
@@ -97,6 +98,39 @@ body {
   flex-direction: column;
   align-items: center;
   text-align: center;
+  overflow: hidden;
+  flex-wrap: wrap;
+}
+#orderItems {
+  list-style-type: none;
+  padding: 0;
+  background-color: rgb(252, 247, 241);
+  font-size: 12px;
+  text-align: left;
+}
+
+#orderItems li {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 12px;
+}
+
+#orderItems li .product-name {
+  flex: 1;
+  text-align: left;
+}
+
+#orderItems li .product-price {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.totPrice {
+  font-size: 22px;
+  background-color: rgb(252, 247, 241);
+  text-align: center;
+  color: darkred;
 }
 
 #hl {
@@ -107,6 +141,12 @@ body {
   padding: 5px;
   color: rgb(198, 69, 0);
   font-size: 22px;
+}
+
+#h2 {
+  margin-bottom: 20px;
+  font-size: 32px;
+  font-weight: lighter;
 }
 
 .pic2 {
@@ -125,15 +165,30 @@ body {
 }
 
 #cartItems {
-  list-style: none;
+  list-style-type: none;
   padding: 0;
+  background-color: rgb(252, 247, 241);
+  font-size: 12px;
+  text-align: left;
+  width: 100%;
 }
 
 #cartItems li {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   margin-bottom: 10px;
+  font-size: 12px;
+}
+
+.product-name {
+  flex: 1;
+  text-align: left;
+}
+
+.product-price {
+  text-align: right;
+  white-space: nowrap;
+  margin-left: 10px;
 }
 
 .remove-button {
@@ -151,35 +206,8 @@ body {
   color: darkred;
 }
 
-.modal {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  z-index: 1000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.7);
-}
-
-.modal-content {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 5px;
-  text-align: center;
-  position: relative;
-}
-
-.close {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 25px;
-  font-weight: bold;
-  cursor: pointer;
+.add:hover {
+  background-color: rgba(117, 117, 117, 0.614);
 }
 
 .add.active {
@@ -196,27 +224,35 @@ body {
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.752);
 }
 
 .modal-content {
-  background-color: white; /* White background */
-  margin: 15% auto; /* 15% from the top and centered */
-  padding: 20px; /* Some padding */
-  border: 1px solid #888; /* Border */
-  width: 80%; /* Could be more or less, depending on screen size */
+  background-color: #fff;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 500px;
+  border-radius: 8px;
 }
 
 .close {
-  color: #aaa; /* Gray color */
-  float: right; /* Float to the right */
-  font-size: 28px; /* Font size */
-  font-weight: bold; /* Bold */
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
 }
 
 .close:hover,
 .close:focus {
-  color: black; /* Change color on hover/focus */
-  text-decoration: none; /* No underline */
-  cursor: pointer; /* Pointer cursor on hover */
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .modal-content {
+    width: 90%;
+  }
 }
