@@ -20,7 +20,7 @@ body {
   right: 0;
   overflow: hidden;
   margin-top: 130px;
-  margin-right: 280px;
+  margin-right: 200px;
 }
 
 .background-2 {
@@ -28,7 +28,6 @@ body {
   display: flex;
   width: 200px;
   height: auto;
-  /* border-radius: 50%; */
   z-index: 1;
   margin-top: 124px;
   margin-left: 250px;
@@ -41,15 +40,15 @@ body {
   width: 100px;
   height: auto;
   position: relative;
-  margin-left: 100px;
 }
 
 .logo {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  margin-right: 20px;
+  margin-right: 30px;
   margin-top: 10px;
+  padding-right: 20px;
   position: relative;
 }
 
@@ -58,6 +57,19 @@ body {
   font-size: 34px;
   font-weight: bold;
   margin-top: 10px;
+  margin-right: 45px;
+}
+#thank {
+  background-color: rgb(19, 0, 54);
+  color: rgba(255, 255, 255, 0.701);
+  width: 300px;
+  height: auto;
+  padding: 10px;
+  margin-top: 70px;
+  align-self: center;
+  text-align: center;
+  font-size: 18px;
+  border-radius: 30px;
 }
 
 #pic {
@@ -139,62 +151,113 @@ body {
   cursor: pointer;
 }
 
-/* Mobile Styles */
+.window {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.797);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.fullLogo-2 {
+  display: flex;
+  flex-direction: column;
+}
+
+#thnks {
+  display: none;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  position: relative;
+  padding: 20px;
+  width: 30%;
+  height: auto;
+  border-radius: 20px;
+  font-size: 24px;
+  background-color: rgb(29, 215, 172);
+}
+#not {
+  justify-self: center;
+  font-size: 12px;
+  margin-top: 150px;
+  align-items: flex-end;
+  color: rgba(201, 0, 0, 0.848);
+}
+
+.dot-grid {
+  display: grid;
+  grid-template-columns: repeat(16, 1fr);
+  gap: 25px;
+  margin: 0;
+  position: absolute;
+  top: 500px;
+  right: 20px;
+  z-index: 500;
+  pointer-events: none;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  background-color: rgba(25, 186, 148, 0.8);
+  border-radius: 50%;
+}
+
 @media (max-width: 1038px) {
-  /* Hide all image elements */
   .logo,
   .photo,
   .background-2 {
     display: none;
   }
 
-  /* Set full background image */
   html,
   body {
-    height: 100vh; /* Ensure the body takes full height */
-    margin: 0; /* Remove default margin */
-    background-image: url("images/singing-dude.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    position: relative; /* Position for absolute overlay */
-  }
-
-  /* Full overlay covering the page */
-  .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(25, 186, 148, 0.474);
-    pointer-events: none; /* Allow interaction with underlying elements */
+    height: 100vh;
+    margin: 0;
   }
 
   .container {
     width: 100%;
+    top: 0;
     display: flex;
-    flex-direction: column; /* Stack content vertically */
-    align-items: center; /* Center align items */
-    justify-content: center; /* Center vertically */
-    position: relative; /* Relative for content positioning */
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+    transform: translateX(-50%);
+    margin-left: 17%;
   }
 
   .content {
-    z-index: 100; /* Ensure content is above the overlay */
-    width: 90%; /* Adjust width for better spacing */
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+    top: 0;
+    z-index: 100;
+    width: 50%;
+    height: auto;
     padding: 15px;
-    text-align: left; /* Align text to the left */
+    text-align: left;
   }
 
   #HL,
   #p1 {
-    width: 100%; /* Full width for headings and paragraphs */
+    width: 100%;
   }
 
   #in,
   .but {
-    width: 100%; /* Full width for input and button */
-    margin: 0; /* Reset margins */
+    width: 100%;
+    margin: 0;
   }
 }

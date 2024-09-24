@@ -23,7 +23,7 @@ function updateButtonStyle(button, count) {
   if (count > 0) {
     button.style.backgroundColor = "red";
     button.style.color = "white";
-    button.textContent = "(+)";
+    button.textContent = "+";
   } else {
     button.style.backgroundColor = "";
     button.style.color = "";
@@ -110,6 +110,8 @@ confirmOrderButton.addEventListener("click", () => {
     li.appendChild(priceSpan);
 
     orderItems.appendChild(li);
+    const hr = document.createElement("hr");
+    orderItems.appendChild(hr);
   }
 
   totalPriceDisplay.textContent = `$${totalPrice.toFixed(2)}`;
