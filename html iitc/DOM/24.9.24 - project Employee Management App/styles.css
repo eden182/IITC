@@ -1,0 +1,213 @@
+/* body */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: black;
+  color: white;
+}
+
+/* header */
+header {
+  margin-bottom: 30px;
+  height: 100px;
+  width: 60%;
+  padding: 20px;
+  margin-top: -25px;
+  margin-bottom: 30px;
+  font-size: 54px;
+  text-align: center;
+  padding-bottom: 100px;
+  padding-top: 40px;
+  background-color: rgba(62, 62, 62, 0.46);
+  box-shadow: inset 2px 2px 10px rgba(0, 0, 0, 0.5);
+}
+.E {
+  color: rgb(152, 18, 32);
+}
+.M {
+  color: rgb(17, 17, 192);
+}
+.A {
+  color: rgb(10, 197, 162);
+}
+
+.logo {
+  display: flex;
+  align-self: center;
+  justify-self: flex-start;
+  width: 100px;
+  height: auto;
+  margin-left: 320px;
+  margin-top: -100px;
+  border-radius: 50%;
+}
+
+.inColorBut {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 150px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 60px;
+}
+
+.colorBut {
+  padding: 10px 20px;
+  background-color: rgb(10, 197, 162);
+  border: none;
+  border-radius: 60px;
+  cursor: pointer;
+  margin: 5px 10px;
+}
+
+/* body */
+.container {
+  height: 100%;
+  width: 50%;
+  background-color: rgba(62, 62, 62, 0.46);
+  box-shadow: inset 2px 2px 10px rgba(0, 0, 0, 0.5);
+  margin: 25px;
+}
+
+.viewPort {
+  display: flex;
+  padding: 10px;
+}
+
+.viewEm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 25px;
+}
+
+.fullIn-1 {
+  padding-top: 100px;
+  display: flex;
+  flex-direction: row;
+  margin-left: 45px;
+}
+.input {
+  padding: 2px;
+  text-align: left;
+}
+.viewBut {
+  padding: 2px;
+}
+
+.fullIn-2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-left: 150px;
+  height: 100%;
+  padding-top: 70px;
+}
+
+.inputGroup {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.input-2 {
+  width: 160px;
+  margin-bottom: 5px;
+  height: auto;
+}
+#in-1,
+#in-2 {
+  width: 80px;
+}
+
+.showBut,
+.AddBut,
+.editBut {
+  padding: 2px;
+  margin-bottom: 15px;
+  height: auto;
+}
+.showBut {
+  width: 50px;
+  margin-top: 10px;
+}
+
+.emUls {
+  overflow-y: auto;
+  background-color: rgb(250, 235, 215);
+  color: black;
+  width: 310px;
+  height: 210px;
+  padding: 20px;
+  box-shadow: inset 2px 2px 10px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+  margin-left: -25px;
+  display: none;
+}
+
+.emUls ul {
+  list-style-type: none;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+.emUls ul li {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  padding: 5px;
+  padding-right: 10px;
+  border-radius: 5px;
+}
+
+/* day mode */
+
+body.custom-colors-active {
+  background-color: white;
+  color: black;
+}
+
+.colorBut.button-active {
+  background-color: orange;
+}
+
+.emUls.button-active {
+  background-color: azure;
+}
+
+.inColorBut {
+  background-color: rgba(33, 33, 33, 0.671);
+}
+
+.AddBut:hover,
+.showBut:hover,
+.editBut:hover,
+.viewBut:hover {
+  background-color: rgb(126, 126, 126);
+}
+
+.highlight {
+  background-color: yellow;
+}
+
+body.custom-colors-active .highlight {
+  background-color: lightskyblue;
+}
