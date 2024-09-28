@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
   employeeListContainer.style.display = "none";
   let isListVisible = false;
   let isCustomColors = false;
-  let selectedEmployeeIndex = -1;
+  let selectedEmployee = null;
 
   addButton.addEventListener("click", () => {
     const firstName = document.getElementById("in-1").value.trim();
@@ -93,18 +93,9 @@ document.addEventListener("DOMContentLoaded", () => {
         department,
         salary,
       };
-
-      if (selectedEmployeeIndex >= 0) {
-        employees[selectedEmployeeIndex] = employeeData;
-        selectedEmployeeIndex = -1;
-      } else {
-        employees.push(employeeData);
-      }
-
+      employees.push(employeeData);
       localStorage.setItem("employees", JSON.stringify(employees));
-
-      clearInputFields();
-
+      clearInputs();
       refreshEmployeeList(employees);
     } else {
       alert("Please fill in all fields before adding an employee.");
@@ -138,41 +129,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function refreshEmployeeList(employeeArray) {
     employeeListContainer.innerHTML = "";
-    employeeArray.forEach((employee, index) => {
+    employeeArray.forEach((employee) => {
       const li = document.createElement("li");
-      li.setAttribute("data-department", employee.department);
       li.textContent = `${employee.firstName} ${employee.lastName}, Age: ${employee.age}, Start Date: ${employee.startDate}, Department: ${employee.department}, Salary: ${employee.salary}`;
 
       li.addEventListener("click", () => {
-        if (selectedEmployeeIndex === index) {
-          clearInputFields();
-          selectedEmployeeIndex = -1;
-          li.classList.remove("highlight");
-        } else {
-          selectedEmployeeIndex = index;
-          document.getElementById("in-1").value = employee.firstName;
-          document.getElementById("in-2").value = employee.lastName;
-          document.getElementById("in-3").value = employee.age;
-          document.getElementById("in-4").value = employee.startDate;
-          document.getElementById("in-5").value = employee.department;
-          document.getElementById("in-6").value = employee.salary;
-
-          employeeListContainer
-            .querySelectorAll("li")
-            .forEach((li) => li.classList.remove("highlight"));
-          li.classList.add("highlight");
+        if (selectedEmployee) {
+          selectedEmployee = null;
+          clearInputs();
+          highlightSelectedEmployee(null);
+          return;
         }
+        selectedEmployee = employee;
+        highlightSelectedEmployee(li);
+        populateInputs(employee);
       });
 
       const deleteButton = document.createElement("button");
       deleteButton.textContent = "X";
       deleteButton.className = "deleteButton";
-      deleteButton.style.marginLeft = "50px";
+      deleteButton.style.marginLeft = "10px";
       deleteButton.addEventListener("click", (e) => {
         e.stopPropagation();
-        employees.splice(index, 1);
-        localStorage.setItem("employees", JSON.stringify(employees));
-        refreshEmployeeList(employees);
+        const index = employees.indexOf(employee);
+        if (index > -1) {
+          employees.splice(index, 1);
+          localStorage.setItem("employees", JSON.stringify(employees));
+          refreshEmployeeList(employees);
+        }
       });
 
       li.appendChild(deleteButton);
@@ -180,7 +164,51 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  function clearInputFields() {
+  function highlightSelectedEmployee(li) {
+    const allItems = employeeListContainer.querySelectorAll("li");
+    allItems.forEach((item) => item.classList.remove("highlight"));
+    if (li) li.classList.add("highlight");
+  }
+
+  function populateInputs(employee) {
+    document.getElementById("in-1").value = employee.firstName;
+    document.getElementById("in-2").value = employee.lastName;
+    document.getElementById("in-3").value = employee.age;
+    document.getElementById("in-4").value = employee.startDate;
+    document.getElementById("in-5").value = employee.department;
+    document.getElementById("in-6").value = employee.salary;
+  }
+
+  const editButton = document.querySelector(".editBut");
+  editButton.addEventListener("click", () => {
+    if (selectedEmployee) {
+      const firstName = document.getElementById("in-1").value.trim();
+      const lastName = document.getElementById("in-2").value.trim();
+      const age = document.getElementById("in-3").value.trim();
+      const startDate = document.getElementById("in-4").value.trim();
+      const department = document.getElementById("in-5").value.trim();
+      const salary = document.getElementById("in-6").value.trim();
+
+      if (firstName && lastName && age && startDate && department && salary) {
+        selectedEmployee.firstName = firstName;
+        selectedEmployee.lastName = lastName;
+        selectedEmployee.age = age;
+        selectedEmployee.startDate = startDate;
+        selectedEmployee.department = department;
+        selectedEmployee.salary = salary;
+
+        localStorage.setItem("employees", JSON.stringify(employees));
+        refreshEmployeeList(employees);
+        clearInputs();
+        selectedEmployee = null;
+        highlightSelectedEmployee(null);
+      } else {
+        alert("Please fill in all fields before editing.");
+      }
+    }
+  });
+
+  function clearInputs() {
     document.getElementById("in-1").value = "";
     document.getElementById("in-2").value = "";
     document.getElementById("in-3").value = "";
