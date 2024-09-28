@@ -32,13 +32,13 @@ header {
   box-shadow: inset 2px 2px 10px rgba(0, 0, 0, 0.5);
 }
 .E {
-  color: rgb(152, 18, 32);
+  color: rgb(185, 25, 41);
 }
 .M {
   color: rgb(17, 17, 192);
 }
 .A {
-  color: rgb(10, 197, 162);
+  color: rgb(13, 226, 187);
 }
 
 .logo {
@@ -67,7 +67,7 @@ header {
 
 .colorBut {
   padding: 10px 20px;
-  background-color: rgb(10, 197, 162);
+  background-color: rgb(13, 226, 187);
   border: none;
   border-radius: 60px;
   cursor: pointer;
@@ -194,7 +194,7 @@ body.custom-colors-active {
 }
 
 .inColorBut {
-  background-color: rgba(33, 33, 33, 0.671);
+  background-color: rgba(62, 62, 62, 0.46);
 }
 
 .AddBut:hover,
