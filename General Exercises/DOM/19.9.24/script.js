@@ -16,7 +16,7 @@ balls.forEach((ball) => {
     }
 
     const selectedRating = selectedBall
-      ? Array.from(balls).indexOf(selectedBall) + 0
+      ? Array.from(balls).indexOf(selectedBall)
       : 0;
     localStorage.setItem("selectedRating", selectedRating);
     document.getElementById(
