@@ -31,6 +31,6 @@ document.getElementById("Button").addEventListener("click", function () {
       "Please select a rating before proceeding, It is important for us to get your opinion!"
     );
   } else {
-    window.open("file:///C:/IITC/General%20Exercises/DOM/19.9.24/index2.html");
+    window.open("./index2.html");
   }
 });
