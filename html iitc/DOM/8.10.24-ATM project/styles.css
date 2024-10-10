@@ -13,11 +13,11 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: whitesmoke;
+  background-color: rgba(35, 35, 35, 0.203);
 }
 
 .container {
-  background-color: rgba(35, 35, 35, 0.203);
+  background-color: whitesmoke;
   height: 75%;
   width: 26%;
   position: absolute;
@@ -85,6 +85,19 @@ body {
   background-color: rgba(20, 67, 128, 0.651);
 }
 
+.clockCon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 120px;
+}
+#clock {
+  font-size: 52px;
+  font-weight: bold;
+  color: rgb(198, 3, 3);
+  display: none;
+}
+
 /* second page */
 
 .content2 {
@@ -92,14 +105,52 @@ body {
   height: 100%;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
-/*  */
-/*  */
-/*  */
-.content3 {
+.balanceDisplay {
   display: none;
-  height: 100%;
-  flex-direction: column;
+  justify-self: center;
+  font-size: 42px;
+}
+
+.button-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.button-grid .but {
+  background-color: rgba(33, 119, 232, 0.81);
+  cursor: pointer;
+  width: 80%;
+  height: 50px;
+  justify-self: center;
+}
+
+.content2 .confirmDepositButton,
+.confirmWithdrawButton {
+  background-color: rgba(33, 119, 232, 0.81);
+  margin-top: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
   align-items: center;
+  text-align: center;
+  width: 123px;
+  height: 40px;
+}
+.content2 .depositInput,
+.withdrawInput {
+  background-color: black;
+}
+
+#exit {
+  margin-bottom: 10px;
+}
+
+.but:hover {
+  background-color: rgba(20, 67, 128, 0.651);
 }

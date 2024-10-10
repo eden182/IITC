@@ -16,23 +16,23 @@
         </p>
         <p class="text">Please insert credit card before you continue</p>
         <input class="pass" placeholder="Insert password here" />
+        <div class="clockCon">
+          <p id="clock">00:<span id="count">10</span></p>
+        </div>
         <button class="butC"><b>continue</b></button>
       </div>
       <!-- second page -->
-      <div class="content2">
-        <p class="text">
-          Hello <span id="name">name</span> what do you want to do today
+      <div class="content2" style="display: none">
+        <p class="text" id="text2">
+          Hello <span id="name">name</span>, what do you want to do today?
         </p>
-        <button class="but" id="balance">Balance Inquiry</button>
-        <button class="but" id="withdraw">Withdraw Funds</button>
-        <button class="but" id="deposit">Deposit Funds</button>
-        <button class="butE" id="exit">Exit</button>
-      </div>
-      <!-- last page -->
-      <div class="content3">
-        <h1 class="HL">
-          Thank you for you time we in ES bank hope you'll have a good day
-        </h1>
+        <p id="balanceDisplay"></p>
+        <div class="button-grid">
+          <button class="but" id="balance">Balance Inquiry</button>
+          <button class="but" id="withdraw">Withdraw Funds</button>
+          <button class="but" id="deposit">Deposit Funds</button>
+          <button class="but" id="exit">Exit</button>
+        </div>
       </div>
     </div>
     <script src="script.js"></script>
