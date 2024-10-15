@@ -19,17 +19,18 @@ body {
 /* header */
 header {
   margin-bottom: 30px;
-  height: 100px;
+  height: auto;
   width: 60%;
   padding: 20px;
   margin-top: -25px;
   margin-bottom: 30px;
-  font-size: 54px;
+  font-size: 2vw;
   text-align: center;
-  padding-bottom: 100px;
+  padding-bottom: 40px;
   padding-top: 40px;
   background-color: rgba(62, 62, 62, 0.46);
   box-shadow: inset 2px 2px 10px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
 }
 .E {
   color: rgb(185, 25, 41);
@@ -72,6 +73,7 @@ header {
   border-radius: 60px;
   cursor: pointer;
   margin: 5px 10px;
+  position: absolute;
 }
 
 /* body */
@@ -81,6 +83,7 @@ header {
   background-color: rgba(62, 62, 62, 0.46);
   box-shadow: inset 2px 2px 10px rgba(0, 0, 0, 0.5);
   margin: 25px;
+  overflow-x: scroll;
 }
 
 .viewPort {
@@ -195,6 +198,7 @@ body.custom-colors-active {
 
 .inColorBut {
   background-color: rgba(62, 62, 62, 0.46);
+  position: absolute;
 }
 
 .AddBut:hover,
@@ -210,4 +214,15 @@ body.custom-colors-active {
 
 body.custom-colors-active .highlight {
   background-color: lightskyblue;
+}
+
+@media (max-width: 850px) {
+  .inColorBut {
+    background-color: rgba(62, 62, 62, 0.46);
+    position: relative;
+    margin-bottom: 36px;
+    margin-left: 28px;
+    padding-bottom: 25px;
+    padding-top: 25px;
+  }
 }
