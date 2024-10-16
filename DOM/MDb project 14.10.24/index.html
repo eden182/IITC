@@ -3,7 +3,41 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SMDb project</title>
+    <title>MDb project</title>
+    <link rel="stylesheet" href="styles.css" />
   </head>
-  <body></body>
+  <body>
+    <header>
+      <button class="logo">
+        <p id="logoText"><span id="s">S</span>MDb</p>
+        <p id="shabi">habi's</p>
+      </button>
+      <button class="menu">
+        <p id="menuText">Menu</p>
+        <p id="arrow">&#9650;</p>
+      </button>
+      <ul class="openMenu">
+        <li class="li" id="movies">Movies</li>
+        <hr />
+        <li class="li" id="tv">TV-Shows</li>
+        <hr />
+        <li class="li" id="actor">Actors</li>
+        <hr />
+        <li class="li" id="help">Help Center</li>
+      </ul>
+      <input class="search" placeholder="search SMDb" />
+      <button class="favList">
+        <p id="favListText">
+          <span id="heart">&#9829;</span> Favorites
+        </p></button
+      ><button class="profile">
+        <div id="profileCircle"><p id="g">G</p></div>
+        Guest
+      </button>
+      <div class="inDayMode">
+        <button class="dayMode">Night</button>
+      </div>
+    </header>
+    <script src="script.js"></script>
+  </body>
 </html>
