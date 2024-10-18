@@ -15,29 +15,54 @@
       <button class="menu">
         <p id="menuText">Menu</p>
         <p id="arrow">&#9650;</p>
+        <ul class="openMenu">
+          <li class="li" id="movies">Movies</li>
+          <hr class="hr" />
+          <li class="li" id="tv">TV-Shows</li>
+          <hr class="hr" />
+          <li class="li" id="actor">Actors</li>
+          <hr class="hr" />
+          <li class="li" id="help">Help Center</li>
+        </ul>
       </button>
-      <ul class="openMenu">
-        <li class="li" id="movies">Movies</li>
-        <hr />
-        <li class="li" id="tv">TV-Shows</li>
-        <hr />
-        <li class="li" id="actor">Actors</li>
-        <hr />
-        <li class="li" id="help">Help Center</li>
-      </ul>
       <input class="search" placeholder="search SMDb" />
       <button class="favList">
-        <p id="favListText">
-          <span id="heart">&#9829;</span> Favorites
-        </p></button
-      ><button class="profile">
+        <p id="favListText"><span id="heart">&#9829;</span> Favorites</p>
+      </button>
+      <button class="profile">
         <div id="profileCircle"><p id="g">G</p></div>
         Guest
+        <ul class="openProfile">
+          <li class="li" id="changeUser">Change User</li>
+          <hr class="hr" />
+          <li class="li" id="log">Log in</li>
+          <hr class="hr" />
+          <li class="li" id="sign">Sign in</li>
+        </ul>
       </button>
       <div class="inDayMode">
         <button class="dayMode">Night</button>
       </div>
     </header>
-    <script src="script.js"></script>
+    <div class="container">
+      <div class="hlContainer">
+        <h1 class="hl">Popular Movies</h1>
+      </div>
+      <div id="popular-container" class="moviesContainer"></div>
+      <div class="hlContainer">
+        <h1 class="hl">Popular TV</h1>
+      </div>
+      <div id="tv-container" class="moviesContainer"></div>
+      <div class="hlContainer">
+        <h1 class="hl">Top Rated Movies</h1>
+      </div>
+      <div id="top-rated-container" class="moviesContainer"></div>
+      <div class="hlContainer">
+        <h1 class="hl">Upcoming Movies</h1>
+      </div>
+      <div id="upcoming-container" class="moviesContainer"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="controller.js"></script>
   </body>
 </html>

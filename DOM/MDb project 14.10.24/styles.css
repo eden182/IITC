@@ -9,17 +9,15 @@ html,
 body {
   width: auto;
   height: 100%;
-  display: flex;
-  flex-direction: column;
   background-color: black;
-  color: white;
+  overflow-y: scroll;
 }
 
 /* header */
 header {
   background-color: rgb(23, 23, 23);
   width: 100%;
-  height: 65px;
+  height: 60px;
   padding: 10px;
   padding-left: 30px;
   padding-right: 30px;
@@ -28,6 +26,8 @@ header {
   align-items: center;
   position: fixed;
   box-shadow: inset 0px 2px 7px rgba(126, 126, 126, 0.5);
+  top: 0;
+  z-index: 100;
 }
 
 #arrow {
@@ -38,7 +38,7 @@ header {
   background-color: rgb(240, 186, 51);
   color: black;
   display: flex;
-  height: 43px;
+  height: 40px;
   border-radius: 8px;
   padding: 2px;
   width: 70px;
@@ -77,8 +77,9 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 9px;
+  padding: 6px;
   font-size: 16px;
+  position: relative;
 }
 #menuText {
   margin-right: 6px;
@@ -88,15 +89,39 @@ header {
   box-shadow: inset 0px 2px 7px rgba(45, 45, 45, 0.5);
   padding: 23px;
   font-size: 14px;
-  margin-top: 213px;
-  left: 186px;
+  top: 100%;
+  left: -25px;
   border-radius: 10px;
   width: 128px;
   position: absolute;
-  display: none;
+  z-index: 1000;
+  visibility: hidden;
+  opacity: 0;
 }
+.menu:hover .openMenu {
+  position: absolute;
+  z-index: 1000;
+  visibility: visible;
+  opacity: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.menu:hover.menu:hover .openMenu {
+  position: absolute;
+  z-index: 1000;
+  visibility: visible;
+  opacity: 1;
+}
+
 .li {
   margin-top: 13px;
+  margin-bottom: 13px;
+}
+.hr {
+  border: 0;
+  border-top: 1px solid rgb(228, 153, 23);
+  height: 0;
 }
 
 .profile {
@@ -107,9 +132,10 @@ header {
   justify-content: center;
   align-items: center;
   font-weight: bold;
-  padding: 9px;
+  padding: 6px;
   font-size: 14px;
   margin-top: 7px;
+  position: relative;
 }
 #profileCircle {
   margin-right: 13px;
@@ -122,11 +148,42 @@ header {
   justify-content: center;
   align-items: center;
 }
+
+.openProfile {
+  background-color: rgb(23, 23, 23);
+  box-shadow: inset 0px 2px 7px rgba(45, 45, 45, 0.5);
+  padding: 23px;
+  font-size: 14px;
+  top: 100%;
+  right: -20px;
+  border-radius: 10px;
+  width: 128px;
+  position: absolute;
+  z-index: 1000;
+  visibility: hidden;
+  opacity: 0;
+}
+.profile:hover .openProfile {
+  position: absolute;
+  z-index: 1000;
+  visibility: visible;
+  opacity: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.profile:hover.profile:hover .openProfile {
+  position: absolute;
+  z-index: 1000;
+  visibility: visible;
+  opacity: 1;
+}
+
 .favList {
   background-color: rgb(23, 23, 23);
   color: white;
   border: 0px;
-  padding: 9px;
+  padding: 6px;
   font-size: 16px;
 }
 #heart {
@@ -139,14 +196,14 @@ header {
 .menu:hover,
 .favList:hover {
   background-color: rgba(40, 40, 40, 0.6);
-  padding: 9px;
+  padding: 6px;
   border-radius: 9px;
 }
 
 .inDayMode {
   position: relative;
   width: 120px;
-  height: 40px;
+  height: 38px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -164,8 +221,60 @@ header {
   position: absolute;
 }
 
+/* Body */
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.moviesContainer {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  justify-self: center;
+  align-self: center;
+  margin-top: 25px;
+  margin-bottom: 50px;
+  padding: 10px;
+  width: 85%;
+  height: 300px;
+  overflow-x: scroll;
+  background-color: black;
+}
+#movies-container,
+#tv-container,
+#top-rated-container,
+#upcoming-container,
+.hlContainer {
+  display: flex;
+}
+
+.hlContainer {
+  font-size: 28px;
+  color: rgb(240, 186, 51);
+  font-weight: bold;
+  text-align: start;
+  align-self: center;
+  margin-top: 135px;
+  width: 85%;
+}
+
+.movie-card {
+  background-color: #2a2a2a;
+  border-radius: 8px;
+  margin: 20px;
+  width: 150px;
+  flex: 0 0 auto;
+}
+
+.movie-card img {
+  width: 100%;
+  height: 225px;
+}
+
 /* day mode */
 
+html.custom-colors-active,
 body.custom-colors-active {
   background-color: white;
   color: black;
@@ -177,5 +286,34 @@ body.custom-colors-active .logo {
   background-color: rgb(123, 252, 222);
 }
 body.custom-colors-active #shabi {
-  color: rgb(237, 177, 25);
+  color: rgb(171, 41, 204);
+}
+.custom-colors-active .hr {
+  border-top: 0.6px solid rgba(219, 103, 248, 0.851);
+}
+.custom-colors-active .hl {
+  color: rgb(27, 81, 152);
+}
+
+/* Media */
+
+@media (max-width: 770px) {
+  .inDayMode,
+  .dayMode {
+    display: none;
+  }
+}
+
+@media (max-width: 555px) {
+  .inDayMode,
+  .dayMode {
+    display: none;
+  }
+
+  header {
+    overflow-y: auto;
+    overflow-x: auto;
+    height: auto;
+    position: relative;
+  }
 }
