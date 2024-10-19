@@ -30,7 +30,7 @@ header {
   z-index: 100;
 }
 
-#arrow {
+.arrow {
   font-size: 12px;
 }
 
@@ -42,6 +42,7 @@ header {
   border-radius: 8px;
   padding: 2px;
   width: 70px;
+  cursor: pointer;
 }
 #logoText {
   font-weight: bolder;
@@ -49,7 +50,7 @@ header {
   text-align: end;
 }
 #shabi {
-  font-size: 8px;
+  font-size: 9.2px;
   color: white;
   margin-top: 6px;
   margin-left: 22px;
@@ -80,6 +81,7 @@ header {
   padding: 6px;
   font-size: 16px;
   position: relative;
+  cursor: pointer;
 }
 #menuText {
   margin-right: 6px;
@@ -113,6 +115,9 @@ header {
   visibility: visible;
   opacity: 1;
 }
+.menu:hover .arrow {
+  transform: rotate(180deg);
+}
 
 .li {
   margin-top: 13px;
@@ -136,6 +141,7 @@ header {
   font-size: 14px;
   margin-top: 7px;
   position: relative;
+  cursor: pointer;
 }
 #profileCircle {
   margin-right: 13px;
@@ -185,6 +191,7 @@ header {
   border: 0px;
   padding: 6px;
   font-size: 16px;
+  cursor: pointer;
 }
 #heart {
   padding-right: 7px;
@@ -200,34 +207,45 @@ header {
   border-radius: 9px;
 }
 
-.inDayMode {
-  position: relative;
-  width: 120px;
-  height: 38px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  background-color: rgba(62, 62, 62, 0.46);
-  border-radius: 60px;
-}
-
-.dayMode {
-  padding: 7px 13px;
-  background-color: rgb(240, 186, 51);
-  border: none;
-  border-radius: 60px;
-  cursor: pointer;
-  margin: 5px 7px;
-  position: absolute;
-}
-
 /* Body */
 .container {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-.moviesContainer {
+
+.mainCon {
+  background-color: #1d1d1d;
+  border-radius: 40px;
+  width: 85%;
+  margin-top: 100px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  box-shadow: inset 0px 2px 7px rgba(126, 126, 126, 0.5);
+}
+
+.movieCon,
+.tvCon {
+  display: none;
+  flex-direction: column;
+}
+
+.moviesContainer,
+.tvContainer {
+  display: flex;
+  flex-direction: row;
+  margin-top: 25px;
+  margin-bottom: 50px;
+  padding: 10px;
+  width: 85%;
+  height: 300px;
+  overflow-x: auto;
+  background-color: black;
+}
+
+.favContainer {
   display: flex;
   flex-wrap: nowrap;
   flex-direction: row;
@@ -239,14 +257,7 @@ header {
   width: 85%;
   height: 300px;
   overflow-x: scroll;
-  background-color: black;
-}
-#movies-container,
-#tv-container,
-#top-rated-container,
-#upcoming-container,
-.hlContainer {
-  display: flex;
+  background-color: #1d1d1d;
 }
 
 .hlContainer {
@@ -255,8 +266,9 @@ header {
   font-weight: bold;
   text-align: start;
   align-self: center;
-  margin-top: 135px;
+  margin-top: 105px;
   width: 85%;
+  flex-direction: column;
 }
 
 .movie-card {
@@ -272,7 +284,82 @@ header {
   height: 225px;
 }
 
+.fav-card {
+  background-color: #2a2a2a;
+  border-radius: 8px;
+  margin: 20px;
+  width: 150px;
+  flex: 0 0 auto;
+}
+.fav-card img {
+  width: 100%;
+  height: 225px;
+}
+
+/* about */
+.container2 {
+  display: flex;
+  flex-direction: column;
+  margin-top: 150px;
+  box-shadow: inset 2px 2px 7px rgba(246, 201, 37, 0.326);
+  width: 85%;
+}
+.hl2 {
+  color: orangered;
+  font-size: 32px;
+  font-weight: bold;
+}
+.about,
+.contact {
+  color: azure;
+  font-weight: bold;
+  width: 85%;
+  padding-top: 35px;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  text-align: start;
+}
+.about {
+  padding-right: 44%;
+}
+.contact {
+  padding-right: 36%;
+}
+
+.message {
+  width: 82%;
+  height: 200px;
+  margin-top: 35px;
+  border: 2px solid orange;
+  margin-bottom: 30px;
+}
+.text {
+  padding-top: 45px;
+}
+
 /* day mode */
+
+.inDayMode {
+  position: relative;
+  width: 120px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background-color: rgba(62, 62, 62, 0.46);
+  border-radius: 60px;
+}
+
+.dayMode {
+  padding: 5px 11px;
+  background-color: rgb(240, 186, 51);
+  border: none;
+  border-radius: 60px;
+  cursor: pointer;
+  margin: 5px 7px;
+  position: absolute;
+}
 
 html.custom-colors-active,
 body.custom-colors-active {
@@ -293,6 +380,27 @@ body.custom-colors-active #shabi {
 }
 .custom-colors-active .hl {
   color: rgb(27, 81, 152);
+}
+
+.custom-colors-active .container2 {
+  box-shadow: inset 0px 2px 9px rgba(37, 51, 246, 0.408);
+}
+.custom-colors-active .text {
+  color: black;
+}
+.custom-colors-active .hl2 {
+  color: purple;
+}
+.custom-colors-active .message {
+  background-color: black;
+  color: white;
+  border: 3px solid purple;
+}
+.custom-colors-active .mainCon {
+  background-color: rgb(237, 237, 237);
+}
+.custom-colors-active .favContainer {
+  background-color: rgb(237, 237, 237);
 }
 
 /* Media */

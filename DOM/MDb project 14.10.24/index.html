@@ -8,17 +8,17 @@
   </head>
   <body>
     <header>
-      <button class="logo">
+      <button class="logo" id="logoButton">
         <p id="logoText"><span id="s">S</span>MDb</p>
         <p id="shabi">habi's</p>
       </button>
       <button class="menu">
         <p id="menuText">Menu</p>
-        <p id="arrow">&#9650;</p>
+        <span class="arrow">&#9660;</span>
         <ul class="openMenu">
-          <li class="li" id="movies">Movies</li>
+          <li class="li" id="moviesButton">Movies</li>
           <hr class="hr" />
-          <li class="li" id="tv">TV-Shows</li>
+          <li class="li" id="tvShowsButton">TV-Shows</li>
           <hr class="hr" />
           <li class="li" id="actor">Actors</li>
           <hr class="hr" />
@@ -44,23 +44,87 @@
         <button class="dayMode">Night</button>
       </div>
     </header>
+
     <div class="container">
-      <div class="hlContainer">
-        <h1 class="hl">Popular Movies</h1>
+      <!-- Main -->
+      <div class="mainCon">
+        <div class="hlContainer" id="bestOf">
+          <h1 class="hl">Shabi's Favorites</h1>
+          <div id="ShabiFav" class="favContainer"></div>
+        </div>
       </div>
-      <div id="popular-container" class="moviesContainer"></div>
-      <div class="hlContainer">
-        <h1 class="hl">Popular TV</h1>
+      <!-- Movie Sections -->
+      <div class="movieCon">
+        <div class="hlContainer" id="movieCon">
+          <h1 class="hl">Now Playing Movies</h1>
+          <div id="nowPlayingMoviesContainer" class="moviesContainer"></div>
+        </div>
+
+        <div class="hlContainer" id="movieCon">
+          <h1 class="hl">Upcoming Movies</h1>
+          <div id="upcoming-container" class="moviesContainer"></div>
+        </div>
+
+        <div class="hlContainer" id="movieCon">
+          <h1 class="hl">Popular Movies</h1>
+          <div id="popular-container" class="moviesContainer"></div>
+        </div>
+
+        <div class="hlContainer" id="movieCon">
+          <h1 class="hl">Top Rated Movies</h1>
+          <div id="top-rated-container" class="moviesContainer"></div>
+        </div>
       </div>
-      <div id="tv-container" class="moviesContainer"></div>
-      <div class="hlContainer">
-        <h1 class="hl">Top Rated Movies</h1>
+      <!-- TV Sections -->
+      <div class="tvCon">
+        <div class="hlContainer" id="tvCon">
+          <h1 class="hl">Airing Today TV Shows</h1>
+          <div id="airingTodayTVcontainer" class="tvContainer"></div>
+        </div>
+
+        <div class="hlContainer" id="tvCon">
+          <h1 class="hl">Popular TV Shows</h1>
+          <div id="popularTVcontainer" class="tvContainer"></div>
+        </div>
+
+        <div class="hlContainer" id="tvCon">
+          <h1 class="hl">Trending TV Shows</h1>
+          <div id="trendingTVcontainer" class="tvContainer"></div>
+        </div>
+
+        <div class="hlContainer" id="tvCon">
+          <h1 class="hl">Top Rated TV Shows</h1>
+          <div id="topRatedTVcontainer" class="tvContainer"></div>
+        </div>
       </div>
-      <div id="top-rated-container" class="moviesContainer"></div>
-      <div class="hlContainer">
-        <h1 class="hl">Upcoming Movies</h1>
+    </div>
+    <div class="container2">
+      <div class="about">
+        <h2 class="hl2">About us</h2>
+        <p class="text">
+          We're at Shabi and sons company doing our best to give you a
+          satisfying yet easy to manipulate website with all of your favorite
+          movies and tv shows and more. Everyday we maintain this site so you'll
+          get the most updated content , and all you have to do is just sign in
+          and enjoy.
+        </p>
       </div>
-      <div id="upcoming-container" class="moviesContainer"></div>
+      <div class="contact">
+        <h2 class="hl2">Contact Us</h2>
+        <p class="text">
+          Our home is in Israel, Bat-Yam Helper 19.
+          <span class="warning">Please note: We do not welcome visitors.</span>
+        </p>
+        <hr class="hr" />
+        <p class="text">Our phone number is: +972-50-6868116.</p>
+        <hr class="hr" />
+        <p class="text">
+          For any issues, the best way to contact us is via email at
+          Shabi'sons98765@gmail.com, or leave us a message here, and we'll
+          respond within two business days.
+        </p>
+        <input class="message" placeholder="Wright us here" />
+      </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="controller.js"></script>
