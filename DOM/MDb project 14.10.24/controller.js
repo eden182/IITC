@@ -9,9 +9,19 @@ const logoButton = document.getElementById("logoButton");
 const mainCon = document.querySelector(".mainCon");
 const movieCon = document.querySelector(".movieCon");
 const tvCon = document.querySelector(".tvCon");
+const dailyCon = document.querySelector(".dailyCon");
+const weeklyCon = document.querySelector(".weeklyCon");
+const MyFavorites = document.getElementById(".favListText");
 
 let isCustomColors = false;
 
+// toggle filterOpen
+document.querySelector(".filter").addEventListener("click", function () {
+  const filterOpen = document.querySelector(".filterOpen");
+  filterOpen.classList.toggle("active");
+});
+
+// Toggle night mode
 colorButton.addEventListener("click", () => {
   isCustomColors = !isCustomColors;
   body.classList.toggle("custom-colors-active", isCustomColors);
@@ -23,11 +33,13 @@ colorButton.addEventListener("click", () => {
   colorButton.classList.toggle("button-active", isCustomColors);
 });
 
-// Menu show
-function showContent(contentToShow) {
+// Menu + filter pages show
+function showMainContent(contentToShow) {
   movieCon.style.display = "none";
   tvCon.style.display = "none";
   mainCon.style.display = "none";
+  dailyCon.style.display = "none";
+  weeklyCon.style.display = "none";
 
   if (contentToShow === "movies") {
     movieCon.style.display = "flex";
@@ -38,11 +50,224 @@ function showContent(contentToShow) {
   }
 }
 
-moviesButton.addEventListener("click", () => showContent("movies"));
-tvShowsButton.addEventListener("click", () => showContent("tv"));
-logoButton.addEventListener("click", () => showContent("main"));
+function showDailyWeeklyContent(contentToShow) {
+  dailyCon.style.display = "none";
+  weeklyCon.style.display = "none";
 
-// Model
+  if (contentToShow === "daily") {
+    dailyCon.style.display = "flex";
+  } else if (contentToShow === "weekly") {
+    weeklyCon.style.display = "flex";
+  }
+}
+
+moviesButton.addEventListener("click", () => showMainContent("movies"));
+tvShowsButton.addEventListener("click", () => showMainContent("tv"));
+logoButton.addEventListener("click", () => location.reload());
+
+dailyButton.addEventListener("click", () => showDailyWeeklyContent("daily"));
+weeklyButton.addEventListener("click", () => showDailyWeeklyContent("weekly"));
+
+// model movies
+// Key: 90cd5147dd18f23f58fce05f24ddd67b
+const optionsMovies = {
+  method: "GET",
+  headers: {
+    accept: "application/json",
+    Authorization:
+      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5MGNkNTE0N2RkMThmMjNmNThmY2UwNWYyNGRkZDY3YiIsIm5iZiI6MTcyOTI0MTg0My41NzMzNDIsInN1YiI6IjY3MGQxMTA1ZDVmOTNhM2RhMGJiYjhiYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.vqbO_PC8w1EnwTgds0i-Hbdm1YYXwPevdT4psOkXLRU",
+  },
+};
+
+function fetchMoviesData(endpoint, displayCallback) {
+  fetch(`https://api.themoviedb.org/3/${endpoint}`, optionsMovies)
+    .then((response) => {
+      if (!response.ok) throw new Error("Network response was not ok");
+      return response.json();
+    })
+    .then((data) => displayCallback(data.results))
+    .catch((err) => console.error(`Fetch error: ${endpoint}`, err));
+}
+
+fetchMoviesData("movie/popular?language=en-US&page=1", displayPopularMovies);
+fetchMoviesData("movie/top_rated?language=en-US&page=1", displayTopRatedMovies);
+fetchMoviesData("movie/upcoming?language=en-US&page=1", displayUpcomingMovies);
+fetchMoviesData(
+  "movie/now_playing?language=en-US&page=1",
+  displayNowPlayingMovies
+);
+
+async function displayMoviesContent(items, containerId) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = "";
+
+  for (const item of items) {
+    if (item.poster_path) {
+      const card = document.createElement("div");
+      card.className = "movie-card";
+
+      const image = document.createElement("img");
+      image.src = `https://image.tmdb.org/t/p/w500${item.poster_path}`;
+      image.alt = item.title;
+
+      const heartIcon = document.createElement("span");
+      heartIcon.className = "heart-icon";
+      heartIcon.innerHTML = "&#9825;";
+      heartIcon.addEventListener("click", function () {
+        heartIcon.classList.toggle("active");
+      });
+
+      const details = await fetchMovieDetails(item.id);
+      if (details) {
+        card.setAttribute("data-title", details.title);
+        card.setAttribute(
+          "data-genre_id",
+          details.genres
+            ? details.genres.map((g) => g.name).join(", ")
+            : "Unknown"
+        );
+        card.setAttribute("data-release_date", details.release_date);
+      } else {
+        console.warn(`No details found for ID: ${item.id}`);
+      }
+
+      card.appendChild(image);
+      card.appendChild(heartIcon);
+      container.appendChild(card);
+    }
+  }
+}
+
+// view movies
+function displayPopularMovies(movies) {
+  displayMoviesContent(movies, "popular-container");
+}
+
+function displayTopRatedMovies(movies) {
+  displayMoviesContent(movies, "top-rated-container");
+}
+
+function displayUpcomingMovies(movies) {
+  displayMoviesContent(movies, "upcoming-container");
+}
+
+function displayNowPlayingMovies(movies) {
+  displayMoviesContent(movies, "nowPlayingMoviesContainer");
+}
+
+function fetchMovieDetails(id) {
+  const url = `https://api.themoviedb.org/3/movie/${id}?language=en-US`;
+  return fetch(url, optionsMovies)
+    .then((response) => response.json())
+    .catch((err) => {
+      console.error(`Error fetching details for movie ID ${id}:`, err);
+      return null;
+    });
+}
+//model TV shows
+const optionsTVShows = {
+  method: "GET",
+  headers: {
+    accept: "application/json",
+    Authorization:
+      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5MGNkNTE0N2RkMThmMjNmNThmY2UwNWYyNGRkZDY3YiIsIm5iZiI6MTcyOTI0MTg0My41NzMzNDIsInN1YiI6IjY3MGQxMTA1ZDVmOTNhM2RhMGJiYjhiYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.vqbO_PC8w1EnwTgds0i-Hbdm1YYXwPevdT4psOkXLRU",
+  },
+};
+
+function fetchTVShowsData(endpoint, displayCallback) {
+  fetch(`https://api.themoviedb.org/3/${endpoint}`, optionsTVShows)
+    .then((response) => {
+      if (!response.ok) throw new Error("Network response was not ok");
+      return response.json();
+    })
+    .then((data) => displayCallback(data.results))
+    .catch((err) => console.error(`Fetch error: ${endpoint}`, err));
+}
+
+fetchTVShowsData("trending/tv/day?language=en-US", displayTrendingTVShows);
+fetchTVShowsData(
+  "tv/airing_today?language=en-US&page=1",
+  displayAiringTodayTVShows
+);
+fetchTVShowsData("tv/popular?language=en-US&page=1", displayPopularTVShows);
+fetchTVShowsData("tv/top_rated?language=en-US&page=1", displayTopRatedTVShows);
+
+// function to display TV show content
+async function displayTVShowsContent(items, containerId) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = "";
+
+  for (const item of items) {
+    if (item.poster_path) {
+      const card = document.createElement("div");
+      card.className = "movie-card";
+
+      const image = document.createElement("img");
+      image.src = `https://image.tmdb.org/t/p/w500${item.poster_path}`;
+      image.alt = item.name;
+
+      const heartIcon = document.createElement("span");
+      heartIcon.className = "heart-icon";
+      heartIcon.innerHTML = "&#9825;";
+      heartIcon.addEventListener("click", function () {
+        heartIcon.classList.toggle("active");
+      });
+
+      const details = await fetchTVShowDetails(item.id);
+      if (details) {
+        card.setAttribute("data-title", details.name);
+        card.setAttribute(
+          "data-genre_id",
+          details.genres
+            ? details.genres.map((g) => g.name).join(", ")
+            : "Unknown"
+        );
+        card.setAttribute("data-release_date", details.first_air_date);
+      } else {
+        console.warn(`No details found for ID: ${item.id}`);
+      }
+
+      card.appendChild(image);
+      card.appendChild(heartIcon);
+      container.appendChild(card);
+    }
+  }
+}
+// view tv shows
+function displayTrendingTVShows(tvShows) {
+  displayTVShowsContent(tvShows, "trendingTVcontainer");
+}
+
+function displayAiringTodayTVShows(tvShows) {
+  displayTVShowsContent(tvShows, "airingTodayTVcontainer");
+}
+
+function displayPopularTVShows(tvShows) {
+  displayTVShowsContent(tvShows, "popularTVcontainer");
+}
+
+function displayTopRatedTVShows(tvShows) {
+  displayTVShowsContent(tvShows, "topRatedTVcontainer");
+}
+
+function fetchTVShowDetails(id) {
+  const url = `https://api.themoviedb.org/3/tv/${id}?language=en-US`;
+  return fetch(url, optionsTVShows)
+    .then((response) => response.json())
+    .catch((err) => {
+      console.error(`Error fetching details for TV show ID ${id}:`, err);
+      return null;
+    });
+}
+
+// Shabi's favorites data
+const shabiFavorites = {
+  movies: [533535, 945961, 917496, 519182, 1144962, 573435],
+  tvShows: [
+    1396, 94605, 246, 37854, 60625, 31911, 60059, 87108, 1429, 85937, 1398,
+  ],
+};
+
 const options = {
   method: "GET",
   headers: {
@@ -52,237 +277,138 @@ const options = {
   },
 };
 
-// Fetching Popular Movies
-function fetchPopularMovies() {
-  fetch(
-    "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1",
-    options
-  )
-    .then((response) => response.json())
-    .then((data) => {
-      displayPopularMovies(data.results);
+// Fetch
+function fetchDetails(id, type) {
+  const url =
+    type === "movie"
+      ? `https://api.themoviedb.org/3/movie/${id}?language=en-US`
+      : `https://api.themoviedb.org/3/tv/${id}?language=en-US`;
+
+  return fetch(url, options)
+    .then((response) => {
+      if (!response.ok)
+        throw new Error(
+          `Network response was not ok for ${type} with ID ${id}`
+        );
+      return response.json();
     })
-    .catch((err) => console.error("Popular Movies Fetch Error: ", err));
+    .catch((err) => {
+      console.error(`Error fetching details for ${type} with ID ${id}:`, err);
+      return null;
+    });
 }
 
-// Fetching Trending TV Shows
-function fetchTrendingTVShows() {
-  fetch("https://api.themoviedb.org/3/trending/tv/day?language=en-US", options)
-    .then((response) => response.json())
-    .then((data) => {
-      displayTVShows(data.results);
-    })
-    .catch((err) => console.error("Trending TV Shows Fetch Error: ", err));
+function createCard(details, type) {
+  const card = document.createElement("div");
+  card.className = "favCard";
+  const title = type === "movie" ? details.title : details.name;
+  const releaseDate =
+    type === "movie" ? details.release_date : details.first_air_date;
+
+  card.setAttribute("data-title", title);
+  if (details.genres) {
+    card.setAttribute(
+      "data-genre_id",
+      details.genres.map((g) => g.name).join(", ")
+    );
+  }
+  card.setAttribute("data-release_date", releaseDate);
+
+  const img = document.createElement("img");
+  img.src = `https://image.tmdb.org/t/p/w500${details.poster_path}`;
+  img.alt = title;
+
+  const heartIcon = document.createElement("span");
+  heartIcon.className = "heart-icon";
+  heartIcon.innerHTML = "&#9825;";
+
+  card.appendChild(img);
+  card.appendChild(heartIcon);
+  return card;
 }
 
-// Fetching Top Rated Movies
-function fetchTopRatedMovies() {
-  fetch(
-    "https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1",
-    options
-  )
-    .then((response) => response.json())
-    .then((data) => {
-      displayTopRatedMovies(data.results);
-    })
-    .catch((err) => console.error("Top Rated Movies Fetch Error: ", err));
-}
-
-// Fetching Upcoming Movies
-function fetchUpcomingMovies() {
-  fetch(
-    "https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1",
-    options
-  )
-    .then((response) => response.json())
-    .then((data) => {
-      displayUpcomingMovies(data.results);
-    })
-    .catch((err) => console.error("Upcoming Movies Fetch Error: ", err));
-}
-
-// Fetching Airing Today TV Shows
-function fetchAiringTodayTVShows() {
-  fetch(
-    "https://api.themoviedb.org/3/tv/airing_today?language=en-US&page=1",
-    options
-  )
-    .then((response) => response.json())
-    .then((data) => {
-      displayAiringTodayTVShows(data.results);
-    })
-    .catch((err) => console.error("Airing Today TV Shows Fetch Error: ", err));
-}
-
-// Fetching Popular TV Shows
-function fetchPopularTVShows() {
-  fetch(
-    "https://api.themoviedb.org/3/tv/popular?language=en-US&page=1",
-    options
-  )
-    .then((response) => response.json())
-    .then((data) => {
-      displayPopularTVShows(data.results);
-    })
-    .catch((err) => console.error("Popular TV Shows Fetch Error: ", err));
-}
-
-// Fetching Top Rated TV Shows
-function fetchTopRatedTVShows() {
-  fetch(
-    "https://api.themoviedb.org/3/tv/top_rated?language=en-US&page=1",
-    options
-  )
-    .then((response) => response.json())
-    .then((data) => {
-      displayTopRatedTVShows(data.results);
-    })
-    .catch((err) => console.error("Top Rated TV Shows Fetch Error: ", err));
-}
-
-// Fetching Now Playing Movies
-function fetchNowPlayingMovies() {
-  fetch(
-    "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1",
-    options
-  )
-    .then((response) => response.json())
-    .then((data) => {
-      displayNowPlayingMovies(data.results);
-    })
-    .catch((err) => console.error("Now Playing Movies Fetch Error: ", err));
-}
-
-// View
-function displayPopularMovies(movies) {
-  console.log(movies);
-
-  displayContent(movies, "popular-container");
-}
-
-function displayNowPlayingMovies(movies) {
-  displayContent(movies, "nowPlayingMoviesContainer");
-}
-
-function displayTopRatedMovies(movies) {
-  displayContent(movies, "top-rated-container");
-}
-
-function displayUpcomingMovies(movies) {
-  displayContent(movies, "upcoming-container");
-}
-
-function displayAiringTodayTVShows(tvShows) {
-  displayContent(tvShows, "airingTodayTVcontainer");
-}
-
-function displayPopularTVShows(tvShows) {
-  displayContent(tvShows, "popularTVcontainer");
-}
-
-function displayTopRatedTVShows(tvShows) {
-  console.log(tvShows);
-
-  displayContent(tvShows, "topRatedTVcontainer");
-}
-
-function displayTVShows(tvShows) {
-  displayContent(tvShows, "trendingTVcontainer");
-}
-
-// Helper function to display content
-function displayContent(items, containerId) {
-  const container = document.getElementById(containerId);
-  container.innerHTML = "";
-
-  items.forEach((item) => {
-    if (item.poster_path) {
-      const card = document.createElement("div");
-      card.className = "movie-card";
-
-      const image = document.createElement("img");
-      image.src = `https://image.tmdb.org/t/p/w500${item.poster_path}`;
-      image.alt = item.title || item.name;
-
-      card.appendChild(image);
-      container.appendChild(card);
+// Display favorite movies
+async function displayFavoriteMovies(container) {
+  for (const movieId of shabiFavorites.movies) {
+    const details = await fetchDetails(movieId, "movie");
+    if (details) {
+      const movieCard = createCard(details, "movie");
+      container.appendChild(movieCard);
     } else {
-      console.log(`No poster found for ${item.title || item.name}`);
+      console.warn(`No details found for movie ID: ${movieId}`);
     }
-  });
+  }
 }
 
-// Initial Fetch Calls
-fetchPopularMovies();
-fetchTrendingTVShows();
-fetchTopRatedMovies();
-fetchUpcomingMovies();
-fetchAiringTodayTVShows();
-fetchPopularTVShows();
-fetchTopRatedTVShows();
-fetchNowPlayingMovies();
+// Display favorite TV shows
+async function displayFavoriteTVShows(container) {
+  for (const showId of shabiFavorites.tvShows) {
+    const details = await fetchDetails(showId, "tv");
+    if (details) {
+      const tvCard = createCard(details, "tv");
+      container.appendChild(tvCard);
+    } else {
+      console.warn(`No details found for TV show ID: ${showId}`);
+    }
+  }
+}
 
-// Shabi's favorites
-// Display Shabi's Favorites
-const shabiFavorites = {
-  movies: [533535, 945961, 917496, 519182, 1144962, 573435],
-  tvShows: [
-    1396, 94605, 246, 37854, 60625, 31911, 60059, 87108, 1429, 85937, 1398,
-  ],
-};
-
-function displayShabiFavorites(movies, tvShows) {
+// Main function to display all
+async function displayShabiFavorites() {
   const favContainer = document.getElementById("ShabiFav");
   favContainer.innerHTML = "";
-
-  // Filter Movies
-  const favMovies = movies.filter((movie) =>
-    shabiFavorites.movies.includes(movie.id)
-  );
-  favMovies.forEach((movie) => {
-    const movieCard = document.createElement("div");
-    movieCard.className = "fav-card";
-
-    const movieImage = document.createElement("img");
-    movieImage.src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
-    movieImage.alt = movie.title;
-
-    movieCard.appendChild(movieImage);
-    favContainer.appendChild(movieCard);
-  });
-
-  // Filter TV Shows
-  const favTVShows = tvShows.filter((show) =>
-    shabiFavorites.tvShows.includes(show.id)
-  );
-  favTVShows.forEach((show) => {
-    const tvCard = document.createElement("div");
-    tvCard.className = "fav-card";
-
-    const tvImage = document.createElement("img");
-    tvImage.src = `https://image.tmdb.org/t/p/w500${show.poster_path}`;
-    tvImage.alt = show.name;
-
-    tvCard.appendChild(tvImage);
-    favContainer.appendChild(tvCard);
-  });
+  await displayFavoriteMovies(favContainer);
+  await displayFavoriteTVShows(favContainer);
 }
-// Fetch Movies and TV Shows, then Filter for Favorites
+
 function fetchDataAndDisplayFavorites() {
-  Promise.all([
-    fetch(
-      "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1",
-      options
-    ).then((response) => response.json()),
-    fetch(
-      "https://api.themoviedb.org/3/tv/top_rated?language=en-US&page=1",
-      options
-    ).then((response) => response.json()),
-  ])
-    .then(([movieData, tvData]) => {
-      displayShabiFavorites(movieData.results, tvData.results);
-    })
-    .catch((err) => console.error("Error fetching data:", err));
+  displayShabiFavorites();
 }
 
 fetchDataAndDisplayFavorites();
+
+// Fetching daily and weekly data
+fetchMoviesData(
+  "movie/now_playing?language=en-US&page=1",
+  displayDailyNowPlayingMovies
+);
+fetchTVShowsData(
+  "tv/airing_today?language=en-US&page=1",
+  displayDailyAiringTodayTVShows
+);
+fetchMoviesData(
+  "movie/popular?language=en-US&page=1",
+  displayWeeklyPopularMovies
+);
+fetchTVShowsData(
+  "tv/popular?language=en-US&page=1",
+  displayWeeklyPopularTVShows
+);
+
+// Daily Movies
+function displayDailyNowPlayingMovies(movies) {
+  displayMoviesContent(movies, "nowPlayingMoviesContainer2");
+}
+
+// Daily TV Shows
+function displayDailyAiringTodayTVShows(tvShows) {
+  displayTVShowsContent(tvShows, "airingTodayTVcontainer2");
+}
+
+// Weekly Movies
+function displayWeeklyPopularMovies(movies) {
+  displayMoviesContent(movies, "popular-container2");
+}
+
+// Weekly TV Shows
+function displayWeeklyPopularTVShows(tvShows) {
+  displayTVShowsContent(tvShows, "popularTVcontainer2");
+}
+
+const container = document.getElementById("ShabiFav");
+
+container.addEventListener("click", function (event) {
+  if (event.target.classList.contains("heart-icon")) {
+    event.target.classList.toggle("active");
+  }
+});

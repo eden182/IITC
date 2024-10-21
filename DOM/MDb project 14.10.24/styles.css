@@ -32,6 +32,7 @@ header {
 
 .arrow {
   font-size: 12px;
+  transition: transform 0.8s ease;
 }
 
 .logo {
@@ -63,14 +64,41 @@ header {
   color: black;
 }
 .search {
-  width: 600px;
+  width: 100%;
   height: 37px;
-  padding-left: 9px;
+  padding-left: 45px;
   border-radius: 6px;
   font-size: 16px;
   border: 0px;
   background-color: rgb(237, 237, 237);
 }
+.input1 {
+  height: auto;
+  width: auto;
+}
+.filter {
+  position: absolute;
+  bottom: 14px;
+  height: 32px;
+  margin-left: 3px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.filterOpen {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  bottom: -44px;
+  background-color: rgb(237, 237, 237);
+  border-radius: 5px;
+  border: solid black;
+  padding: 4px;
+  cursor: pointer;
+}
+.filterOpen.active {
+  display: flex;
+}
+
 .menu {
   background-color: rgb(23, 23, 23);
   color: white;
@@ -217,17 +245,45 @@ header {
 .mainCon {
   background-color: #1d1d1d;
   border-radius: 40px;
+  padding-left: 45px;
   width: 85%;
   margin-top: 100px;
-  height: auto;
+  height: 700px;
   display: flex;
   flex-direction: column;
   align-self: center;
+  align-items: flex-start;
+  justify-content: space-evenly;
   box-shadow: inset 0px 2px 7px rgba(126, 126, 126, 0.5);
+}
+.backgroundImg {
+  height: 67%;
+  width: 85%;
+  background-color: transparent;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+}
+.leftBack {
+  color: orangered;
+  width: 20%;
+  padding-right: 20px;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background-color: transparent;
+}
+.rightBack {
+  background-color: transparent;
+  z-index: 10;
+  width: 80%;
 }
 
 .movieCon,
-.tvCon {
+.tvCon,
+.dailyCon,
+.weeklyCon {
   display: none;
   flex-direction: column;
 }
@@ -249,15 +305,22 @@ header {
   display: flex;
   flex-wrap: nowrap;
   flex-direction: row;
-  justify-self: center;
-  align-self: center;
-  margin-top: 25px;
-  margin-bottom: 50px;
-  padding: 10px;
-  width: 85%;
-  height: 300px;
+  width: 100%;
+  height: 200px;
   overflow-x: scroll;
   background-color: #1d1d1d;
+  z-index: 100;
+  margin-left: -20px;
+}
+
+.favCard {
+  background-color: #2a2a2a;
+  border-radius: 8px;
+  margin: 20px;
+  width: 70px;
+  flex: 0 0 auto;
+  position: relative;
+  overflow: hidden;
 }
 
 .hlContainer {
@@ -270,30 +333,82 @@ header {
   width: 85%;
   flex-direction: column;
 }
-
+#shabiHL {
+  color: rgb(30, 183, 249);
+  font-size: 28px;
+}
 .movie-card {
   background-color: #2a2a2a;
   border-radius: 8px;
   margin: 20px;
   width: 150px;
   flex: 0 0 auto;
+  position: relative;
+  overflow: hidden;
 }
-
+.favCard img,
 .movie-card img {
   width: 100%;
-  height: 225px;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.2s ease;
+}
+.favCard:hover::before:hover,
+.movie-card:hover::before:hover {
+  filter: blur(1.5px) grayscale(100%);
+  transform: scale(1.1);
 }
 
-.fav-card {
-  background-color: #2a2a2a;
-  border-radius: 8px;
-  margin: 20px;
-  width: 150px;
-  flex: 0 0 auto;
-}
-.fav-card img {
+.favCard::before,
+.movie-card::before {
+  content: attr(data-title) " | Genre: " attr(data-genre_id) " | Release: "
+    attr(data-release_date);
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 225px;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.652);
+  color: white;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  font-size: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  text-align: start;
+  align-items: end;
+  padding-left: 6px;
+  z-index: 2;
+}
+
+.favCard:hover::before,
+.movie-card:hover::before {
+  opacity: 1;
+}
+
+.heart-icon {
+  position: absolute;
+  right: 10px;
+  top: 0px;
+  font-size: 32px;
+  color: red;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  z-index: 10;
+  background-color: transparent;
+}
+.heart-icon.active {
+  background-color: red;
+  color: black;
+}
+.favContainer .heart-icon {
+  right: 5px;
+  top: 0px;
+  font-size: 20px;
+}
+
+.heart-icon:hover {
+  transform: scale(1.6);
 }
 
 /* about */
@@ -302,7 +417,7 @@ header {
   flex-direction: column;
   margin-top: 150px;
   box-shadow: inset 2px 2px 7px rgba(246, 201, 37, 0.326);
-  width: 85%;
+  width: 100%;
 }
 .hl2 {
   color: orangered;
@@ -329,15 +444,21 @@ header {
 
 .message {
   width: 82%;
-  height: 200px;
+  height: 100px;
   margin-top: 35px;
+  padding: 25px;
   border: 2px solid orange;
-  margin-bottom: 30px;
+  margin-bottom: 75px;
+  font-size: 25px;
 }
 .text {
   padding-top: 45px;
 }
 
+.warning {
+  font-size: 14px;
+  color: rgb(255, 0, 0);
+}
 /* day mode */
 
 .inDayMode {
@@ -402,26 +523,54 @@ body.custom-colors-active #shabi {
 .custom-colors-active .favContainer {
   background-color: rgb(237, 237, 237);
 }
+.custom-colors-active .heart-icon {
+  color: rgb(225, 59, 115);
+}
+.custom-colors-active .heart-icon.active {
+  color: rgb(225, 59, 115);
+  background-color: white;
+}
+.custom-colors-active #shabiHL {
+  color: rgb(233, 77, 42);
+}
+.custom-colors-active .leftBack {
+  color: orchid;
+}
 
 /* Media */
 
-@media (max-width: 770px) {
+@media (max-width: 1100px) {
   .inDayMode,
   .dayMode {
     display: none;
+  }
+  .rightBack {
+    width: 70%;
+  }
+  .leftBack {
+    width: 30%;
+  }
+}
+@media (max-width: 770px) {
+  .rightBack {
+    width: 60%;
+  }
+  .leftBack {
+    width: 40%;
   }
 }
 
-@media (max-width: 555px) {
-  .inDayMode,
-  .dayMode {
+@media (max-width: 500px) {
+  .filter {
     display: none;
   }
-
-  header {
-    overflow-y: auto;
-    overflow-x: auto;
-    height: auto;
-    position: relative;
+  .search {
+    padding-left: 10px;
+  }
+  .rightBack {
+    width: 50%;
+  }
+  .leftBack {
+    width: 50%;
   }
 }
