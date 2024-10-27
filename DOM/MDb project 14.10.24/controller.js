@@ -5,12 +5,16 @@ const colorButtonContainer = document.querySelector(".inDayMode");
 const moviesButton = document.getElementById("moviesButton");
 const tvShowsButton = document.getElementById("tvShowsButton");
 const logoButton = document.getElementById("logoButton");
+const actorsButton = document.getElementById("actorsButton");
+const favButton = document.getElementById("favButton");
 
-const mainCon = document.querySelector(".mainCon");
+const mainConIn = document.querySelector(".mainConIn");
 const movieCon = document.querySelector(".movieCon");
 const tvCon = document.querySelector(".tvCon");
 const dailyCon = document.querySelector(".dailyCon");
 const weeklyCon = document.querySelector(".weeklyCon");
+const actorsPage = document.querySelector(".actorsPage");
+const savedPage = document.querySelector(".savedPage");
 const MyFavorites = document.getElementById(".favListText");
 
 let isCustomColors = false;
@@ -37,16 +41,22 @@ colorButton.addEventListener("click", () => {
 function showMainContent(contentToShow) {
   movieCon.style.display = "none";
   tvCon.style.display = "none";
-  mainCon.style.display = "none";
+  mainConIn.style.display = "none";
   dailyCon.style.display = "none";
   weeklyCon.style.display = "none";
+  actorsPage.style.display = "none";
+  savedPage.style.display = "none";
 
   if (contentToShow === "movies") {
     movieCon.style.display = "flex";
   } else if (contentToShow === "tv") {
     tvCon.style.display = "flex";
   } else if (contentToShow === "main") {
-    mainCon.style.display = "flex";
+    mainConIn.style.display = "flex";
+  } else if (contentToShow === "actors") {
+    actorsPage.style.display = "flex";
+  } else if (contentToShow === "saved") {
+    savedPage.style.display = "flex";
   }
 }
 
@@ -61,8 +71,23 @@ function showDailyWeeklyContent(contentToShow) {
   }
 }
 
+// openProfile
+const profile = document.querySelector(".openProfile");
+const log = document.getElementById("log");
+const sign = document.getElementById("sign");
+sign.addEventListener("click", () => {
+  window.location.href = "./sign.html";
+});
+
+log.addEventListener("click", () => {
+  sessionStorage.setItem("showLog", "true");
+  window.location.href = "./sign.html";
+});
+
 moviesButton.addEventListener("click", () => showMainContent("movies"));
 tvShowsButton.addEventListener("click", () => showMainContent("tv"));
+actorsButton.addEventListener("click", () => showMainContent("actors"));
+favButton.addEventListener("click", () => showMainContent("saved"));
 logoButton.addEventListener("click", () => location.reload());
 
 dailyButton.addEventListener("click", () => showDailyWeeklyContent("daily"));
@@ -112,6 +137,7 @@ async function displayMoviesContent(items, containerId) {
 
       const heartIcon = document.createElement("span");
       heartIcon.className = "heart-icon";
+      heartIcon.id = `${item.id}`;
       heartIcon.innerHTML = "&#9825;";
       heartIcon.addEventListener("click", function () {
         heartIcon.classList.toggle("active");
@@ -208,6 +234,7 @@ async function displayTVShowsContent(items, containerId) {
 
       const heartIcon = document.createElement("span");
       heartIcon.className = "heart-icon";
+      heartIcon.id = `${item.id}`;
       heartIcon.innerHTML = "&#9825;";
       heartIcon.addEventListener("click", function () {
         heartIcon.classList.toggle("active");
@@ -318,12 +345,7 @@ function createCard(details, type) {
   img.src = `https://image.tmdb.org/t/p/w500${details.poster_path}`;
   img.alt = title;
 
-  const heartIcon = document.createElement("span");
-  heartIcon.className = "heart-icon";
-  heartIcon.innerHTML = "&#9825;";
-
   card.appendChild(img);
-  card.appendChild(heartIcon);
   return card;
 }
 
@@ -412,3 +434,254 @@ container.addEventListener("click", function (event) {
     event.target.classList.toggle("active");
   }
 });
+
+// actors
+const fetchPeople = async (type) => {
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5MGNkNTE0N2RkMThmMjNmNThmY2UwNWYyNGRkZDY3YiIsIm5iZiI6MTcyOTI0MTg0My41NzMzNDIsInN1YiI6IjY3MGQxMTA1ZDVmOTNhM2RhMGJiYjhiYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.vqbO_PC8w1EnwTgds0i-Hbdm1YYXwPevdT4psOkXLRU",
+    },
+  };
+
+  let url = "";
+  if (type === "popular") {
+    url = "https://api.themoviedb.org/3/person/popular?language=en-US&page=1";
+  } else if (type === "trending") {
+    url = "https://api.themoviedb.org/3/trending/person/day?language=en-US";
+  } else {
+    console.error("Invalid type provided.");
+    return;
+  }
+
+  try {
+    const response = await fetch(url, options);
+    if (!response.ok) throw new Error("Network response was not ok");
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(`Error fetching ${type} people:`, error);
+  }
+};
+
+function displayActors(actors, containerId) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = "";
+
+  if (!actors || actors.length === 0) {
+    const message = document.createElement("p");
+    message.textContent = "No actors found.";
+    container.appendChild(message);
+    return;
+  }
+
+  actors.forEach((actor) => {
+    if (actor.profile_path) {
+      const actorCard = document.createElement("div");
+      actorCard.className = "actorCard";
+
+      const image = document.createElement("img");
+      image.src = `https://image.tmdb.org/t/p/w500${actor.profile_path}`;
+      image.alt = actor.name;
+
+      const name = document.createElement("p");
+      name.textContent = actor.name;
+
+      actorCard.appendChild(image);
+      actorCard.appendChild(name);
+      container.appendChild(actorCard);
+    }
+  });
+}
+
+fetchPeople("popular").then((data) => {
+  if (data) {
+    displayActors(data.results, "popularActors");
+  }
+});
+
+fetchPeople("trending").then((data) => {
+  if (data) {
+    displayActors(data.results, "trendingActors");
+  }
+});
+
+fetchPeople("trending").then((data) => {
+  if (data) {
+    displayActors(data.results, "trendingActors2");
+  }
+});
+
+// email sending
+document.addEventListener("DOMContentLoaded", () => {
+  const messageInput = document.getElementById("messageInput");
+
+  messageInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      sendMessage();
+    }
+  });
+});
+
+function sendMessage() {
+  const messageContent = document.getElementById("messageInput").value;
+  const emailAddress = "shabisons98765@gmail.com";
+  const subject = "Message from Contact Form";
+
+  if (messageContent.trim()) {
+    window.location.href = `mailto:${emailAddress}?subject=${encodeURIComponent(
+      subject
+    )}&body=${encodeURIComponent(messageContent)}`;
+  } else {
+    alert("Please enter a message before sending.");
+  }
+}
+
+// Profile update function
+function updateProfile() {
+  const profileCircle = document.getElementById("profileCircle");
+  const letter = document.getElementById("letter");
+  const userName = document.getElementById("userName");
+  const loggedInUser = localStorage.getItem("loggedInUser");
+
+  console.log("Profile Circle Element:", profileCircle);
+  console.log("User Name Element:", userName);
+
+  if (loggedInUser) {
+    const firstName = loggedInUser.split(" ")[0];
+    letter.textContent = firstName.charAt(0);
+    userName.textContent = `Welcome, ${firstName}`;
+  } else {
+    letter.textContent = "G";
+    userName.textContent = "Guest";
+    console.log("No user is logged in, showing guest.");
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const loggedInUser = localStorage.getItem("loggedInUser");
+
+  console.log("Checking localStorage in index.html:", {
+    firstName: localStorage.getItem("firstName"),
+    loggedInUser,
+  });
+  updateProfile();
+});
+
+// Log out function
+function logout() {
+  localStorage.removeItem("loggedInUser");
+  const letter = document.getElementById("letter");
+  const userName = document.getElementById("userName");
+
+  letter.textContent = "G";
+  userName.textContent = "Guest";
+
+  console.log("User logged out successfully.");
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const logoutButton = document.getElementById("logOut");
+
+  if (logoutButton) {
+    logoutButton.addEventListener("click", () => {
+      logout();
+      window.location.href = "./index.html";
+    });
+  }
+});
+
+// search panel
+const searchInput = document.querySelector(".search");
+const searchPanel = document.querySelector(".searchPanel");
+
+searchInput.addEventListener("keyup", async function (event) {
+  if (event.key === "Enter") {
+    const searchTerm = searchInput.value.trim().toLowerCase();
+    searchPanel.innerHTML = "";
+    searchPanel.style.display = "flex";
+
+    const searchResults = await fetchSearchData(searchTerm);
+
+    if (searchResults.length > 0) {
+      for (const movie of searchResults) {
+        if (movie.poster_path) {
+          const resultCard = document.createElement("div");
+          resultCard.className = "movie-card";
+
+          const image = document.createElement("img");
+          image.src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+          image.alt = movie.title;
+
+          const infoOverlay = document.createElement("div");
+          infoOverlay.className = "info-overlay";
+
+          const title = document.createElement("h3");
+          title.className = "movie-title";
+          title.textContent = movie.title;
+
+          const releaseDate = document.createElement("p");
+          releaseDate.className = "release-date";
+          releaseDate.textContent = `Release Date: ${movie.release_date}`;
+
+          const actors = await getMovieCast(movie.id);
+          const actorsList = document.createElement("p");
+          actorsList.className = "actors-list";
+          actorsList.textContent = `Actors: ${actors.join(", ")}`;
+
+          infoOverlay.appendChild(title);
+          infoOverlay.appendChild(releaseDate);
+          infoOverlay.appendChild(actorsList);
+
+          resultCard.appendChild(image);
+          resultCard.appendChild(infoOverlay);
+
+          resultCard.addEventListener("click", () => {
+            showMovieDetails(movie.id);
+          });
+
+          searchPanel.appendChild(resultCard);
+        }
+      }
+    } else {
+      const noResults = document.createElement("div");
+      noResults.className = "no-results";
+      noResults.textContent = "No results found";
+      searchPanel.appendChild(noResults);
+    }
+  }
+
+  if (searchInput.value === "") {
+    searchPanel.style.display = "none";
+  }
+});
+
+async function fetchSearchData(searchTerm) {
+  const response = await fetch(
+    `https://api.themoviedb.org/3/search/movie?query=${searchTerm}&language=en-US`,
+    optionsMovies
+  );
+
+  if (!response.ok) {
+    return [];
+  }
+
+  const data = await response.json();
+  return data.results || [];
+}
+
+async function getMovieCast(movieId) {
+  const response = await fetch(
+    `https://api.themoviedb.org/3/movie/${movieId}/credits?language=en-US`,
+    optionsMovies
+  );
+
+  if (!response.ok) {
+    return [];
+  }
+
+  const data = await response.json();
+  return data.cast.slice(0, 3).map((actor) => actor.name);
+}

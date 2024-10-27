@@ -20,12 +20,12 @@
           <hr class="hr" />
           <li class="li" id="tvShowsButton">TV-Shows</li>
           <hr class="hr" />
-          <li class="li" id="actor">Actors</li>
+          <li class="li" id="actorsButton">Actors</li>
           <hr class="hr" />
-          <li class="li" id="help">Help Center</li>
+          <li class="li" id="helpButton">Help Center</li>
         </ul>
       </button>
-      <div class="input1">
+      <div class="input1" id="input1">
         <button class="filter">Filter</button>
         <div class="filterOpen">
           <p class="daily" id="dailyButton">Popular of the day</p>
@@ -34,18 +34,18 @@
         </div>
         <input class="search" placeholder="search SMDb" />
       </div>
-      <button class="favList">
+      <button class="favList" id="favButton">
         <p id="favListText"><span id="heart">&#9829;</span>My Favorites</p>
       </button>
       <button class="profile">
-        <div id="profileCircle"><p id="g">G</p></div>
-        Guest
+        <div id="profileCircle"><p id="letter">G</p></div>
+        <p id="userName">Guest</p>
         <ul class="openProfile">
-          <li class="li" id="changeUser">User profile</li>
-          <hr class="hr" />
           <li class="li" id="log">Log in</li>
           <hr class="hr" />
           <li class="li" id="sign">Sign in</li>
+          <hr class="hr" />
+          <li class="li" id="logOut">Log out</li>
         </ul>
       </button>
       <div class="inDayMode">
@@ -55,51 +55,59 @@
 
     <div class="container">
       <!-- Main -->
-      <div class="mainCon">
-        <div class="backgroundImg">
-          <div class="leftBack">
-            <p class="favText">
-              Here you can see some of our favorites movies and tv shows on the
-              website. Add to your own list or just see it's info over here
-              <span class="hereArrow">&#8595;</span>
-            </p>
-            <div class="hlContainer" id="bestOf">
-              <div id="ShabiFav" class="favContainer"></div>
+      <div class="mainConIn">
+        <div class="mainCon">
+          <div class="backgroundImg">
+            <div class="leftBack">
+              <p class="favText">
+                Here you can see some of our favorites movies and tv shows on
+                the website. Add to your own list or just see it's info over
+                here
+                <span class="hereArrow">&#8595;</span>
+              </p>
+              <div class="hlContainer" id="bestOf">
+                <div id="ShabiFav" class="favContainer"></div>
+              </div>
             </div>
-          </div>
-          <div class="rightBack">
-            <div
-              style="
-                position: relative;
-                padding-bottom: 56.25%;
-                height: 0;
-                overflow: hidden;
-              "
-            >
-              <iframe
-                id="VideoPlayer"
-                src="https://geo.dailymotion.com/player.html?video=x8xbg9o&queue-autoplay-next=false&related=0"
+            <div class="rightBack">
+              <div
                 style="
-                  width: 100%;
-                  height: 100%;
-                  position: absolute;
-                  left: 0px;
-                  top: 0px;
+                  position: relative;
+                  padding-bottom: 56.25%;
+                  height: 0;
                   overflow: hidden;
-                  border: none;
                 "
-                allowfullscreen
-                title="Dailymotion Video Player"
-                allow="web-share"
-                scrolling="no"
               >
-              </iframe>
+                <iframe
+                  id="VideoPlayer"
+                  src="https://geo.dailymotion.com/player.html?video=x8xbg9o&queue-autoplay-next=false&related=0"
+                  style="
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    left: 0px;
+                    top: 0px;
+                    overflow: hidden;
+                    border: none;
+                  "
+                  allowfullscreen
+                  title="Dailymotion Video Player"
+                  allow="web-share"
+                  scrolling="no"
+                >
+                </iframe>
+              </div>
             </div>
           </div>
+          <h1 class="hl" id="shabiHL">Shabi's Favorites List</h1>
         </div>
-        <h1 class="hl" id="shabiHL">Shabi's Favorites List</h1>
+        <!-- actors Main Page -->
+        <div class="actorsCon">
+          <div id="trendingActors" class="actorsContainer"></div>
+        </div>
+        <div class="searchPanel"></div>
       </div>
-      <!-- Daily Sections -->
+      <!-- Daily Page -->
       <div class="dailyCon">
         <div class="hlContainer" id="dailyMovieCon">
           <h1 class="hl">Now Playing Movies</h1>
@@ -110,7 +118,7 @@
           <div id="airingTodayTVcontainer2" class="tvContainer"></div>
         </div>
       </div>
-      <!-- Weekly Sections -->
+      <!-- Weekly Page -->
       <div class="weeklyCon">
         <div class="hlContainer" id="weeklyMovieCon">
           <h1 class="hl">Popular Movies</h1>
@@ -121,7 +129,7 @@
           <div id="popularTVcontainer2" class="tvContainer"></div>
         </div>
       </div>
-      <!-- Movie Sections -->
+      <!-- Movie Page -->
       <div class="movieCon">
         <div class="hlContainer" id="movieCon">
           <h1 class="hl">Now Playing Movies</h1>
@@ -143,7 +151,7 @@
           <div id="top-rated-container" class="moviesContainer"></div>
         </div>
       </div>
-      <!-- TV Sections -->
+      <!-- TV Page -->
       <div class="tvCon">
         <div class="hlContainer" id="tvCon">
           <h1 class="hl">Airing Today TV Shows</h1>
@@ -166,6 +174,27 @@
         </div>
       </div>
     </div>
+    <!-- Actors Page -->
+    <div class="actorsPage">
+      <div class="hlContainer">
+        <h1 class="hl">Popular Actors</h1>
+        <div id="popularActors" class="actorsContainer"></div>
+      </div>
+      <div class="hlContainer">
+        <h1 class="hl">Trending Actors</h1>
+        <div id="trendingActors2" class="actorsContainer"></div>
+      </div>
+    </div>
+    <!-- Favorite Page -->
+    <div class="savedPage">
+      <div class="savedCon">
+        <div class="hlContainer">
+          <h1 class="hl">My List</h1>
+          <div class="moviesContainer" id="savedList"></div>
+        </div>
+      </div>
+    </div>
+    <!-- About Section -->
     <div class="container2">
       <div class="about">
         <h2 class="hl2">About us</h2>
@@ -192,11 +221,15 @@
         <hr class="hr" />
         <p class="text">
           For any issues, the best way to contact us is via email at
-          Shabi'sons98765@gmail.com, or leave us a message here, and we'll
+          shabisons98765@gmail.com, or leave us a message here, and we'll
           respond within two business days.
         </p>
         <div class="input-container">
-          <input class="message" placeholder="Type your message here..." />
+          <input
+            class="message"
+            id="messageInput"
+            placeholder="Type your message here..."
+          />
         </div>
       </div>
     </div>

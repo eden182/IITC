@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sign/log</title>
+    <link rel="stylesheet" href="styles2.css" />
+  </head>
+  <body>
+    <div class="sign">
+      <h1 class="hl">Sign in</h1>
+      <div class="inDayMode">
+        <button class="dayMode">Night</button>
+      </div>
+      <div class="container">
+        <button class="logo" id="logoButton">
+          <p id="logoText"><span id="s">S</span>MDb</p>
+          <p id="shabi">habi's</p>
+        </button>
+        <p class="title">Full Name</p>
+        <div class="fullName">
+          <input class="input" id="signName" placeholder="First Name here" />
+          <input class="input" id="signLast" placeholder="Last Name here" />
+        </div>
+        <p class="title">Date Of Birth</p>
+        <input type="date" class="input" id="dob" />
+        <p class="title">Email</p>
+        <input class="input" id="signEmail" placeholder="Enter Email" />
+        <p class="title">Password</p>
+        <input class="input" id="signPassword" placeholder="Enter password " />
+        <p class="title">Password Verify</p>
+        <input
+          class="input"
+          id="signPasswordVer"
+          placeholder="Enter password"
+        />
+        <button class="submit">Submit</button>
+      </div>
+      <p class="text">
+        If you have a user <button class="logBut">Log here</button>
+      </p>
+    </div>
+    <div class="log">
+      <h1 class="hl">Log in</h1>
+      <div class="inDayMode">
+        <button class="dayMode">Night</button>
+      </div>
+      <div class="container" id="logIn">
+        <button class="logo" id="logoButton">
+          <p id="logoText"><span id="s">S</span>MDb</p>
+          <p id="shabi">habi's</p>
+        </button>
+        <p class="title">Name</p>
+        <input class="input" id="logName" placeholder="First Name here" />
+        <p class="title">Password</p>
+        <input class="input" id="logPassword" placeholder="Enter password " />
+
+        <button class="submit2">Submit</button>
+      </div>
+      <p class="text">
+        If you don't have any user <button class="signBut">Sign here</button>
+      </p>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>

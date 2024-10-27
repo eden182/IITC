@@ -1,0 +1,235 @@
+/* body */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  color: orangered;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: #1d1d1d;
+  border-radius: 40px;
+  margin-top: 18px;
+  padding: 20px;
+  width: 26%;
+  height: 80%;
+  box-shadow: inset 0px 2px 7px rgba(126, 126, 126, 0.5);
+  position: relative;
+}
+.hl {
+  padding-bottom: 10px;
+}
+
+.logo {
+  background-color: rgb(240, 186, 51);
+  color: black;
+  height: 40px;
+  border-radius: 18px;
+  border: 0;
+  padding: 4px;
+  margin: 20px;
+  width: 70px;
+  display: flex;
+  justify-self: flex-start;
+  align-self: end;
+  cursor: pointer;
+}
+#logoText {
+  font-weight: bolder;
+  font-size: 16px;
+  text-align: end;
+}
+#shabi {
+  font-size: 9.2px;
+  color: white;
+  margin-top: 6px;
+  margin-left: 22px;
+  text-align: start;
+  position: absolute;
+  font-weight: bold;
+}
+#s {
+  font-size: 31px;
+  color: black;
+}
+
+.title {
+  padding-bottom: 15px;
+  padding-top: 15px;
+}
+.input {
+  padding-left: 5px;
+  padding: 6px;
+}
+
+.sign {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.text {
+  font-weight: bold;
+  color: white;
+}
+.fullName {
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+}
+#name,
+#last {
+  width: 50%;
+}
+.log {
+  height: 100%;
+  width: 100%;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+#logIn {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 50%;
+}
+
+.submit,
+.submit2 {
+  padding: 5px 11px;
+  background-color: rgb(240, 186, 51);
+  border-radius: 60px;
+  cursor: pointer;
+  margin: 5px 7px;
+}
+.submit {
+  position: absolute;
+}
+.submit2 {
+  position: relative;
+}
+
+.logBut,
+.signBut {
+  background-color: transparent;
+  border: 0;
+  color: blue;
+  cursor: pointer;
+}
+/* day mode */
+
+.inDayMode {
+  position: relative;
+  width: 120px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background-color: rgba(62, 62, 62, 0.46);
+  border-radius: 60px;
+}
+
+.dayMode {
+  padding: 5px 11px;
+  background-color: rgb(240, 186, 51);
+  border: none;
+  border-radius: 60px;
+  cursor: pointer;
+  margin: 5px 7px;
+  position: absolute;
+}
+
+html.custom-colors-active,
+body.custom-colors-active {
+  background-color: white;
+  color: wheat;
+}
+.custom-colors-active .text {
+  color: black;
+}
+.dayMode.button-active {
+  background-color: rgb(123, 252, 222);
+}
+body.custom-colors-active .logo {
+  background-color: rgb(123, 252, 222);
+}
+body.custom-colors-active #shabi {
+  color: rgb(171, 41, 204);
+}
+.custom-colors-active .hl {
+  color: rgb(27, 81, 152);
+}
+.custom-colors-active .submit,
+.custom-colors-active .submit2 {
+  background-color: rgb(52, 116, 200);
+  color: pink;
+}
+
+/* media */
+@media (max-width: 1120px) {
+  .container {
+    width: 30%;
+  }
+}
+@media (max-width: 1000px) {
+  .container {
+    width: 33%;
+  }
+}
+@media (max-width: 950px) {
+  .container {
+    width: 35%;
+  }
+}
+@media (max-width: 870px) {
+  .container {
+    width: 40%;
+  }
+}
+@media (max-width: 780px) {
+  .container {
+    width: 45%;
+  }
+}
+@media (max-width: 670px) {
+  .container {
+    width: 50%;
+  }
+}
+@media (max-width: 555px) {
+  .container {
+    width: 55%;
+  }
+}
+@media (max-width: 485px) {
+  .container {
+    width: 62%;
+  }
+}
+@media (max-width: 415px) {
+  .container {
+    width: 70%;
+  }
+}
+@media (max-width: 370px) {
+  .container {
+    width: 80%;
+  }
+}
+@media (max-width: 300px) {
+  .container {
+    width: 100%;
+  }
+}
