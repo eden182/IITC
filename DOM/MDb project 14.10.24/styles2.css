@@ -12,6 +12,7 @@ body {
   background-color: black;
   color: orangered;
 }
+
 .container {
   display: flex;
   flex-direction: column;
@@ -19,11 +20,12 @@ body {
   border-radius: 40px;
   margin-top: 18px;
   padding: 20px;
-  width: 26%;
+  width: 360px;
   height: 80%;
   box-shadow: inset 0px 2px 7px rgba(126, 126, 126, 0.5);
-  position: relative;
+  overflow: hidden;
 }
+
 .hl {
   padding-bottom: 10px;
 }
@@ -42,11 +44,13 @@ body {
   align-self: end;
   cursor: pointer;
 }
+
 #logoText {
   font-weight: bolder;
   font-size: 16px;
   text-align: end;
 }
+
 #shabi {
   font-size: 9.2px;
   color: white;
@@ -56,6 +60,7 @@ body {
   position: absolute;
   font-weight: bold;
 }
+
 #s {
   font-size: 31px;
   color: black;
@@ -65,6 +70,7 @@ body {
   padding-bottom: 15px;
   padding-top: 15px;
 }
+
 .input {
   padding-left: 5px;
   padding: 6px;
@@ -78,19 +84,24 @@ body {
   align-items: center;
   justify-content: center;
 }
+
 .text {
   font-weight: bold;
   color: white;
 }
+
 .fullName {
   display: flex;
+  align-self: center;
+  justify-content: center;
   overflow: hidden;
   width: 100%;
 }
-#name,
-#last {
-  width: 50%;
+
+#signName {
+  text-align: center;
 }
+
 .log {
   height: 100%;
   width: 100%;
@@ -99,6 +110,7 @@ body {
   align-items: center;
   justify-content: center;
 }
+
 #logIn {
   display: flex;
   align-items: center;
@@ -114,9 +126,11 @@ body {
   cursor: pointer;
   margin: 5px 7px;
 }
+
 .submit {
   position: absolute;
 }
+
 .submit2 {
   position: relative;
 }
@@ -128,6 +142,7 @@ body {
   color: blue;
   cursor: pointer;
 }
+
 /* day mode */
 
 .inDayMode {
@@ -178,58 +193,8 @@ body.custom-colors-active #shabi {
 }
 
 /* media */
-@media (max-width: 1120px) {
+@media (max-width: 380px) {
   .container {
-    width: 30%;
-  }
-}
-@media (max-width: 1000px) {
-  .container {
-    width: 33%;
-  }
-}
-@media (max-width: 950px) {
-  .container {
-    width: 35%;
-  }
-}
-@media (max-width: 870px) {
-  .container {
-    width: 40%;
-  }
-}
-@media (max-width: 780px) {
-  .container {
-    width: 45%;
-  }
-}
-@media (max-width: 670px) {
-  .container {
-    width: 50%;
-  }
-}
-@media (max-width: 555px) {
-  .container {
-    width: 55%;
-  }
-}
-@media (max-width: 485px) {
-  .container {
-    width: 62%;
-  }
-}
-@media (max-width: 415px) {
-  .container {
-    width: 70%;
-  }
-}
-@media (max-width: 370px) {
-  .container {
-    width: 80%;
-  }
-}
-@media (max-width: 300px) {
-  .container {
-    width: 100%;
+    width: 95%;
   }
 }
