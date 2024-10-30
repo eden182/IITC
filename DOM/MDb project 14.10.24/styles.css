@@ -275,7 +275,7 @@ header {
   align-self: center;
   background-color: #1d1d1d;
   box-shadow: inset 0px 2px 7px rgba(126, 126, 126, 0.5);
-  overflow-y: auto;
+  overflow-x: scroll;
 }
 
 .backgroundImg {
@@ -418,6 +418,13 @@ header {
   padding: 20px;
   display: flex;
   flex-direction: column;
+}
+
+#savedList {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: 670px;
 }
 
 /* scroll bar */
