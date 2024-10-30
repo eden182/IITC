@@ -1,4 +1,3 @@
-// Key: 90cd5147dd18f23f58fce05f24ddd67b
 import { options } from "./data.js";
 import { createCardFunction } from "./createCard.js";
 // movies.js

@@ -78,7 +78,6 @@ document.addEventListener("DOMContentLoaded", () => {
       alert("Please fill in all fields.");
       return;
     }
-    //  check for existing user
 
     if (password !== passwordVer) {
       alert("Passwords do not match. Please try again.");
@@ -86,6 +85,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const users = JSON.parse(localStorage.getItem("users")) || [];
+
+    // Check if the email already exists
+    const existingUser = users.find((user) => user.email === email);
+    if (existingUser) {
+      console.log(users);
+      alert(
+        "An account with this email already exists. Please use a different email."
+      );
+      return;
+    }
+
     const userData = { firstName, lastName, dob, email, password };
     users.push(userData);
     localStorage.setItem("users", JSON.stringify(users));

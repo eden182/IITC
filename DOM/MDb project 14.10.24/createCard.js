@@ -2,6 +2,12 @@
 import { fetchMovieDetails } from "./movies.js";
 import { fetchTVShowDetails } from "./tvShows.js";
 
+import {
+  addFavoriteMovieToList,
+  removeFavMovie,
+  displayFavorites,
+} from "./favorites.js";
+
 export async function createCardFunction(items, containerId, type) {
   const container = document.getElementById(containerId);
   container.innerHTML = "";
@@ -17,7 +23,7 @@ export async function createCardFunction(items, containerId, type) {
 
       const heartIcon = document.createElement("span");
       heartIcon.className = "heart-icon";
-      heartIcon.id = `${item.id}`;
+      heartIcon.dataset.movieId = item.id;
       heartIcon.innerHTML = "&#9825;";
       heartIcon.addEventListener("click", function () {
         heartIcon.classList.toggle("active");
@@ -47,6 +53,20 @@ export async function createCardFunction(items, containerId, type) {
       card.appendChild(image);
       card.appendChild(heartIcon);
       container.appendChild(card);
+
+      heartIcon.addEventListener("click", async (event) => {
+        const movieCardId = event.target.dataset.movieId;
+        const isFavorite = heartIcon.classList.contains("favorite");
+
+        if (isFavorite) {
+          await removeFavMovie(movieCardId);
+          heartIcon.classList.remove("favorite");
+        } else {
+          await addFavoriteMovieToList(movieCardId);
+          heartIcon.classList.add("favorite");
+        }
+        await displayFavorites();
+      });
     }
   }
 }

@@ -266,15 +266,16 @@ header {
   box-shadow: inset 0px 2px 7px rgba(126, 126, 126, 0.5);
 }
 .searchPanel {
+  margin-top: 20px;
   height: 400px;
-  width: 400px;
+  width: 750px;
   border-radius: 20px;
   display: none;
   justify-self: center;
   align-self: center;
   background-color: #1d1d1d;
   box-shadow: inset 0px 2px 7px rgba(126, 126, 126, 0.5);
-  overflow-x: scroll;
+  overflow-y: auto;
 }
 
 .backgroundImg {
@@ -412,31 +413,6 @@ header {
   font-size: 28px;
 }
 
-.info-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 10px;
-  background: rgba(0, 0, 0, 0.7);
-  color: white;
-  text-align: left;
-  display: none;
-}
-
-.movie-card:hover .info-overlay {
-  display: block;
-}
-.movie-title {
-  margin: 0;
-  font-size: 1em;
-}
-
-.release-date {
-  margin: 5px 0;
-  font-size: 0.9em;
-}
-
 /* saved favorites page */
 .savedCon {
   padding: 20px;
@@ -452,13 +428,15 @@ header {
 
 .actorsContainer::-webkit-scrollbar,
 .moviesContainer::-webkit-scrollbar,
-.tvContainer::-webkit-scrollbar {
+.tvContainer::-webkit-scrollbar,
+.searchPanel::-webkit-scrollbar {
   width: 12px;
 }
 
 .actorsContainer::-webkit-scrollbar-track,
 .moviesContainer::-webkit-scrollbar-track,
-.tvContainer::-webkit-scrollbar-track {
+.tvContainer::-webkit-scrollbar-track,
+.searchPanel::-webkit-scrollbar-track {
   background-color: black;
 }
 
@@ -467,6 +445,11 @@ header {
 .tvContainer::-webkit-scrollbar-thumb {
   background-color: #b7b7b7ce;
   border-radius: 6px;
+}
+
+.searchPanel::-webkit-scrollbar-thumb {
+  background-color: orangered;
+  border-radius: 4px;
 }
 
 /* general */
@@ -691,11 +674,22 @@ body.custom-colors-active #shabi {
   color: orchid;
 }
 .custom-colors-active .actorsContainer {
-  background-color: rgba(223, 223, 223, 0.734);
-  box-shadow: inset 2px 2px 7px rgba(0, 0, 0, 0.326);
+  background-color: white;
 }
 .custom-colors-active .actorsContainer::-webkit-scrollbar-track {
   background-color: white;
+}
+
+.custom-colors-active .searchPanel {
+  background-color: rgba(223, 223, 223, 0.734);
+}
+.custom-colors-active .searchPanel::-webkit-scrollbar-track {
+  background-color: white;
+}
+
+.custom-colors-active .searchPanel::-webkit-scrollbar-thumb {
+  background-color: pink;
+  border-radius: 4px;
 }
 
 /* Media */

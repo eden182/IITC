@@ -26,6 +26,8 @@ import {
   displayWeeklyPopularTVShows,
 } from "./daily.js";
 
+import { toggleFav, displayFavorites } from "./favorites.js";
+
 // const list
 const body = document.body;
 const html = document.documentElement;
@@ -329,3 +331,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // search panel
 setupSearch();
+
+//favorites saver using tmdb
+document.addEventListener("DOMContentLoaded", () => {
+  displayFavorites();
+  toggleFav();
+});
