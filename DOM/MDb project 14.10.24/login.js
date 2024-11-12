@@ -118,7 +118,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const user = users.find(
       (user) =>
-        user.firstName === enteredName && user.password === enteredPassword
+        user.firstName.toLowerCase() === enteredName &&
+        user.password === enteredPassword
     );
 
     if (user) {

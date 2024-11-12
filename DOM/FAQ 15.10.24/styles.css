@@ -104,7 +104,6 @@ header {
   .container {
     width: 90%;
     padding: 20px;
-    top: 100px;
   }
 }
 
@@ -112,6 +111,5 @@ header {
   .container {
     width: 95%;
     padding: 15px;
-    top: 50px;
   }
 }
