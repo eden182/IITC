@@ -1,0 +1,27 @@
+.head {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 20px;
+}
+
+.img {
+  background-image: url("../../../public/image-omelette.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 250px;
+  border-radius: 10px;
+}
+
+.hl1 {
+  font-size: 32px;
+  padding-top: 30px;
+  font-weight: bolder;
+  color: black;
+}
+
+.p {
+  color: rgba(0, 0, 0, 0.656);
+  font-size: 14px;
+  padding-top: 20px;
+}

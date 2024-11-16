@@ -1,0 +1,39 @@
+.hl2 {
+  color: hsl(14, 45%, 36%);
+  padding-top: 10px;
+}
+
+.hr {
+  border: 0.1px solid rgba(0, 0, 0, 0.174);
+  width: 100%;
+}
+
+.ul2,
+ol {
+  padding-bottom: 20px;
+  margin-right: 10px;
+  margin-left: -20px;
+}
+
+ol ::marker {
+  color: hsl(14, 45%, 36%);
+}
+
+li {
+  padding-left: 15px;
+}
+
+.table {
+  display: flex;
+  justify-content: space-evenly;
+  padding-top: 25px;
+  color: hsl(30, 10%, 34%);
+}
+
+.column {
+  width: 100%;
+}
+#column2 {
+  color: hsl(14, 45%, 36%);
+  font-weight: bold;
+}

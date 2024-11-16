@@ -1,0 +1,21 @@
+.prepCon {
+  background-color: hsl(330, 100%, 98%);
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.HL {
+  color: hsl(332, 51%, 32%);
+  font-size: 22px;
+  font-weight: bold;
+  padding-left: 16px;
+}
+
+.ul1 {
+  display: flex;
+  flex-direction: column;
+}
+
+.ul1 li {
+  padding-top: 14px;
+}
