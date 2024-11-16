@@ -1,11 +1,35 @@
 .mainCon {
   background-color: hsl(0, 0%, 100%);
   color: hsl(30, 10%, 34%);
-  width: 550px;
+  width: 554px;
   height: 100%;
   padding: 30px;
   border-radius: 20px;
   margin-top: 80px;
   margin-bottom: 80px;
   text-align: left;
+}
+
+@media (max-width: 715px) {
+  .mainCon {
+    width: 445px;
+  }
+}
+
+@media (max-width: 605px) {
+  .mainCon {
+    width: 365px;
+  }
+}
+
+@media (max-width: 535px) {
+  .mainCon {
+    width: 285px;
+  }
+}
+
+@media (max-width: 405px) {
+  .mainCon {
+    width: 225px;
+  }
 }
