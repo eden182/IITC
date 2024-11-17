@@ -1,0 +1,25 @@
+.formCom {
+  display: flex;
+  justify-content: space-evenly;
+  font-size: 42px;
+  padding-top: 40px;
+  padding-bottom: 50px;
+}
+
+.ball {
+  background-color: whitesmoke;
+  color: orangered;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.ball:hover {
+  background-color: rgba(171, 171, 171, 0.548);
+  color: #61dafb;
+}
