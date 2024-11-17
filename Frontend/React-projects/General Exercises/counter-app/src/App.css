@@ -8,7 +8,12 @@ body {
 }
 
 .HL {
+  display: flex;
+  justify-self: center;
+  justify-content: center;
   font-size: 42px;
+  color: white;
+  width: 40%;
 }
 
 .counterCon {
@@ -40,9 +45,11 @@ body {
   justify-content: center;
 }
 
-.but:hover {
+.but:hover,
+.HL:hover {
   background-color: rgba(109, 12, 31, 0.855);
   color: #61dafb;
+  cursor: pointer;
 }
 
 .count {
