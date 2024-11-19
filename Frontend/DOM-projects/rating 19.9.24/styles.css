@@ -1,0 +1,153 @@
+html,
+body {
+  margin: 0px;
+  height: 100%;
+}
+
+body {
+  background-color: black;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pic {
+  padding: 10px;
+  border-color: rgba(0, 0, 0, 0.755);
+  width: 13px;
+}
+
+#ll {
+  display: flex;
+  background-color: rgba(67, 67, 77, 0.486);
+  width: 35px;
+  height: 35px;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  position: relative;
+  background-color: rgba(41, 45, 61, 0.7);
+  align-self: center;
+  text-align: left;
+  border-radius: 20px;
+  width: 250px;
+  height: 260px;
+  padding: 30px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+#headline {
+  margin-bottom: 0px;
+  margin-top: 30px;
+  font-size: 24px;
+}
+
+#p1 {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.495);
+}
+
+.container-2 {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.ball {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  background-color: rgb(35, 35, 46);
+  text-align: center;
+  align-content: center;
+  color: rgba(255, 255, 255, 0.495);
+  transition: background-color 0.3s;
+}
+
+.ball:hover {
+  background-color: orange;
+  color: black;
+}
+
+.sub {
+  width: 100%;
+  background-color: rgb(255, 123, 0);
+  border-radius: 35px;
+  height: 35px;
+  font-size: 12px;
+  margin-top: 8px;
+  color: rgba(28, 28, 45, 0.819);
+  transition: background-color 0.3s;
+}
+
+.sub:hover {
+  background-color: white;
+}
+
+#cont {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+/* index 2 */
+
+.index2.html,
+body {
+  display: flex;
+  text-align: center;
+}
+
+#con-2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.pic2 {
+  width: 125px;
+}
+
+#HL {
+  font-size: 20px;
+}
+
+#p2 {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.503);
+}
+
+.select {
+  font-size: 13px;
+  background-color: rgba(49, 49, 65, 0.574);
+  border-radius: 45px;
+  width: 160px;
+  height: 20px;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  padding: 1px;
+}
+
+#sel {
+  color: rgba(255, 166, 0, 0.751);
+  margin-top: 3px;
+}
+
+@media (max-width: 222px) {
+  .container {
+    max-width: 222px;
+    overflow: hidden;
+    width: 250px;
+    height: auto;
+  }
+}
