@@ -1,0 +1,106 @@
+header {
+  position: fixed;
+  width: 100%;
+  height: 70px;
+  top: 0;
+  left: 0;
+  background-color: rgb(23, 23, 155);
+  z-index: 100;
+  overflow-x: scroll;
+}
+
+header::-webkit-scrollbar {
+  display: none;
+}
+
+.menu {
+  background-image: url("../images/pokemon-app-pokeball-logo.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  z-index: 500;
+  cursor: pointer;
+  position: fixed;
+  top: 10px;
+  right: 10px;
+}
+
+.menuOpen {
+  width: 150px;
+  height: auto;
+  background-color: whitesmoke;
+  color: orangered;
+  border: 5px solid black;
+  border-radius: 20px;
+  position: absolute;
+  font-weight: bolder;
+  top: 62px;
+  right: -5px;
+  display: none;
+  transition: all 0.3s ease;
+}
+
+.menuOpen.active {
+  display: block;
+}
+
+.logo2 {
+  width: 200px;
+  height: 100%;
+  display: flex;
+  position: absolute;
+  left: 0;
+  background-image: url("../images/pokemon-app-logo.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.navButton {
+  color: rgb(229, 25, 25);
+  border-right: 3px solid rgba(73, 7, 7, 0.999);
+  font-size: 32px;
+  padding-right: 10px;
+  padding-left: 10px;
+  cursor: pointer;
+}
+
+.navButtonsCon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 95%;
+  position: absolute;
+  top: 0;
+  left: 220px;
+}
+
+#but4 {
+  color: whitesmoke;
+}
+
+@media (max-width: 965px) {
+  .menu {
+    left: 15px;
+    top: 80px;
+  }
+}
+@media (max-width: 905px) {
+  .logo2 {
+    display: none;
+  }
+
+  .navButtonsCon {
+    display: flex;
+    left: 0;
+  }
+}
+
+@media (max-width: 715px) {
+  .navButton {
+    font-size: 24px;
+  }
+}
