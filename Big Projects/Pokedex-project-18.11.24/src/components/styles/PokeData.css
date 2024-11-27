@@ -1,20 +1,19 @@
 .pokeCon {
-  width: 69%;
-  height: 340px;
+  width: 80%;
+  height: 100%;
   padding: 40px;
   margin: 40px;
   border-radius: 12px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-self: center;
   flex-wrap: wrap;
-  overflow-x: scroll;
   background-color: white;
   box-shadow: 2px 2px 8px black;
   background-image: url("../images/pokemon-app-fullBackground.jpg");
   background-position: center;
   background-size: cover;
-  background-repeat: no-repeat;
+  background-repeat: repeat;
 }
 
 .pokeCon::-webkit-scrollbar {
@@ -41,11 +40,11 @@
   font-weight: bold;
   font-size: 82px;
   color: darkblue;
-  border-bottom: 7px solid black;
+  border-bottom: 3px solid black;
   margin-top: 150px;
 }
 .p {
-  color: rgb(248, 223, 36);
+  color: black;
 }
 
 .mew1 {
@@ -59,24 +58,23 @@
 }
 
 .pokemon-card {
-  width: 122px;
+  width: 130px;
   height: 265px;
   text-align: center;
   padding: 12px;
-  border: 10px solid white;
+  border: 8px solid black;
   border-radius: 10px;
-  box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.371);
   transition: transform 0.5s;
   cursor: pointer;
   margin: 6px;
-  background-image: url("../images/pokemon-app-pokeball-logo.jpg");
+  background-image: url("../images/pokemon-app-pokeballs-noback.png");
+  background-position: center;
   background-size: cover;
-  background-position: left;
+  background-repeat: no-repeat;
 }
 
 .pokemon-card:hover {
   transform: scale(1.1);
-  box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.371);
 }
 
 .pokemonSprite {
@@ -86,8 +84,11 @@
 
 .pokemonName {
   display: flex;
+  flex-direction: column;
+  justify-self: left;
   font-size: 1rem;
-  top: 0px;
+  top: 0;
+  left: 0;
   color: #fff;
 }
 .pokemon-card[data-type="normal"] .pokemonName,
@@ -96,7 +97,16 @@
 .pokemon-card[data-type="flying"] .pokemonName,
 .pokemon-card[data-type="grass"] .pokemonName,
 .pokemon-card[data-type="ground"] .pokemonName,
-.pokemon-card[data-type="fairy"] .pokemonName {
+.pokemon-card[data-type="fairy"] .pokemonName,
+.pokemon-card[data-type="ice"] .pokemonName,
+.pokemon-card[data-type="normal"] .pokemonNumber,
+.pokemon-card[data-type="electric"] .pokemonNumber,
+.pokemon-card[data-type="rock"] .pokemonNumber,
+.pokemon-card[data-type="flying"] .pokemonNumber,
+.pokemon-card[data-type="grass"] .pokemonNumber,
+.pokemon-card[data-type="ground"] .pokemonNumber,
+.pokemon-card[data-type="ice"] .pokemonNumber,
+.pokemon-card[data-type="fairy"] .pokemonNumber {
   color: black;
 }
 
@@ -104,13 +114,7 @@
   font-size: 1rem;
   color: white;
   text-align: center;
-  margin-left: 22px;
-  width: 50px;
-  height: 40px;
   display: flex;
-  margin-left: 30px;
-  justify-content: center;
-  align-items: center;
   font-weight: bold;
   background-color: transparent;
 }
@@ -132,7 +136,7 @@
 }
 
 .moveBut {
-  height: 400px;
+  height: 100px;
   width: 50px;
   font-size: 42px;
   border-radius: 30px;
@@ -141,21 +145,21 @@
   margin-left: 25px;
   margin-right: 25px;
   cursor: pointer;
+  margin-top: 160px;
+  margin-left: 100px;
 }
 #nextBut {
   position: relative;
-  top: 2px;
   right: 0px;
 }
 #backBut {
   position: relative;
-  top: 2px;
   left: 0px;
 }
-/* pokemon types colors */
 
+/* pokemon types colors */
 .pokemon-card[data-type="fire"] {
-  background-color: #ff8c3ac5;
+  background-color: #ff8c3a;
   box-shadow: 5px 5px 15px #ff8c3ac5;
 }
 .type.fire {
@@ -163,7 +167,7 @@
 }
 
 .pokemon-card[data-type="water"] {
-  background-color: #8cadfbb5;
+  background-color: #8cadfb;
   box-shadow: 5px 5px 15px #8cadfbb5;
 }
 .type.water {
@@ -171,7 +175,7 @@
 }
 
 .pokemon-card[data-type="grass"] {
-  background-color: #99ee6ea2;
+  background-color: #99ee6e;
   box-shadow: 5px 5px 15px #99ee6ea2;
 }
 .type.grass {
@@ -179,7 +183,7 @@
 }
 
 .pokemon-card[data-type="bug"] {
-  background-color: #5cab34c4;
+  background-color: #5cab34b7;
   box-shadow: 5px 5px 15px #5cab34c4;
 }
 .type.bug {
@@ -188,7 +192,7 @@
 }
 
 .pokemon-card[data-type="dark"] {
-  background-color: rgba(14, 14, 14, 0.836);
+  background-color: rgba(14, 14, 14, 0.766);
   color: white;
   box-shadow: 5px 5px 15px rgba(36, 36, 36, 0.711);
 }
@@ -205,15 +209,16 @@
 }
 
 .pokemon-card[data-type="normal"] {
-  background-color: rgba(231, 231, 231, 0.793);
+  background-color: rgba(244, 244, 244, 0.845);
   box-shadow: 5px 5px 15px rgba(231, 231, 231, 0.793);
 }
 .type.normal {
-  background-color: whitesmoke;
+  background-color: rgba(255, 255, 255, 0.929);
+  color: rgb(18, 18, 18);
 }
 
 .pokemon-card[data-type="steel"] {
-  background-color: rgba(131, 131, 131, 0.721);
+  background-color: rgba(131, 131, 131, 0.651);
   color: white;
   box-shadow: 5px 5px 15px rgba(65, 65, 65, 0.721);
 }
@@ -230,7 +235,7 @@
 }
 
 .pokemon-card[data-type="ghost"] {
-  background-color: rgba(221, 160, 221, 0.74);
+  background-color: rgba(223, 155, 223, 0.703);
   box-shadow: 5px 5px 15px rgba(221, 160, 221, 0.74);
 }
 .type.ghost {
@@ -238,7 +243,7 @@
 }
 
 .pokemon-card[data-type="electric"] {
-  background-color: rgba(255, 231, 51, 0.725);
+  background-color: rgb(255, 230, 39);
   box-shadow: 5px 5px 15px rgba(255, 231, 51, 0.725);
 }
 .type.electric {
@@ -247,7 +252,7 @@
 }
 
 .pokemon-card[data-type="flying"] {
-  background-color: rgba(204, 249, 254, 0.852);
+  background-color: rgba(204, 249, 254, 0.712);
   box-shadow: 5px 5px 15px rgba(204, 249, 254, 0.852);
 }
 .type.flying {
@@ -255,14 +260,8 @@
   color: black;
 }
 
-.type.normal {
-  background-color: rgba(255, 255, 255, 0.94);
-  color: rgb(18, 18, 18);
-  box-shadow: 5px 5px 15px rgba(255, 255, 255, 0.94);
-}
-
 .pokemon-card[data-type="dragon"] {
-  background-color: rgba(95, 158, 160, 0.764);
+  background-color: rgba(95, 158, 160, 0.695);
   box-shadow: 5px 5px 15px rgba(95, 158, 160, 0.764);
 }
 .type.dragon {
@@ -271,7 +270,7 @@
 }
 
 .pokemon-card[data-type="fighting"] {
-  background-color: rgba(215, 67, 67, 0.762);
+  background-color: rgba(215, 67, 67, 0.848);
   box-shadow: 5px 5px 15px rgba(215, 67, 67, 0.762);
 }
 .type.fighting {
@@ -279,7 +278,7 @@
 }
 
 .pokemon-card[data-type="psychic"] {
-  background-color: rgba(252, 153, 194, 0.818);
+  background-color: rgba(254, 158, 253, 0.84);
   box-shadow: 5px 5px 15px rgba(252, 153, 194, 0.818);
 }
 .type.psychic {
@@ -304,11 +303,11 @@
 }
 
 .pokemon-card[data-type="fairy"] {
-  background-color: rgba(255, 181, 254, 0.768);
-  box-shadow: 5px 5px 15px rgba(255, 181, 254, 0.768);
+  background-color: rgba(255, 186, 210, 0.895);
+  box-shadow: 5px 5px 15px rgb(255, 150, 187);
 }
 .type.fairy {
-  background-color: rgb(216, 112, 197);
+  background-color: rgb(255, 150, 187);
 }
 
 @media (max-width: 750px) {

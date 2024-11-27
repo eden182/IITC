@@ -10,7 +10,7 @@ const PokeData = () => {
   const fetchPokemons = async () => {
     try {
       const fetchedPokemon = [];
-      const endIndex = startIndex + 25;
+      const endIndex = startIndex + 27;
       for (let i = startIndex; i <= endIndex; i++) {
         const response = await axios.get(
           `https://pokeapi.co/api/v2/pokemon/${i}`
@@ -28,24 +28,23 @@ const PokeData = () => {
   }, [startIndex]);
 
   const handleNext = () => {
-    if (startIndex + 25 < 1025) {
-      setStartIndex(startIndex + 26);
+    if (startIndex + 27 < 1025) {
+      setStartIndex(startIndex + 28);
     }
   };
 
   const handleBack = () => {
     if (startIndex > 1) {
-      setStartIndex(startIndex - 26);
+      setStartIndex(startIndex - 28);
     }
   };
   return (
     <>
-      <h1 className="hl">
-        <span className="p"> P</span>okedex
-        <div className="mew1"></div>
-      </h1>
-
-      <div className="pokeCon">
+      <div style={{ display: "flex" }}>
+        <h1 className="hl">
+          <span className="p"> P</span>okedex
+          <div className="mew1"></div>
+        </h1>
         <button
           className="moveBut"
           id="backBut"
@@ -54,6 +53,16 @@ const PokeData = () => {
         >
           &#129168;
         </button>
+        <button
+          className="moveBut"
+          id="nextBut"
+          onClick={handleNext}
+          disabled={startIndex + 25 >= 1025}
+        >
+          &#129170;
+        </button>
+      </div>
+      <div className="pokeCon">
         {pokemonList.map((pokemon) => (
           <PokemonCard
             key={pokemon.id}
@@ -71,14 +80,6 @@ const PokeData = () => {
             }
           />
         ))}
-        <button
-          className="moveBut"
-          id="nextBut"
-          onClick={handleNext}
-          disabled={startIndex + 25 >= 1025}
-        >
-          &#129170;
-        </button>
       </div>
     </>
   );

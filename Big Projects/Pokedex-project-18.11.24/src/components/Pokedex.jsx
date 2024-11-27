@@ -3,7 +3,6 @@ import React from "react";
 import Header from "../components/Header.jsx";
 import Menu from "../components/Menu.jsx";
 import PokeData from "../components/PokeData.jsx";
-import PokeSearch from "../components/PokeSearch.jsx";
 
 const Pokedex = () => {
   return (
@@ -11,7 +10,6 @@ const Pokedex = () => {
       <Menu />
       <Header />
       <PokeData />
-      <PokeSearch />
     </div>
   );
 };

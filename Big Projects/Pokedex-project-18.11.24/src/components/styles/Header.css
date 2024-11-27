@@ -1,10 +1,10 @@
 header {
-  position: fixed;
+  position: absolute;
   width: 100%;
   height: 70px;
   top: 0;
   left: 0;
-  background-color: rgb(23, 23, 155);
+  background-color: transparent;
   z-index: 100;
   overflow-x: scroll;
 }
@@ -68,6 +68,10 @@ header::-webkit-scrollbar {
   cursor: pointer;
 }
 
+.navButton:hover {
+  background-color: rgb(244, 244, 244);
+}
+
 .navButtonsCon {
   display: flex;
   justify-content: center;
@@ -79,7 +83,7 @@ header::-webkit-scrollbar {
 }
 
 #but4 {
-  color: whitesmoke;
+  color: rgb(248, 217, 228);
 }
 
 @media (max-width: 965px) {
