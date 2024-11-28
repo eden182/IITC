@@ -1,0 +1,122 @@
+html {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.hlLogo {
+  width: 200px;
+  height: 75px;
+  margin: 40px;
+  overflow: visible;
+  background-image: url("./images/instagram-name-logo.png");
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  justify-self: center;
+}
+
+.right2 {
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  height: 90%;
+  text-align: center;
+  justify-self: center;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  margin-top: 150px;
+}
+
+.right2 form {
+  display: grid;
+  padding: 20px;
+  gap: 5px;
+  width: 80%;
+  margin-left: 15px;
+}
+
+.right2 form input {
+  border-radius: 5px;
+  border: 1px solid rgb(208, 208, 208);
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.right2 form button {
+  color: white;
+  background-color: rgb(75, 183, 255);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 10px;
+  border: 0px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.topRight {
+  border: 1px solid rgb(219, 219, 219);
+  border-radius: 1px;
+  height: 96%;
+}
+
+.bottom-right-container {
+  display: grid;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  margin-top: 14px;
+}
+
+.bottom-right {
+  border: 1px solid rgb(219, 219, 219);
+  border-radius: 1px;
+  padding: 5px;
+}
+
+.text {
+  display: flex;
+  justify-self: center;
+  width: 80%;
+  text-align: center;
+  color: #737373;
+}
+
+.changePagesButton {
+  color: rgb(0, 153, 255);
+  padding-left: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.facebookLog2 {
+  width: 200px;
+  color: white;
+  background-color: rgb(39, 71, 255);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 10px;
+  border: 0px;
+  border-radius: 10px;
+  display: flex;
+  justify-self: center;
+  align-items: center;
+  font-size: 15px;
+  font-weight: bold;
+  border: 0px;
+  margin-top: 30px;
+  cursor: pointer;
+}
+
+.facebookIcon2 {
+  background-image: url("./images/facebook-logo-2-noback.png");
+  background-size: cover;
+  background-position: center;
+  width: 22px;
+  height: 22px;
+  margin-right: 8px;
+}

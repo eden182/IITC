@@ -1,0 +1,237 @@
+html {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.hlLogo {
+  width: 200px;
+  height: 75px;
+  margin: 40px;
+  overflow: visible;
+  background-image: url("./images/instagram-name-logo.png");
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  justify-self: center;
+}
+
+.container {
+  display: flex;
+  padding: 30px;
+  width: 100%;
+  height: 700px;
+}
+
+.right {
+  background-color: rgb(255, 255, 255);
+  display: grid;
+  width: 50%;
+  text-align: center;
+  margin-left: 20px;
+}
+
+.right form {
+  display: grid;
+  padding: 20px;
+  gap: 5px;
+  width: 80%;
+  margin-left: 15px;
+}
+
+.right form input {
+  border-radius: 5px;
+  border: 1px solid rgb(208, 208, 208);
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.right form button {
+  color: white;
+  background-color: rgb(75, 183, 255);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 10px;
+  border: 0px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.lineCon {
+  text-align: center;
+  width: 100%;
+  display: block;
+  margin-top: 15px;
+}
+
+.line {
+  display: inline-block;
+  width: 100px;
+  border-bottom: 0.5px solid #929292aa;
+}
+
+#or {
+  display: inline-block;
+  padding-right: 15px;
+  padding-left: 15px;
+  color: #575757c7;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.topRight {
+  border: 1px solid rgb(219, 219, 219);
+  border-radius: 1px;
+  height: 100%;
+}
+
+.bottom-right-container {
+  display: grid;
+  align-items: center;
+  text-align: center;
+}
+
+.bottom-right {
+  border: 1px solid rgb(219, 219, 219);
+  border-radius: 1px;
+  padding: 5px;
+}
+
+.left {
+  width: 550px;
+  background-color: transparent;
+  background-image: url("./images/logPage-screenshot-background-2x.png");
+  background-position: center;
+  background-size: cover;
+  z-index: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.backgroundImage {
+  width: 270px;
+  height: 84.5%;
+  background-image: url("./images/logPage-screenshot1-2x.png");
+  background-position: center;
+  background-size: cover;
+  z-index: 10;
+  margin-bottom: 80px;
+  margin-right: 55px;
+  border-radius: 15px;
+  animation: backgroundRotation 12s infinite;
+}
+
+@keyframes backgroundRotation {
+  0% {
+    background-image: url("./images/logPage-screenshot1-2x.png");
+  }
+  25% {
+    background-image: url("./images/logPage-screenshot2-2x.png");
+  }
+  50% {
+    background-image: url("./images/logPage-screenshot3-2x.png");
+  }
+  75% {
+    background-image: url("./images/logPage-screenshot4-2x.png");
+  }
+  100% {
+    background-image: url("./images/logPage-screenshot1-2x.png");
+  }
+}
+
+.facebookLog {
+  color: #1d3c78;
+  display: flex;
+  justify-self: center;
+  align-items: center;
+  font-size: 15px;
+  font-weight: bold;
+  background-color: transparent;
+  border: 0px;
+  margin-top: 30px;
+  cursor: pointer;
+}
+
+.facebookIcon {
+  background-image: url("./images/facebook-logo.png");
+  background-size: cover;
+  background-position: center;
+  width: 22px;
+  height: 22px;
+  margin-right: 8px;
+}
+
+.forgotPassword {
+  color: #1d3c78;
+  font-size: 17px;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  font-weight: lighter;
+  cursor: pointer;
+}
+
+.changePagesButton {
+  color: rgb(0, 153, 255);
+  padding-left: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.appButtonsCon {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.googlePlay {
+  background-image: url("./images/googlePlay-logo.png");
+  background-position: center;
+  background-size: cover;
+  width: 130px;
+  height: 40px;
+  margin-right: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.microsoft {
+  background-image: url("./images/microsoft-logo.png");
+  background-position: center;
+  background-size: cover;
+  width: 105px;
+  height: 40px;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.p {
+  cursor: default;
+}
+
+/* footer {
+} */
+
+@media only screen and (max-width: 870px) {
+  .left {
+    display: none;
+  }
+
+  .right {
+    width: 350px;
+  }
+}
+
+/* @media only screen and (max-width: 450px) {
+  .right {
+    justify-content: space-between;
+    margin-top: 0;
+    max-width: 100%;
+  }
+} */

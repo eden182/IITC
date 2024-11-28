@@ -1,0 +1,125 @@
+html {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+header {
+  width: 100%;
+  height: 100px;
+  margin-bottom: 50px;
+  margin-top: 50px;
+}
+
+.instagramIcon {
+  height: 100px;
+  width: auto;
+  background-image: url("../styles/images/instagram-name-logo.png");
+  background-position: left;
+  background-size: cover;
+}
+
+.reset {
+  height: 100%;
+  width: 100%;
+}
+
+.container2 {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 320px;
+  height: 550px;
+  padding-left: 50px;
+  padding-right: 50px;
+  text-align: center;
+  border: 1px solid rgb(219, 219, 219);
+  color: #737373;
+  border-radius: 1px;
+  cursor: default;
+  overflow: visible;
+}
+
+.h2 {
+  color: black;
+}
+
+.lockLogo {
+  display: flex;
+  margin-top: 20px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  font-size: 50px;
+  background-color: transparent;
+  border: 0.5px solid black;
+}
+
+.p2 {
+  padding-bottom: 20px;
+}
+
+.emailInput {
+  width: 80%;
+  height: 20px;
+  padding: 14px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  border: 0.2px solid #737373;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.verifyButton {
+  text-align: center;
+  color: azure;
+  background-color: rgb(75, 183, 255);
+  width: 90%;
+  height: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 0px;
+  cursor: pointer;
+}
+
+.helpButton {
+  color: rgba(21, 21, 21, 0.821);
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.lineCon2 {
+  text-align: center;
+  width: 100%;
+  display: block;
+  margin-top: 15px;
+}
+
+.line2 {
+  display: inline-block;
+  width: 100px;
+  border-bottom: 0.5px solid #929292aa;
+}
+
+#or2 {
+  display: inline-block;
+  padding-right: 15px;
+  padding-left: 15px;
+  color: #575757c7;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.backToLogButton {
+  color: rgba(21, 21, 21, 0.821);
+  cursor: pointer;
+}
