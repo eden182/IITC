@@ -1,0 +1,11 @@
+.changingBackground {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  background-image: url("../images/pokemon-app-background-9-copy.jpg");
+  background-size: cover;
+  background-position: center;
+}
