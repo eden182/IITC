@@ -1,3 +1,10 @@
+body {
+  background-image: url("../images/pokemon-app-background-20.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
 .pokeCon {
   width: 75%;
   height: 100%;
@@ -123,7 +130,9 @@
 }
 
 .pokemonTypes {
+  width: 70px;
   display: flex;
+  justify-self: center;
   justify-content: center;
   margin-top: 20px;
   gap: 10px;
@@ -139,10 +148,13 @@
 }
 
 .moveBut {
-  height: 90px;
-  width: 50px;
+  height: 60px;
+  width: 60px;
   font-size: 42px;
-  border-radius: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: 2px solid black;
   background-color: #f2f2f2aa;
   cursor: pointer;
@@ -159,156 +171,143 @@
 }
 
 /* pokemon types colors */
-.pokemon-card[data-type="fire"] {
-  background-color: #ff8c3a;
-  box-shadow: 5px 5px 15px #ff8c3ac5;
-}
+
 .type.fire {
   background-color: orangered;
-}
-
-.pokemon-card[data-type="water"] {
-  background-color: #8cadfb;
-  box-shadow: 5px 5px 15px #8cadfbb5;
 }
 .type.water {
   background-color: blue;
 }
-
-.pokemon-card[data-type="grass"] {
-  background-color: #99ee6e;
-  box-shadow: 5px 5px 15px #99ee6ea2;
-}
 .type.grass {
   background-color: rgb(0, 160, 0);
-}
-
-.pokemon-card[data-type="bug"] {
-  background-color: #5cab34;
-  box-shadow: 5px 5px 15px #5cab34c4;
 }
 .type.bug {
   background-color: green;
   color: red;
 }
-
-.pokemon-card[data-type="dark"] {
-  background-color: black;
-  color: white;
-  box-shadow: 5px 5px 15px rgba(36, 36, 36, 0.711);
-}
 .type.dark {
   background-color: rgb(36, 36, 36);
 }
 
-.pokemon-card[data-type="ground"] {
-  background-color: rgb(202, 158, 102);
-  box-shadow: 5px 5px 15px rgba(222, 184, 135, 0.689);
-}
 .type.ground {
   background-color: brown;
-}
-
-.pokemon-card[data-type="normal"] {
-  background-color: rgb(244, 244, 244);
-  box-shadow: 5px 5px 15px rgba(231, 231, 231, 0.793);
 }
 .type.normal {
   background-color: rgba(255, 255, 255, 0.929);
   color: rgb(18, 18, 18);
 }
-
-.pokemon-card[data-type="steel"] {
-  background-color: rgb(131, 131, 131);
-  color: white;
-  box-shadow: 5px 5px 15px rgba(65, 65, 65, 0.721);
-}
 .type.steel {
   background-color: rgb(167, 167, 167);
-}
-
-.pokemon-card[data-type="rock"] {
-  background-color: rgb(255, 235, 205);
-  box-shadow: 5px 5px 15px rgba(255, 235, 205, 0.675);
 }
 .type.rock {
   background-color: chocolate;
 }
-
-.pokemon-card[data-type="ghost"] {
-  background-color: rgb(223, 155, 223);
-  box-shadow: 5px 5px 15px rgba(221, 160, 221, 0.74);
-}
 .type.ghost {
   background-color: darkorchid;
-}
-
-.pokemon-card[data-type="electric"] {
-  background-color: rgb(255, 238, 107);
-  box-shadow: 5px 5px 15px rgba(255, 231, 51, 0.725);
 }
 .type.electric {
   background-color: rgb(255, 255, 79);
   color: black;
 }
-
-.pokemon-card[data-type="flying"] {
-  background-color: rgb(204, 249, 254);
-  box-shadow: 5px 5px 15px rgba(204, 249, 254, 0.852);
-}
 .type.flying {
   background-color: rgb(185, 254, 254);
   color: black;
-}
-
-.pokemon-card[data-type="dragon"] {
-  background-color: rgb(68, 124, 98);
-  box-shadow: 5px 5px 15px rgba(95, 158, 160, 0.764);
 }
 .type.dragon {
   background-color: greenyellow;
   color: rgb(22, 22, 22);
 }
-
-.pokemon-card[data-type="fighting"] {
-  background-color: rgb(220, 51, 51);
-  box-shadow: 5px 5px 15px rgba(215, 67, 67, 0.762);
-}
 .type.fighting {
   background-color: red;
-}
-
-.pokemon-card[data-type="psychic"] {
-  background-color: rgb(254, 158, 252);
-  box-shadow: 5px 5px 15px rgba(252, 153, 194, 0.818);
 }
 .type.psychic {
   background-color: pink;
 }
-
-.pokemon-card[data-type="poison"] {
-  background-color: rgb(139, 0, 139);
-  box-shadow: 5px 5px 15px rgba(139, 0, 139, 0.745);
-}
 .type.poison {
   background-color: rgb(175, 8, 175);
-}
-
-.pokemon-card[data-type="ice"] {
-  background-color: rgb(163, 245, 254);
-  box-shadow: 5px 5px 15px rgba(131, 243, 255, 0.736);
 }
 .type.ice {
   background-color: rgb(45, 206, 214);
   color: azure;
 }
 
-.pokemon-card[data-type="fairy"] {
-  background-color: rgb(254, 161, 193);
-  box-shadow: 5px 5px 15px rgb(255, 150, 187);
-}
 .type.fairy {
   background-color: rgb(255, 150, 187);
+}
+
+/* pokemon types colors root */
+:root {
+  --fire-bg: #fa6621;
+  --fire-shadow: #ff8c3ac5;
+  --fire-type: orangered;
+
+  --water-bg: #8cadfb;
+  --water-shadow: #8cadfbb5;
+  --water-type: blue;
+
+  --grass-bg: #99ee6e;
+  --grass-shadow: #99ee6ea2;
+  --grass-type: rgb(0, 160, 0);
+
+  --bug-bg: #478727;
+  --bug-shadow: #5cab34c4;
+  --bug-type: green;
+
+  --dark-bg: black;
+  --dark-shadow: rgba(36, 36, 36, 0.711);
+  --dark-type: rgb(36, 36, 36);
+
+  --ground-bg: rgb(202, 158, 102);
+  --ground-shadow: rgba(222, 184, 135, 0.689);
+  --ground-type: brown;
+
+  --normal-bg: rgb(244, 244, 244);
+  --normal-shadow: rgba(231, 231, 231, 0.793);
+  --normal-type: rgba(255, 255, 255, 0.929);
+
+  --steel-bg: #b7b9d0;
+  --steel-shadow: rgba(65, 65, 65, 0.721);
+  --steel-type: rgb(167, 167, 167);
+
+  --rock-bg: rgb(255, 235, 205);
+  --rock-shadow: rgba(255, 235, 205, 0.675);
+  --rock-type: chocolate;
+
+  --ghost-bg: #70559b;
+  --ghost-shadow: #70559b;
+  --ghost-type: darkorchid;
+
+  --electric-bg: rgb(255, 238, 107);
+  --electric-shadow: rgba(255, 231, 51, 0.725);
+  --electric-type: rgb(255, 255, 79);
+
+  --flying-bg: rgb(204, 211, 254);
+  --flying-shadow: rgba(204, 249, 254, 0.852);
+  --flying-type: rgb(185, 254, 254);
+
+  --dragon-bg: rgb(68, 124, 98);
+  --dragon-shadow: rgba(95, 158, 160, 0.764);
+  --dragon-type: greenyellow;
+
+  --fighting-bg: #c12239;
+  --fighting-shadow: rgba(215, 67, 67, 0.762);
+  --fighting-type: red;
+
+  --psychic-bg: #ff9bb7;
+  --psychic-shadow: rgba(255, 93, 161, 0.818);
+  --psychic-type: pink;
+
+  --poison-bg: rgb(139, 0, 139);
+  --poison-shadow: rgba(139, 0, 139, 0.745);
+  --poison-type: rgb(175, 8, 175);
+
+  --ice-bg: rgb(178, 247, 255);
+  --ice-shadow: rgba(131, 243, 255, 0.736);
+  --ice-type: rgb(45, 206, 214);
+
+  --fairy-bg: rgb(254, 161, 193);
+  --fairy-shadow: rgb(255, 150, 187);
+  --fairy-type: rgb(255, 150, 187);
 }
 
 @media (max-width: 1200px) {

@@ -9,7 +9,15 @@ const PokemonCard = ({ id, name, types, sprite }) => {
   }
 
   return (
-    <div className="pokemon-card" data-type={primaryType} onClick={handleCard}>
+    <div
+      className="pokemon-card"
+      data-type={primaryType}
+      onClick={handleCard}
+      style={{
+        backgroundColor: `var(--${primaryType}-bg)`,
+        boxShadow: `5px 5px 10px var(--${primaryType}-shadow)`,
+      }}
+    >
       <h2 className="pokemonName">
         {name.charAt(0).toUpperCase() + name.slice(1)}
         <p className="pokemonNumber">#{id}</p>

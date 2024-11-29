@@ -11,13 +11,13 @@ const PokeData = ({ selectedMode }) => {
   const fetchPokemons = async () => {
     try {
       const fetchedPokemon = [];
-      let endIndex = startIndex + 23;
+      let endIndex = startIndex + 19;
       let fetchStartIndex = startIndex;
       let fetchEndIndex = endIndex;
 
       if (selectedMode === "mega" || selectedMode === "mega-shiny") {
         fetchStartIndex = startIndexMega;
-        fetchEndIndex = fetchStartIndex + 23;
+        fetchEndIndex = fetchStartIndex + 19;
       }
 
       console.log("Selected mode:", selectedMode);
@@ -84,13 +84,13 @@ const PokeData = ({ selectedMode }) => {
   const handleNext = () => {
     if (selectedMode === "mega" || selectedMode === "mega-shiny") {
       // Mega Pokémon pagination
-      if (startIndexMega + 23 < 10278) {
-        setStartIndexMega(startIndexMega + 24);
+      if (startIndexMega + 19 < 10278) {
+        setStartIndexMega(startIndexMega + 20);
       }
     } else {
       // Default Pokémon pagination
-      if (startIndex + 23 < 1025) {
-        setStartIndex(startIndex + 24);
+      if (startIndex + 19 < 1025) {
+        setStartIndex(startIndex + 20);
       }
     }
   };
@@ -99,12 +99,12 @@ const PokeData = ({ selectedMode }) => {
     if (selectedMode === "mega" || selectedMode === "mega-shiny") {
       // Mega Pokémon pagination
       if (startIndexMega > 10001) {
-        setStartIndexMega(startIndexMega - 24);
+        setStartIndexMega(startIndexMega - 20);
       }
     } else {
       // Default Pokémon pagination
       if (startIndex > 1) {
-        setStartIndex(startIndex - 24);
+        setStartIndex(startIndex - 20);
       }
     }
   };
@@ -134,8 +134,8 @@ const PokeData = ({ selectedMode }) => {
           onClick={handleNext}
           disabled={
             selectedMode === "mega" || selectedMode === "mega-shiny"
-              ? startIndexMega + 25 >= 10278
-              : startIndex + 25 >= 1025
+              ? startIndexMega + 20 >= 10278
+              : startIndex + 20 >= 1025
           }
         >
           &#129170;

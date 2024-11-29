@@ -5,7 +5,13 @@
   top: 0;
   left: 0;
   z-index: -1;
-  background-image: url("../images/pokemon-app-background-9-copy.jpg");
+  background-image: url("../images/pokemon-app-background-4.jpg");
   background-size: cover;
   background-position: center;
+}
+
+@media (max-width: 700px) {
+  .changingBackground {
+    background-image: url("../images/pokemon-app-background-media-3.jpg");
+  }
 }

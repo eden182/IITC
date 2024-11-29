@@ -51,7 +51,7 @@ const PokeSearch = () => {
       <div className="pokeSearch">
         {hasSearched && searchQuery && pokemonView.length === 0 && (
           <p style={{ color: "red", marginBottom: "180px", fontSize: "50px" }}>
-            No Pokémon found for {searchQuery}
+            {/* No Pokémon found for {searchQuery} */}
           </p>
         )}
 

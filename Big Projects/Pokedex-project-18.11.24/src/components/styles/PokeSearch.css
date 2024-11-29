@@ -50,6 +50,7 @@
 
 @media (max-width: 1255px) {
   .shinyMew {
+    background-image: url("../images/pokemon-app-scoorbunny.jpg");
     position: relative;
     margin: 0;
   }
