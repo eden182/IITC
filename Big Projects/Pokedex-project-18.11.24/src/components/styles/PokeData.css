@@ -365,3 +365,26 @@
     margin-left: 20px;
   }
 }
+
+/* fonts-face */
+
+@font-face {
+  font-family: "arcadeclassic";
+  src: url("../font/arcadeclassic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Digitag";
+  src: url("../font/digitag.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Joystix";
+  src: url("../font/joystix.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}

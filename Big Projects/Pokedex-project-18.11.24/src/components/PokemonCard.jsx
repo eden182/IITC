@@ -5,7 +5,7 @@ const PokemonCard = ({ id, name, types, sprite }) => {
 
   const navigate = useNavigate();
   function handleCard() {
-    navigate("../cardDetails");
+    navigate(`../poke-details/${name}`);
   }
 
   return (

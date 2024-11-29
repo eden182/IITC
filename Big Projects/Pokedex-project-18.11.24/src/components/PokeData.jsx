@@ -124,7 +124,7 @@ const PokeData = ({ selectedMode }) => {
         >
           &#129168;
         </button>
-        <h1 className="hl">
+        <h1 className="hl" id="arcadeText">
           <span className="p"> P</span>okedex
           <div className="mew1"></div>
         </h1>

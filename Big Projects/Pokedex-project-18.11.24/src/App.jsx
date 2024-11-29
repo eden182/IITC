@@ -14,7 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/pokedex" element={<Pokedex />} />
-          <Route path="/CardDetails" element={<CardDetails />} />
+          <Route path="/poke-details/:name" element={<CardDetails />} />
           <Route path="/poke-search" element={<PokeSearch />} />
         </Routes>
       </BrowserRouter>
