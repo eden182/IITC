@@ -7,7 +7,7 @@
   margin: 20px auto;
   padding: 20px;
   width: 100%;
-  height: 500px;
+  height: 350px;
   max-width: 900px;
   border: 2px solid #eee;
   border-radius: 10px;
@@ -36,7 +36,7 @@
   width: 320px;
   height: 320px;
   object-fit: contain;
-  margin-bottom: -80px;
+  margin-bottom: -84px;
   z-index: 10;
 }
 
@@ -60,10 +60,14 @@
   border: 1px solid #555;
   box-shadow: 2px 2px 4px rgb(69, 69, 69);
   padding: 30px;
-  padding-top: 60px;
+  padding-top: 80px;
   border-radius: 30px 30px 0 0;
   overflow-x: hidden;
   overflow-y: visible;
+}
+
+.pokeAbout::-webkit-scrollbar {
+  display: none;
 }
 
 .backButton {
@@ -83,6 +87,8 @@
   padding-left: 50px;
   border-top: 0;
   border-bottom: 0;
+  font-weight: bold;
+  font-size: 23px;
 }
 
 .headButton:hover {
@@ -173,20 +179,44 @@ ul {
   list-style-type: none;
 }
 
-ul li {
-  padding-right: 20px;
-  cursor: default;
-  transition: transform 0.5s;
+.aboutPage.active#page4 ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  list-style: none;
+  padding-top: 50px;
+}
+.aboutPage#page4 li {
+  cursor: pointer;
   width: 100px;
+  font-weight: bold;
+  padding-bottom: 50px;
+}
+.aboutPage.active#page4 #p1:hover {
+  transform: scale(1.4);
+  background-color: #f5f5f5;
+  font-weight: bold;
+  padding: 5px;
+  border-radius: 15px;
+  margin-right: 20px;
+}
+.active-move {
+  color: var(--activeMoveColor);
+  font-weight: bold;
+  padding-bottom: 4px;
+  border-bottom: 1px solid black;
+}
+.move-details {
+  display: none;
+  font-size: 0.9em;
+  margin-top: 10px;
+  padding-left: 20px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
 }
 
-.card-details ul li:hover {
-  transform: scale(1.5);
-  background-color: #eee;
-  color: darkblue;
-  font-weight: bold;
-  padding: 6px;
-  border-radius: 15px;
+.active .move-details {
+  display: block;
 }
 
 .cryButton {
@@ -201,4 +231,12 @@ ul li {
 
 .cryButton:hover {
   background-color: #cecece;
+}
+
+.loadImg {
+  width: 450px;
+  height: 300px;
+  background-image: url("../images/pokemon-app-mew-two.jpg");
+  background-position: center;
+  background-size: cover;
 }
