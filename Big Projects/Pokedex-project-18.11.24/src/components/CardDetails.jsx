@@ -352,7 +352,7 @@ const CardDetails = () => {
               const statName =
                 statObject.stat?.name.toUpperCase() || "Unknown Stat";
               const statValue = statObject.base_stat || 0;
-              const normalizedStatValue = (statValue / 120) * 100;
+              const normalizedStatValue = (statValue / 100) * 100;
               const statColor = getStatColor(statValue);
               return (
                 <div
