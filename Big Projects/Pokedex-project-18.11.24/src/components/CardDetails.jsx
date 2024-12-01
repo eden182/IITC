@@ -74,6 +74,10 @@ const CardDetails = () => {
         setIsLegendary(speciesResponse.data.is_legendary || false);
         setIsMythical(speciesResponse.data.is_mythical || false);
 
+        // Fetch cry sound from 'cries' object in the species data
+        const cryUrl = response.data.cries?.latest || null;
+        setCryUrl(cryUrl); // Set the cry URL state
+
         // Fetch Evolution Chain
         const evolutionChainUrl = speciesResponse.data.evolution_chain.url;
         const evolutionChainResponse = await axios.get(evolutionChainUrl);
