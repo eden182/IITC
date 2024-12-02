@@ -36,7 +36,7 @@
   width: 320px;
   height: 320px;
   object-fit: contain;
-  margin-bottom: -84px;
+  margin-bottom: -60px;
   z-index: 10;
 }
 
@@ -125,13 +125,13 @@
     left: -10px;
   }
 }
-@media (max-width: 786px) {
+@media (max-width: 1056px) {
   .headButton {
     padding-right: 20px;
     padding-left: 20px;
   }
 }
-@media (max-width: 650px) {
+@media (max-width: 655px) {
   .img2shiny {
     display: none;
   }

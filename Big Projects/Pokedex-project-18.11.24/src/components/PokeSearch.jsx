@@ -54,7 +54,6 @@ const PokeSearch = () => {
             No Pokémon found for {searchQuery}
           </p>
         )}
-
         {pokemonView.map((pokemon) => (
           <PokemonCard
             key={pokemon.id}

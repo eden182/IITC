@@ -13,6 +13,7 @@ const CardDetails = () => {
 
   // hooks
   const [pokemon, setPokemon] = useState(null);
+  const [generation, setGeneration] = useState("");
   const [genderRate, setGenderRate] = useState(null);
   const [eggGroups, setEggGroups] = useState([]);
   const [hatchCounter, setHatchCounter] = useState(null);
@@ -74,7 +75,8 @@ const CardDetails = () => {
 
         console.log("Species Response:", speciesResponse.data); // Log for debugging
 
-        // Set the legendary and mythical status from species data
+        setGeneration(speciesResponse.data.generation.name);
+
         setIsLegendary(speciesResponse.data.is_legendary || false);
         setIsMythical(speciesResponse.data.is_mythical || false);
 
@@ -308,10 +310,16 @@ const CardDetails = () => {
             Species: <b>{pokemon.species?.name}</b>
           </p>
           <p>
-            Height: <b>{pokemon.height}</b>
+            Base-xp: <b>{pokemon.base_experience}</b>
           </p>
           <p>
-            Weight: <b>{pokemon.weight}</b>
+            Gen: <b>{generation}</b>
+          </p>
+          <p>
+            Height: <b>{pokemon.height} c"m</b>
+          </p>
+          <p>
+            Weight: <b>{pokemon.weight} g</b>
           </p>
           <p>
             Abilities:

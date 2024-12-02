@@ -1,34 +1,42 @@
+import { useNavigate, useLocation } from "react-router-dom";
 import "./styles/Header.css";
-import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const navigate = useNavigate();
+  const location = useLocation(); // Get current route
+  const currentRoute = location.pathname; // Extract the current path
 
-  function handleHome() {
-    navigate("../");
-  }
-
-  function handleSearch() {
-    navigate("../poke-search");
-  }
-
-  function handlePokedex() {
-    navigate("../pokedex");
+  function handleNavigation(path) {
+    navigate(path); // Navigate to the specified path
   }
 
   return (
     <header>
       <div className="navButtonsCon">
-        <span className="navButton" onClick={handleHome}>
+        <span
+          className={`navButton ${currentRoute === "/" ? "active" : ""}`}
+          onClick={() => handleNavigation("/")}
+        >
           Home
         </span>
-        <span className="navButton" onClick={handlePokedex}>
+        <span
+          className={`navButton ${currentRoute === "/pokedex" ? "active" : ""}`}
+          onClick={() => handleNavigation("/pokedex")}
+        >
           Pokedex
         </span>
-        <span className="navButton" onClick={handleSearch}>
-          search
+        <span
+          className={`navButton ${
+            currentRoute === "/poke-search" ? "active" : ""
+          }`}
+          onClick={() => handleNavigation("/poke-search")}
+        >
+          Search
         </span>
-        <span className="navButton" id="but4">
+        <span
+          className={`navButton ${currentRoute === "/more" ? "active" : ""}`}
+          onClick={() => handleNavigation("/more")}
+        >
           More
         </span>
       </div>

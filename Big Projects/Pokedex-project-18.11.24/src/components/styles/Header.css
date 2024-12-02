@@ -78,8 +78,8 @@ header::-webkit-scrollbar {
 }
 
 .navButton {
-  color: rgb(229, 25, 25);
-  border-right: 3px solid rgba(73, 7, 7, 0.999);
+  color: black;
+  border-right: 3px solid rgba(64, 31, 31, 0.838);
   font-size: 32px;
   padding-right: 10px;
   padding-left: 10px;
@@ -87,7 +87,12 @@ header::-webkit-scrollbar {
 }
 
 .navButton:hover {
-  background-color: rgba(237, 237, 237, 0.581);
+  background-color: rgba(228, 228, 228, 0.581);
+}
+
+.navButton.active {
+  color: rgb(81, 203, 255);
+  background-color: rgba(243, 243, 243, 0.872);
 }
 
 .navButtonsCon {
@@ -98,10 +103,6 @@ header::-webkit-scrollbar {
   position: absolute;
   top: 0;
   left: 220px;
-}
-
-#but4 {
-  color: rgb(248, 217, 228);
 }
 
 @media (max-width: 775px) {

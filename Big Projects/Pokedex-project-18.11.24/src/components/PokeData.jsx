@@ -131,7 +131,7 @@ const PokeData = ({ selectedMode }) => {
       setStartIndex(newStartIndex);
     }
 
-    setCurrentPage(page); // Update the current page
+    setCurrentPage(page);
   };
 
   const navigateToDetails = (id) => {
