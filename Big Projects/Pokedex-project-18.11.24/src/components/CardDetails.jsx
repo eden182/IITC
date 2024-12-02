@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 
 // import Components
 import "./styles/CardDetails.css";
 import "./styles/PokeData.css";
-import Menu from "./Menu";
+// import Menu from "./Menu";
 
 const CardDetails = () => {
   const { name } = useParams();
-  const navigate = useNavigate();
 
   // hooks
   const [pokemon, setPokemon] = useState(null);
@@ -27,9 +26,14 @@ const CardDetails = () => {
   const [isMythical, setIsMythical] = useState(false);
   const [evolutionChain, setEvolutionChain] = useState([]);
 
+  const location = useLocation();
+  const isEevee = name.toLowerCase() === "eevee";
+  const navigate = useNavigate();
+
+  const { selectedMode } = location.state || {};
   // functions
   function handleBackToPage() {
-    navigate("../pokedex");
+    navigate(-1, { state: { selectedMode } });
   }
 
   const handlePageChange = (pageId) => {
@@ -159,9 +163,6 @@ const CardDetails = () => {
 
   const primaryType = pokemon.types[0].type.name;
 
-  // Find the max base stat for scaling the bars
-  const maxStatValue = Math.max(...baseStats.map((stat) => stat.base_stat));
-
   const getStatColor = (statValue) => {
     if (statValue >= 85) {
       return "#33cc33"; // Green for high stats
@@ -229,7 +230,7 @@ const CardDetails = () => {
           ))}
           {/* Play Cry Button */}
           <button className="cryButton" onClick={playCry}>
-            Play Cry
+            Play Cry <div className="soundImg"></div>
           </button>
         </div>
         <div>
@@ -366,7 +367,13 @@ const CardDetails = () => {
                   <p style={{ marginRight: "30px", width: "60px" }}>
                     {statName}
                   </p>
-                  <p style={{ marginRight: "30px", width: "40px" }}>
+                  <p
+                    style={{
+                      marginRight: "30px",
+                      width: "40px",
+                      fontWeight: "bold",
+                    }}
+                  >
                     {statValue}
                   </p>
                   <div
@@ -398,15 +405,17 @@ const CardDetails = () => {
           id="page3"
         >
           <div
+            className="evolutionCon"
             style={{
               display: "flex",
-              justifyContent: "center",
+              justifyContent: isEevee ? "flex-start" : "center",
               alignItems: "center",
+              overflowX: "scroll",
             }}
           >
             {evolutionChain.length > 0 ? (
               evolutionChain.map((evolution, index) => {
-                const evolutionId = evolution.url.split("/")[6]; // The ID is the 6th part of the URL
+                const evolutionId = evolution.url.split("/")[6];
                 return (
                   <div
                     key={index}
@@ -428,8 +437,12 @@ const CardDetails = () => {
                         {evolution.name}
                       </p>
                       <img
-                        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${evolutionId}.png`}
+                        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${evolutionId}.svg`}
                         alt={evolution.name}
+                        onError={(e) => {
+                          e.target.onerror = null; // Prevent infinite loop
+                          e.target.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${evolutionId}.png`; // Fallback image
+                        }}
                         style={{
                           width: "80px",
                           height: "80px",
@@ -475,13 +488,10 @@ const CardDetails = () => {
                   moveDetails[move.move.name] && (
                     <div style={{ fontSize: "0.9em" }}>
                       <p>
-                        Accuracy:{" "}
-                        {moveDetails[move.move.name].accuracy || "Unknown"}
+                        Accuracy: {moveDetails[move.move.name].accuracy || "0"}
                       </p>
-                      <p>
-                        Power: {moveDetails[move.move.name].power || "Unknown"}
-                      </p>
-                      <p>PP: {moveDetails[move.move.name].pp || "Unknown"}</p>
+                      <p>Power: {moveDetails[move.move.name].power || "0"}</p>
+                      <p>PP: {moveDetails[move.move.name].pp || "0"}</p>
                     </div>
                   )}
               </li>

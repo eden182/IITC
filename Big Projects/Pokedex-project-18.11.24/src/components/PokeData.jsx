@@ -1,26 +1,42 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import PokemonCard from "./PokemonCard.jsx";
 import "./styles/PokeData.css";
 
 const PokeData = ({ selectedMode }) => {
   const [pokemonList, setPokemonList] = useState([]);
-  const [startIndex, setStartIndex] = useState(1);
-  const [startIndexMega, setStartIndexMega] = useState(10001);
+  const [startIndex, setStartIndex] = useState(
+    () => parseInt(localStorage.getItem("startIndex")) || 1
+  );
+  const [startIndexMega, setStartIndexMega] = useState(
+    () => parseInt(localStorage.getItem("startIndexMega")) || 10001
+  );
+  const [currentPage, setCurrentPage] = useState(
+    () => parseInt(localStorage.getItem("currentPage")) || 1
+  );
+  const [totalPages, setTotalPages] = useState(51);
+  const itemsPerPage = 20;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Save startIndex and currentPage to localStorage
+    localStorage.setItem("startIndex", startIndex);
+    localStorage.setItem("startIndexMega", startIndexMega);
+    localStorage.setItem("currentPage", currentPage);
+  }, [startIndex, startIndexMega, currentPage]);
 
   const fetchPokemons = async () => {
     try {
       const fetchedPokemon = [];
-      let endIndex = startIndex + 19;
       let fetchStartIndex = startIndex;
-      let fetchEndIndex = endIndex;
+      let fetchEndIndex = startIndex + itemsPerPage - 1;
 
+      // Adjust for Mega Pokémon
       if (selectedMode === "mega" || selectedMode === "mega-shiny") {
         fetchStartIndex = startIndexMega;
-        fetchEndIndex = fetchStartIndex + 19;
+        fetchEndIndex = fetchStartIndex + itemsPerPage - 1;
       }
-
-      console.log("Selected mode:", selectedMode);
 
       for (let i = fetchStartIndex; i <= fetchEndIndex; i++) {
         const response = await axios.get(
@@ -33,14 +49,13 @@ const PokeData = ({ selectedMode }) => {
           data.sprites?.front_default;
 
         if (selectedMode === "mega") {
-          spriteUrl = data.sprites?.other?.showdown?.front_default || spriteUrl;
+          spriteUrl = data.sprites?.other?.mega?.front_default || spriteUrl;
         }
 
         if (selectedMode === "mega-shiny") {
           spriteUrl =
+            data.sprites?.other?.mega?.front_shiny ||
             data.sprites?.other?.showdown?.front_shiny ||
-            data.sprites?.versions?.["generation-v"]?.["black-white"]?.animated
-              ?.front_shiny ||
             spriteUrl;
         }
 
@@ -57,20 +72,15 @@ const PokeData = ({ selectedMode }) => {
         }
 
         if (!spriteUrl) {
-          console.log("No sprite found for Pokémon:", data.name);
+          spriteUrl = data.sprites?.front_default || "default-sprite-url";
         }
 
-        console.log("Fetched Pokémon data:", data.name);
         fetchedPokemon.push({
           ...data,
-          sprite: spriteUrl, // Add sprite URL to the Pokémon data
+          sprite: spriteUrl,
         });
       }
 
-      console.log(
-        "Final Pokémon list:",
-        fetchedPokemon.map((p) => p.name)
-      );
       setPokemonList(fetchedPokemon);
     } catch (error) {
       console.error("Error fetching Pokémon data:", error);
@@ -79,70 +89,97 @@ const PokeData = ({ selectedMode }) => {
 
   useEffect(() => {
     fetchPokemons();
-  }, [startIndex, startIndexMega, selectedMode]); // Watch for changes in both startIndex
+  }, [startIndex, startIndexMega, selectedMode]);
 
-  const handleNext = () => {
+  useEffect(() => {
+    // Adjust total pages based on selected mode
     if (selectedMode === "mega" || selectedMode === "mega-shiny") {
-      // Mega Pokémon pagination
-      if (startIndexMega + 19 < 10278) {
-        setStartIndexMega(startIndexMega + 20);
-      }
+      setTotalPages(13); // Mega 13 mode
     } else {
-      // Default Pokémon pagination
-      if (startIndex + 19 < 1025) {
-        setStartIndex(startIndex + 20);
-      }
+      setTotalPages(51); // Default mode
     }
+  }, [selectedMode]);
+
+  const renderPageButtons = () => {
+    const startPage = Math.floor((currentPage - 1) / 10) * 10 + 1;
+    const endPage = Math.min(startPage + 9, totalPages);
+
+    const buttons = [];
+    for (let i = startPage; i <= endPage; i++) {
+      buttons.push(
+        <button
+          key={i}
+          className={`pageButton ${i === currentPage ? "active" : ""}`}
+          onClick={() => handlePageChange(i)}
+        >
+          {i}
+        </button>
+      );
+    }
+    return buttons;
   };
 
-  const handleBack = () => {
+  const handlePageChange = (page) => {
+    const newStartIndex =
+      selectedMode === "mega" || selectedMode === "mega-shiny"
+        ? 10001 + (page - 1) * itemsPerPage
+        : (page - 1) * itemsPerPage + 1;
+
     if (selectedMode === "mega" || selectedMode === "mega-shiny") {
-      // Mega Pokémon pagination
-      if (startIndexMega > 10001) {
-        setStartIndexMega(startIndexMega - 20);
-      }
+      setStartIndexMega(newStartIndex);
     } else {
-      // Default Pokémon pagination
-      if (startIndex > 1) {
-        setStartIndex(startIndex - 20);
-      }
+      setStartIndex(newStartIndex);
     }
+
+    setCurrentPage(page); // Update the current page
+  };
+
+  const navigateToDetails = (id) => {
+    navigate(`/pokedetails/${id}`, {
+      state: {
+        startIndex,
+        startIndexMega,
+        selectedMode,
+      },
+    });
   };
 
   return (
     <>
       <div style={{ display: "flex" }}>
-        <button
-          className="moveBut"
-          id="backBut"
-          onClick={handleBack}
-          disabled={
-            selectedMode === "mega" || selectedMode === "mega-shiny"
-              ? startIndexMega === 10001
-              : startIndex === 1
-          }
-        >
-          &#129168;
-        </button>
         <h1 className="hl" id="arcadeText">
           <span className="p"> P</span>okedex
           <div className="mew1"></div>
         </h1>
-        <button
-          className="moveBut"
-          id="nextBut"
-          onClick={handleNext}
-          disabled={
-            selectedMode === "mega" || selectedMode === "mega-shiny"
-              ? startIndexMega + 20 >= 10278
-              : startIndex + 20 >= 1025
-          }
-        >
-          &#129170;
-        </button>
+      </div>
+      <div className="pageButtonsContainer" style={{ textAlign: "center" }}>
+        {currentPage > 10 && (
+          <button
+            className="movingPageButton"
+            onClick={() => handlePageChange(currentPage - 10)}
+          >
+            &#129168; Prev 10
+          </button>
+        )}
+        {renderPageButtons()}
+        {currentPage + 10 <= totalPages && (
+          <button
+            className="movingPageButton"
+            onClick={() => handlePageChange(currentPage + 10)}
+          >
+            Next 10 &#129170;
+          </button>
+        )}
       </div>
       <div className="pokeCon">
-        {pokemonList.length === 0 && <p>No Pokémon found.</p>}
+        {pokemonList.length === 0 && (
+          <div>
+            <p style={{ fontSize: "32px", color: "blue" }}>
+              <b>Loading Pokemons...</b>
+            </p>
+            <div className="loadingMew"></div>
+          </div>
+        )}
         {pokemonList.map((pokemon) => (
           <PokemonCard
             key={pokemon.id}
@@ -150,6 +187,7 @@ const PokeData = ({ selectedMode }) => {
             name={pokemon.name}
             types={pokemon.types}
             sprite={pokemon.sprite}
+            onClick={() => navigateToDetails(pokemon.id, pokemon.name)}
           />
         ))}
       </div>

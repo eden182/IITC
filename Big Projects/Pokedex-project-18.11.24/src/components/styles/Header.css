@@ -25,20 +25,20 @@ header::-webkit-scrollbar {
   cursor: pointer;
   position: fixed;
   top: 40px;
-  right: 40px;
+  right: 20px;
 }
 
 .menuOpen {
   width: 120px;
   height: auto;
   background-color: rgb(240, 240, 240);
-  color: orangered;
-  border: 5px solid black;
+  color: rgb(229, 25, 25);
+  border: 2px solid black;
   border-radius: 20px;
   position: absolute;
   font-weight: bolder;
   top: 62px;
-  right: -5px;
+  right: -20px;
   display: none;
   transition: all 0.3s ease;
   cursor: default;
@@ -117,10 +117,23 @@ header::-webkit-scrollbar {
     display: flex;
     left: 0;
   }
+
+  .menu {
+    top: 20px;
+  }
 }
 
 @media (max-width: 425px) {
   .menu {
     top: 60px;
+    left: 10px;
+  }
+
+  .menuOpen {
+    left: -5px;
+  }
+
+  .navButton {
+    font-size: 20px;
   }
 }

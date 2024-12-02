@@ -9,8 +9,8 @@ const Menu = ({ onSelectMode }) => {
   };
 
   const handleSelectMode = (mode) => {
-    onSelectMode(mode);
-    setIsMenuOpen(false); // Close menu after selecting
+    onSelectMode(mode); // Call the parent's function to update the mode
+    setIsMenuOpen(false); // Close the menu after selecting a mode
   };
 
   return (
@@ -18,19 +18,55 @@ const Menu = ({ onSelectMode }) => {
       <div className="menu" onClick={openMenu}>
         <div className={`menuOpen ${isMenuOpen ? "active" : ""}`}>
           <ul>
-            <li onClick={() => handleSelectMode("default")}>Default</li>
-            <li onClick={() => handleSelectMode("back")}>Back</li>
-            <li onClick={() => handleSelectMode("shiny")}>Shiny ✨</li>
-            <li onClick={() => handleSelectMode("shiny-back")}>
+            <li
+              onClick={(e) => {
+                e.stopPropagation();
+                handleSelectMode("default");
+              }}
+            >
+              Default
+            </li>
+            <li
+              onClick={(e) => {
+                e.stopPropagation();
+                handleSelectMode("back");
+              }}
+            >
+              Back
+            </li>
+            <li
+              onClick={(e) => {
+                e.stopPropagation();
+                handleSelectMode("shiny");
+              }}
+            >
+              Shiny ✨
+            </li>
+            <li
+              onClick={(e) => {
+                e.stopPropagation();
+                handleSelectMode("shiny-back");
+              }}
+            >
               Shiny <br /> Back ✨
             </li>
-            <li onClick={() => handleSelectMode("mega")}>
-              Next gen
-              <br />
-              (Mega / <br /> Alolan)
+            <li
+              onClick={(e) => {
+                e.stopPropagation();
+                handleSelectMode("mega");
+              }}
+            >
+              Other + evolve
             </li>
-            <li id="lastLi" onClick={() => handleSelectMode("mega-shiny")}>
-              Next gen <br />
+            <li
+              id="lastLi"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleSelectMode("mega-shiny");
+              }}
+            >
+              Other + evolve
+              <br />
               Shiny ✨
             </li>
           </ul>

@@ -1,18 +1,26 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+
 const PokemonCard = ({ id, name, types, sprite }) => {
   const primaryType = types[0]?.type.name;
-
   const navigate = useNavigate();
+  const location = useLocation(); // Access current route state
+
   function handleCard() {
-    navigate(`../poke-details/${name}`);
+    // Pass the current state to the details route
+    navigate(`../poke-details/${name}`, {
+      state: {
+        ...location.state, // Preserve current state (startIndex, etc.)
+        activePokemonId: id, // Save the current Pokemon's ID
+      },
+    });
   }
 
   return (
     <div
+      onClick={handleCard}
       className="pokemon-card"
       data-type={primaryType}
-      onClick={handleCard}
       style={{
         backgroundColor: `var(--${primaryType}-bg)`,
         boxShadow: `5px 5px 10px var(--${primaryType}-shadow)`,

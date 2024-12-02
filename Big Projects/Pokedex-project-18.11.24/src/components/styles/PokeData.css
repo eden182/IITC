@@ -64,6 +64,14 @@ body {
   background-repeat: no-repeat;
 }
 
+.loadingMew {
+  width: 200px;
+  height: 250px;
+  background-image: url(../images/pokemon-app-mew-4-noBack.png);
+  background-size: cover;
+  background-position: center;
+}
+
 .pokemon-card {
   width: 265px;
   height: 170px;
@@ -81,6 +89,47 @@ body {
 
 .pokemon-card:hover {
   transform: scale(1.1);
+}
+
+.pageButton {
+  padding: 5px 10px;
+  margin: 0 5px;
+  color: whitesmoke;
+  background-color: rgb(40, 40, 40);
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.movingPageButton {
+  border-radius: 10px;
+  padding: 5px 10px;
+  margin: 0 5px;
+  color: black;
+  background-color: whitesmoke;
+  cursor: pointer;
+  border: 0.5px solid rgb(77, 77, 77);
+  transition: transform 0.2s;
+}
+
+.movingPageButton:hover {
+  background-color: rgb(206, 206, 206);
+  transform: scale(1.09);
+}
+
+.pageButton:hover {
+  color: black;
+  background-color: #e1e1e1;
+}
+
+.pageButton.active {
+  background-color: #6bb2ff;
+  color: white;
+  font-weight: bold;
+}
+
+.pageButtonsContainer {
+  margin: 20px 0;
 }
 
 .pokemonSprite {
@@ -145,29 +194,6 @@ body {
   color: #fff;
   font-size: 0.7rem;
   text-transform: uppercase;
-}
-
-.moveBut {
-  height: 60px;
-  width: 60px;
-  font-size: 42px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid black;
-  background-color: #f2f2f2aa;
-  cursor: pointer;
-  margin-top: 160px;
-  margin-left: 90px;
-}
-#nextBut {
-  position: relative;
-  right: 0px;
-}
-#backBut {
-  position: relative;
-  left: 0px;
 }
 
 /* pokemon types colors */
@@ -348,9 +374,15 @@ body {
   }
 }
 
+@media (max-width: 500px) {
+  .movingPageButton {
+    margin-top: 10px;
+  }
+}
+
 @media (max-width: 420px) {
   .pokeCon {
-    margin-left: 80px;
+    margin-left: 42px;
   }
 
   .hl {
@@ -362,6 +394,10 @@ body {
     width: 100px;
     height: 50px;
     margin-left: 20px;
+  }
+
+  .pageButton {
+    padding: 2px 4px;
   }
 }
 
