@@ -323,7 +323,7 @@ const CardDetails = () => {
             Height: <b>{pokemon.height} c"m</b>
           </p>
           <p>
-            Weight: <b>{pokemon.weight} g</b>
+            Weight: <b>{pokemon.weight} k"g</b>
           </p>
           <p>
             Abilities:
