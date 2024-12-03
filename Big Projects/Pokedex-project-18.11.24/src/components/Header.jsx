@@ -35,7 +35,7 @@ const Header = () => {
         </span>
         <span
           className={`navButton ${currentRoute === "/more" ? "active" : ""}`}
-          onClick={() => handleNavigation("/more")}
+          // onClick={() => handleNavigation("/more")}
         >
           More
         </span>
