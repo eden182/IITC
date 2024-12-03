@@ -75,7 +75,7 @@
   transition: transform 0.5s;
 }
 .backButton:hover {
-  transform: scale(1.9);
+  transform: scale(1.6);
 }
 
 .headButton {
@@ -139,7 +139,7 @@
 
   .card-details {
     padding-bottom: 120px;
-    top: 0px;
+    margin-top: -20px;
   }
 
   .card-details img {
@@ -153,6 +153,11 @@
     height: 100%;
     margin-left: 26px;
     margin-bottom: -100px;
+  }
+
+  .backButton {
+    margin-top: -35px;
+    margin-left: -25px;
   }
 }
 
