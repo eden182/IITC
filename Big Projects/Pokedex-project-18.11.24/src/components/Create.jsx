@@ -129,6 +129,7 @@ const CreatePokemon = () => {
             value={pokemonData.stats.hp}
             onChange={handleStatsChange}
           />
+          <br />
           <label>Attack:</label>
           <input
             type="number"
@@ -136,6 +137,7 @@ const CreatePokemon = () => {
             value={pokemonData.stats.attack}
             onChange={handleStatsChange}
           />
+          <br />
           <label>Defense:</label>
           <input
             type="number"
