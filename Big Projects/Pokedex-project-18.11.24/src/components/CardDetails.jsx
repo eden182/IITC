@@ -320,10 +320,10 @@ const CardDetails = () => {
             Gen: <b>{generation}</b>
           </p>
           <p>
-            Height: <b>{pokemon.height} c"m</b>
+            Height: <b>{pokemon.height} feet</b>
           </p>
           <p>
-            Weight: <b>{pokemon.weight} k"g</b>
+            Weight: <b>{pokemon.weight} ibs</b>
           </p>
           <p>
             Abilities:
