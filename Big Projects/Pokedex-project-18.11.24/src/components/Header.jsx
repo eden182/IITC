@@ -3,11 +3,11 @@ import "./styles/Header.css";
 
 const Header = () => {
   const navigate = useNavigate();
-  const location = useLocation(); // Get current route
-  const currentRoute = location.pathname; // Extract the current path
+  const location = useLocation();
+  const currentRoute = location.pathname;
 
   function handleNavigation(path) {
-    navigate(path); // Navigate to the specified path
+    navigate(path);
   }
 
   return (

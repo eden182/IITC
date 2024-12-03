@@ -10,7 +10,7 @@ const PokemonCard = ({ id, name, types, sprite }) => {
     navigate(`../poke-details/${name}`, {
       state: {
         ...location.state,
-        activePokemonId: id, // Save the current Pokemon's ID
+        activePokemonId: id,
       },
     });
   }

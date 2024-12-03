@@ -31,6 +31,7 @@ const CardDetails = () => {
   const isEevee = name.toLowerCase() === "eevee";
   const navigate = useNavigate();
 
+  // page remembering
   const { selectedMode } = location.state || {};
   // functions
   function handleBackToPage() {
@@ -63,6 +64,7 @@ const CardDetails = () => {
     }
   };
 
+  // axios fetch for default and species Urls
   useEffect(() => {
     const fetchPokemonDetails = async () => {
       try {
@@ -70,7 +72,7 @@ const CardDetails = () => {
         const response = await axios.get(
           `https://pokeapi.co/api/v2/pokemon/${name}`
         );
-        // Fetch the species data (from the Pokémon species URL in the response)
+        // Fetch the species data Url
         const speciesResponse = await axios.get(response.data.species.url);
 
         console.log("Species Response:", speciesResponse.data); // Log for debugging
@@ -80,7 +82,7 @@ const CardDetails = () => {
         setIsLegendary(speciesResponse.data.is_legendary || false);
         setIsMythical(speciesResponse.data.is_mythical || false);
 
-        // Fetch cry sound from 'cries' object in the species data
+        // Fetch cry sound
         const cryUrl = response.data.cries?.latest || null;
         setCryUrl(cryUrl); // Set the cry URL state
 
@@ -99,7 +101,6 @@ const CardDetails = () => {
               url: chain.species.url,
             };
             evolutions.push(evolution);
-
             if (chain.evolves_to.length > 0) {
               chain.evolves_to.forEach((evolution) => {
                 traverseEvolutionChain(evolution);
@@ -107,10 +108,9 @@ const CardDetails = () => {
             }
           }
         };
-
+        // Set states for data
         traverseEvolutionChain(chain);
         setEvolutionChain(evolutions);
-
         // Set the rest of the Pokémon details
         setPokemon(response.data);
         setGenderRate(speciesResponse.data.gender_rate);
@@ -128,6 +128,7 @@ const CardDetails = () => {
     fetchPokemonDetails();
   }, [name]);
 
+  // axios fetch for moves
   const fetchMoveDetails = async (moveUrl, moveName) => {
     try {
       const response = await axios.get(moveUrl);
@@ -144,6 +145,7 @@ const CardDetails = () => {
     }
   };
 
+  // Loading
   if (!pokemon)
     return (
       <div
@@ -163,8 +165,10 @@ const CardDetails = () => {
       </div>
     );
 
+  // Primary type for coloring
   const primaryType = pokemon.types[0].type.name;
 
+  // stats coloring
   const getStatColor = (statValue) => {
     if (statValue >= 85) {
       return "#33cc33"; // Green for high stats
@@ -230,13 +234,12 @@ const CardDetails = () => {
               {type.type.name.toUpperCase()}
             </span>
           ))}
-          {/* Play Cry Button */}
           <button className="cryButton" onClick={playCry}>
             Play Cry <div className="soundImg"></div>
           </button>
         </div>
         <div>
-          {/* image */}
+          {/* images */}
           <img
             src={
               pokemon.sprites?.other?.["official-artwork"]?.front_default ||
@@ -244,7 +247,6 @@ const CardDetails = () => {
             }
             alt={pokemon.name}
           />
-          {/* shiny desktop only */}
           <img
             src={
               pokemon.sprites?.other?.["official-artwork"]?.front_shiny ||
@@ -255,8 +257,9 @@ const CardDetails = () => {
           />
         </div>
       </div>
-      {/* about details */}
+      {/* about details pages */}
       <div className="pokeAbout">
+        {/* header buttons */}
         <div
           className="aboutHeader"
           style={{
@@ -292,6 +295,7 @@ const CardDetails = () => {
             Moves
           </button>
         </div>
+        {/* page 1 */}
         <div
           className={`aboutPage ${activePage === "page1" ? "active" : ""}`}
           id="page1"
@@ -351,6 +355,7 @@ const CardDetails = () => {
             Hatch Counter: <b>{hatchCounter}</b>
           </p>
         </div>
+        {/* page 2 */}
         <div
           className={`aboutPage ${activePage === "page2" ? "active" : ""}`}
           id="page2"
@@ -408,6 +413,7 @@ const CardDetails = () => {
             })}
           </div>
         </div>
+        {/* page 3 */}
         <div
           className={`aboutPage ${activePage === "page3" ? "active" : ""}`}
           id="page3"
@@ -467,6 +473,7 @@ const CardDetails = () => {
             )}
           </div>
         </div>
+        {/* page 4 */}
         <div
           className={`aboutPage ${activePage === "page4" ? "active" : ""}`}
           id="page4"

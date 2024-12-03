@@ -6,6 +6,7 @@ import "./styles/PokeData.css";
 
 const PokeData = ({ selectedMode }) => {
   const [pokemonList, setPokemonList] = useState([]);
+  // for page remembering
   const [startIndex, setStartIndex] = useState(
     () => parseInt(localStorage.getItem("startIndex")) || 1
   );
@@ -16,9 +17,10 @@ const PokeData = ({ selectedMode }) => {
     () => parseInt(localStorage.getItem("currentPage")) || 1
   );
   const [totalPages, setTotalPages] = useState(51);
+  // for pokemon cards
   const itemsPerPage = 20;
   const navigate = useNavigate();
-
+  // for mega
   useEffect(() => {
     // Save startIndex and currentPage to localStorage
     localStorage.setItem("startIndex", startIndex);
@@ -26,6 +28,7 @@ const PokeData = ({ selectedMode }) => {
     localStorage.setItem("currentPage", currentPage);
   }, [startIndex, startIndexMega, currentPage]);
 
+  // axios fetch Sprite
   const fetchPokemons = async () => {
     try {
       const fetchedPokemon = [];
@@ -91,6 +94,7 @@ const PokeData = ({ selectedMode }) => {
     fetchPokemons();
   }, [startIndex, startIndexMega, selectedMode]);
 
+  // menu modes
   useEffect(() => {
     // Adjust total pages based on selected mode
     if (selectedMode === "mega" || selectedMode === "mega-shiny") {
@@ -101,21 +105,38 @@ const PokeData = ({ selectedMode }) => {
   }, [selectedMode]);
 
   const renderPageButtons = () => {
-    const startPage = Math.floor((currentPage - 1) / 10) * 10 + 1;
-    const endPage = Math.min(startPage + 9, totalPages);
-
     const buttons = [];
-    for (let i = startPage; i <= endPage; i++) {
+    // Show up to 3 buttons: previous, current, next
+    if (currentPage > 1) {
       buttons.push(
         <button
-          key={i}
-          className={`pageButton ${i === currentPage ? "active" : ""}`}
-          onClick={() => handlePageChange(i)}
+          key={currentPage - 1}
+          className="pageButton"
+          onClick={() => handlePageChange(currentPage - 1)}
         >
-          {i}
+          {currentPage - 1}
         </button>
       );
     }
+
+    buttons.push(
+      <button key={currentPage} className="pageButton active">
+        {currentPage}
+      </button>
+    );
+
+    if (currentPage < totalPages) {
+      buttons.push(
+        <button
+          key={currentPage + 1}
+          className="pageButton"
+          onClick={() => handlePageChange(currentPage + 1)}
+        >
+          {currentPage + 1}
+        </button>
+      );
+    }
+
     return buttons;
   };
 
@@ -153,6 +174,7 @@ const PokeData = ({ selectedMode }) => {
         </h1>
       </div>
       <div className="pageButtonsContainer" style={{ textAlign: "center" }}>
+        {" "}
         {currentPage > 10 && (
           <button
             className="movingPageButton"
@@ -162,6 +184,7 @@ const PokeData = ({ selectedMode }) => {
           </button>
         )}
         {renderPageButtons()}
+        ...
         {currentPage + 10 <= totalPages && (
           <button
             className="movingPageButton"

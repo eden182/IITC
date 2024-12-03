@@ -1,5 +1,13 @@
+import React, { useState } from "react";
+import {
+  Modal,
+  Box,
+  Typography,
+  List,
+  ListItem,
+  ListItemText,
+} from "@mui/material";
 import "./styles/Header.css";
-import { useState } from "react";
 
 const Menu = ({ onSelectMode }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -9,69 +17,66 @@ const Menu = ({ onSelectMode }) => {
   };
 
   const handleSelectMode = (mode) => {
-    onSelectMode(mode); // Call the parent's function to update the mode
-    setIsMenuOpen(false); // Close the menu after selecting a mode
+    onSelectMode(mode);
+    setIsMenuOpen(false); // Close the modal after selecting
+  };
+
+  const modalStyle = {
+    position: "absolute",
+    top: "46%",
+    right: "-50px",
+    transform: "translate(-50%, -50%)",
+    width: "100px",
+    bgcolor: "background.paper",
+    borderRadius: "10px",
+    boxShadow: 24,
+    p: 3,
   };
 
   return (
     <div>
       <div className="menu" onClick={openMenu}>
-        <div className={`menuOpen ${isMenuOpen ? "active" : ""}`}>
-          <ul>
-            <li
-              onClick={(e) => {
-                e.stopPropagation();
-                handleSelectMode("default");
-              }}
-            >
-              Default
-            </li>
-            <li
-              onClick={(e) => {
-                e.stopPropagation();
-                handleSelectMode("back");
-              }}
-            >
-              Back
-            </li>
-            <li
-              onClick={(e) => {
-                e.stopPropagation();
-                handleSelectMode("shiny");
-              }}
-            >
-              Shiny ✨
-            </li>
-            <li
-              onClick={(e) => {
-                e.stopPropagation();
-                handleSelectMode("shiny-back");
-              }}
-            >
-              Shiny <br /> Back ✨
-            </li>
-            <li
-              onClick={(e) => {
-                e.stopPropagation();
-                handleSelectMode("mega");
-              }}
-            >
-              Other + evolve
-            </li>
-            <li
-              id="lastLi"
-              onClick={(e) => {
-                e.stopPropagation();
-                handleSelectMode("mega-shiny");
-              }}
-            >
-              Other + evolve
-              <br />
-              Shiny ✨
-            </li>
-          </ul>
-        </div>
+        <Typography variant="h6" className="menu-trigger"></Typography>
       </div>
+      {/* MUI Modal */}
+      <Modal
+        open={isMenuOpen}
+        onClose={() => setIsMenuOpen(false)}
+        aria-labelledby="menu-modal-title"
+        aria-describedby="menu-modal-description"
+      >
+        <Box sx={modalStyle}>
+          <Typography
+            id="menu-modal-title"
+            variant="h6"
+            component="h2"
+            style={{ cursor: "default" }}
+          >
+            <b>Select a Mode</b>
+          </Typography>
+          <List style={{ cursor: "pointer" }}>
+            {[
+              { label: "Default", mode: "default" },
+              { label: "Back", mode: "back" },
+              { label: "Shiny ✨", mode: "shiny" },
+              { label: "Shiny Back ✨", mode: "shiny-back" },
+              { label: "Other + evolve", mode: "mega" },
+              { label: "Other + evolve Shiny ✨", mode: "mega-shiny" },
+            ].map((item, index) => (
+              <ListItem
+                button
+                key={index}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleSelectMode(item.mode);
+                }}
+              >
+                <ListItemText primary={item.label} />
+              </ListItem>
+            ))}
+          </List>
+        </Box>
+      </Modal>
     </div>
   );
 };
