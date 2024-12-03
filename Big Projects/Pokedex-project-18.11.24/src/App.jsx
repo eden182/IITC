@@ -25,11 +25,3 @@ function App() {
 }
 
 export default App;
-
-// fetch('https://pokeapi.co/api/v2/evolution-chain/1/')
-//   .then(res => res.json())
-//   .then(data => console.log(data));
-
-// fetch('https://pokeapi.co/api/v2/pokemon-species/6/')
-//   .then(res => res.json())
-//   .then(data => console.log(data.varieties));

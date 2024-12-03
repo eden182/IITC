@@ -11,9 +11,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Navigate to={"/sign-in"} replace />} />
-        <Route path="/home" element={<Home />} /> {/* נתיב נוסף לדף הבית */}
+        <Route path="/home" element={<Home />} />
         <Route path="/sign-in" element={<SignInPage />} />
-        {/* נתיב לעמוד ההתחברות */}
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/reset" element={<Reset />} />
       </Routes>
