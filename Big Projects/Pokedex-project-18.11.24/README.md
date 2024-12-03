@@ -1,8 +1,1 @@
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The pages of pokedex and search are complate with the search possible by pokemon id and name plus for the pokedex the page can shift 20 pokemons each time and the menu pokemons manipulation for the api that was done using MUI but some pages are not ready yet in the cardDetails in evolution i wanted to add also the mega and gmax evolution but its not on the evolution chain url so its hard to get, in the header theres the button more it was intended to have a page with some links to pokemon games, some info on them and the create pokemon but i didnt had time to do it. the page of home the css is not perfect and the create pokemon css is not ready but the pokemon can be created and save on local storage.
