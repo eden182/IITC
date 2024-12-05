@@ -10,11 +10,11 @@ const SignInPage = () => {
 
   // handle functions
   function handleSignUp() {
-    navigate("./sign-up");
+    navigate("/sign-up");
   }
 
   function handleForgotPass() {
-    navigate("./reset");
+    navigate("/reset");
   }
 
   function handleGooglePlay() {
