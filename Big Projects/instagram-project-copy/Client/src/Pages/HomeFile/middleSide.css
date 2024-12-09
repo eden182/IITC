@@ -1,0 +1,199 @@
+.middleHomeSide{
+    width: 100%;
+    padding: 0px 50px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.storyBlock{
+    width: 630px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    gap: 17px;
+    overflow-x: auto;
+}
+
+.storyBlock::-webkit-scrollbar{
+    display: none;
+}
+
+
+.storyParticular{
+    width: 66px;
+    height: 66px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.imageDiv{
+    width: 56px;
+    height: 56px;
+    border-radius: 100%;
+    padding: 2px;
+    border: 2px solid purple;
+}
+
+.statusImg{
+    width: 100%;
+    height: 56px;
+    border-radius: 100%;
+}
+
+.profileName{
+    font-size: 10px;
+}
+
+
+
+/*------------------------------------*/
+
+.postSection {
+    width: 60%;
+}
+
+.post{
+    width: 100%;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #999999;;
+}
+
+.postInfo{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 0;
+}
+
+.postInfoImg{
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+}
+
+.postInfoUserName{
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.timingInfo{
+    color: #999999;
+    font-size: 14px;
+}
+
+.postImage{
+    width: 100%;
+}
+
+.iconsBlock{
+    width: 100%;
+    padding: 5px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.leftIcon{
+    display: flex;
+    gap: 20px;
+}
+
+.likeImg{
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    position: absolute;
+}
+
+.imagesLike{
+    position: relative;
+}
+
+.likeSection{
+    width: 100%;
+}
+
+.likeImg2{
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    position: absolute;
+    left: 3%;
+}
+
+.noOfLikes{
+    font-size: 14px;
+    font-weight: 600;
+    margin-left: 40px;
+}
+
+.postAbout{
+    width: 100%;
+    margin-top: 5px;
+    display: flex;
+}
+
+.postAboutName{
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.infoComment{
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+.numOfComments{
+    color: #999999;
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+.addComment{
+    color: #999999;
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+/*--------------------------------------------------------------*/
+.mobileTopBar{
+    display: none;
+}
+
+@media screen and (min-width:320px) and (max-width:920px) {
+
+    .middleHomeSide{
+        width: 100%;
+        padding: 0px 1px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .storyBlock{
+        width: 100vw;
+    }
+
+    .postSection{
+        width: 100%;
+    }
+
+    .mobileTopBar{
+        width: 100%;
+        display: inline;
+        padding: 0 20px;
+    }
+
+    .instaLogoMobile{
+        width: 103px;
+        margin: 0 20px;
+    }
+}

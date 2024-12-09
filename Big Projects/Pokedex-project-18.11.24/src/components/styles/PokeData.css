@@ -47,19 +47,17 @@ body {
   display: flex;
   justify-self: left;
   margin-left: 100px;
-  font-weight: bold;
   font-size: 82px;
-  color: darkblue;
-  border-bottom: 3px solid black;
+  color: black;
   margin-top: 150px;
 }
 .p {
-  color: black;
+  color: darkblue;
 }
 
 .mew1 {
   width: 180px;
-  height: 100px;
+  height: 170px;
   margin-left: 45px;
   border-radius: 30%;
   background-image: url("../images/pokemon-app-mew-2.jpg");

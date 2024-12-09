@@ -96,7 +96,6 @@ const PokeData = ({ selectedMode }) => {
 
   // menu modes
   useEffect(() => {
-    // Adjust total pages based on selected mode
     if (selectedMode === "mega" || selectedMode === "mega-shiny") {
       setTotalPages(13); // Mega 13 mode
     } else {
@@ -168,12 +167,15 @@ const PokeData = ({ selectedMode }) => {
   return (
     <>
       <div style={{ display: "flex" }}>
-        <h1 className="hl" id="arcadeText">
+        {/* <h1 className="hl" id="arcadeText">
           <span className="p"> P</span>okedex
           <div className="mew1"></div>
-        </h1>
+        </h1> */}
       </div>
-      <div className="pageButtonsContainer" style={{ textAlign: "center" }}>
+      <div
+        className="pageButtonsContainer"
+        style={{ textAlign: "center", marginTop: "150px" }}
+      >
         {" "}
         {currentPage > 10 && (
           <button

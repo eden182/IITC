@@ -1,0 +1,99 @@
+.LeftSidePart{
+    position: fixed;
+}
+
+.logoPart {
+    width: 100px ;
+    height: 30px;
+    margin-left: 25px;
+}
+
+.logoImg{
+    width: 100%;
+}
+
+.navLinkPart{
+    display: flex;
+    flex-direction: column;
+    margin-top: 55px;
+    
+}
+
+.navLink {
+    display: flex;
+    border-radius: 5px;
+    height: 35px;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    margin-bottom: 5px;
+    &:hover{
+        background-color: #ededed;
+    }
+}
+
+.navName{
+    font-weight: 400;
+    text-decoration: none;
+}
+
+.profileImg{
+    width: 40px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.belowPart{
+    margin-top: 20px;
+}
+
+
+
+/* כאשר המסך ברוחב קטן מ-920px (מובייל) */
+@media screen and (max-width: 920px) {
+    .LeftSidePart {
+        position: fixed;
+        left: -15px;
+        right: 0;
+        bottom: 0;
+        background-color: white;
+        display: flex;
+        justify-content: space-evenly;
+        padding: 10px 0;
+        height: 70px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000; /* חשוב כדי לוודא שהתפריט יהיה מעל שאר התוכן */
+    }
+
+    .navLink {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50px;
+        height: 50px;
+    }
+
+    .navLinkPart{
+        display: flex;
+        flex-direction: row;
+        margin: 0px;
+        
+    }
+
+    .navName {
+        display: none; /* לא להציג טקסט */
+    }
+}
+
+/* הגדרות נוספות שיבטיחו שאין בעיות גלילה או חפיפות */
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh; /* מבטיח שיתפנה מקום לגלילה */
+    overflow-x: hidden; /* למנוע גלילה אופקית */
+}
+
+.middleSide {
+    flex: 1;
+    overflow-y: auto; /* מאפשר גלילה בתוכן */
+}

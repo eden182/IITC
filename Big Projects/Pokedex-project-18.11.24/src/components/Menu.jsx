@@ -18,15 +18,16 @@ const Menu = ({ onSelectMode }) => {
 
   const handleSelectMode = (mode) => {
     onSelectMode(mode);
-    setIsMenuOpen(false); // Close the modal after selecting
+    setIsMenuOpen(false);
   };
 
   const modalStyle = {
     position: "absolute",
-    top: "46%",
-    right: "-50px",
+    top: "52%",
+    right: "-75px",
     transform: "translate(-50%, -50%)",
     width: "100px",
+    height: "100%",
     bgcolor: "background.paper",
     borderRadius: "10px",
     boxShadow: 24,

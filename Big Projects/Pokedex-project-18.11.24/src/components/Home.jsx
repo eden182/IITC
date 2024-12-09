@@ -4,28 +4,28 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const [showFirstDiv, setShowFirstDiv] = useState(false);
-  const [showSecondDiv, setShowSecondDiv] = useState(false);
+  const [currentSentenceIndex, setCurrentSentenceIndex] = useState(0);
   const navigate = useNavigate();
+
+  const sentences = [
+    "Hello Trainer! my name is professor Oak",
+    "In our app Shabizard, you can view the pokemons and have a nice getaway to this world.",
+    "Explore even more options than you can imagine!",
+  ];
 
   function handleCreateRoute() {
     navigate("../create");
   }
 
   useEffect(() => {
-    const firstDivTimer = setTimeout(() => {
-      setShowFirstDiv(true);
-    }, 2000);
+    if (currentSentenceIndex < sentences.length - 1) {
+      const timer = setTimeout(() => {
+        setCurrentSentenceIndex((prevIndex) => prevIndex + 1);
+      }, 5000);
 
-    const secondDivTimer = setTimeout(() => {
-      setShowSecondDiv(true);
-    }, 4000);
-
-    return () => {
-      clearTimeout(firstDivTimer);
-      clearTimeout(secondDivTimer);
-    };
-  }, []);
+      return () => clearTimeout(timer);
+    }
+  }, [currentSentenceIndex, sentences.length]);
 
   return (
     <div className="changingBackground">
@@ -38,39 +38,15 @@ const Home = () => {
           flexDirection: "column",
           width: "95vw",
           height: "100%",
-          fontSize: "28px",
+          fontSize: "23px",
         }}
       >
-        {showFirstDiv && (
-          <div
-            style={{
-              backgroundColor: "rgba(245, 245, 245, 0.765)",
-              padding: "10px",
-              borderRadius: "5px",
-              display: "flex",
-              alignSelf: "center",
-            }}
-          >
-            <p>Hello Trainer</p>
-            <div className="mew4"></div>
+        <div className="mainDiv">
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <p style={{ maxWidth: "42%" }}>{sentences[currentSentenceIndex]}</p>
+            <div className="oak"></div>
           </div>
-        )}
-        {showSecondDiv && (
-          <p
-            className="secondDiv"
-            style={{
-              backgroundColor: "rgba(245, 245, 245, 0.765)",
-              padding: "10px",
-              borderRadius: "5px",
-              width: "60%",
-              display: "flex",
-              alignSelf: "center",
-            }}
-          >
-            In our app Shabizard you can view the pokemons and have a nice
-            getaway to this world with even more options you can imagine.
-          </p>
-        )}
+        </div>
         <div className="lastDiv">
           If you want to create your own pokemon you can do it-
           <span

@@ -366,7 +366,7 @@ const CardDetails = () => {
               const statName =
                 statObject.stat?.name.toUpperCase() || "Unknown Stat";
               const statValue = statObject.base_stat || 0;
-              const normalizedStatValue = (statValue / 100) * 100;
+              const normalizedStatValue = (statValue / 180) * 100;
               const statColor = getStatColor(statValue);
               return (
                 <div
@@ -503,10 +503,10 @@ const CardDetails = () => {
                   moveDetails[move.move.name] && (
                     <div style={{ fontSize: "0.9em" }}>
                       <p>
-                        Accuracy: {moveDetails[move.move.name].accuracy || "0"}
+                        Accuracy: {moveDetails[move.move.name].accuracy || "UK"}
                       </p>
-                      <p>Power: {moveDetails[move.move.name].power || "0"}</p>
-                      <p>PP: {moveDetails[move.move.name].pp || "0"}</p>
+                      <p>Power: {moveDetails[move.move.name].power || "UK"}</p>
+                      <p>PP: {moveDetails[move.move.name].pp || "UK"}</p>
                     </div>
                   )}
               </li>

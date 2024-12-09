@@ -10,12 +10,25 @@
   background-position: center;
 }
 
-.mew4 {
-  width: 100px;
-  height: 100px;
-  background-image: url("../images/pokemon-app-mew-3-noback.png");
+.mainDiv {
+  background-color: rgba(245, 245, 245, 0.765);
+  padding-left: 10px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  width: auto;
+  max-width: 380px;
+  gap: 20px;
+}
+
+.oak {
+  width: 180px;
+  height: 300px;
+  background-image: url("../images/pokemon-app-oak.jpg");
   background-position: center;
   background-size: cover;
+  right: -50px;
 }
 
 .lastDiv {
