@@ -1,0 +1,4 @@
+#studentList li {
+  display: flex;
+  gap: 8px;
+}

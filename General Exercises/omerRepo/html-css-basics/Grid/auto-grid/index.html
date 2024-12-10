@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Document</title>
+  </head>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+    }
+    .hide {
+      display: none !important;
+    }
+    body {
+      margin-inline: 2em;
+      margin-top: 2rem;
+    }
+
+    .grid {
+      margin-top: 1rem;
+      padding: 1em;
+      background-color: rgb(35, 35, 35);
+      margin-bottom: 3rem;
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: 1fr;
+    }
+
+    .grid-item {
+      text-align: center;
+      background-color: white;
+      display: grid;
+      gap: 1rem;
+      padding: 1.5rem;
+    }
+
+    .auto-grid {
+      margin-top: 1rem;
+      padding: 1em;
+      background-color: rgb(35, 35, 35);
+      margin-bottom: 3rem;
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(min(100px, 100%), 1fr));
+    }
+  </style>
+  <body>
+    <!-- <h2>Grid Playground</h2>
+    <div class="grid">
+      <div class="grid-item">1</div>
+      <div class="grid-item">2</div>
+      <div class="grid-item">3</div>
+    </div> -->
+
+    <h2>Auto Grid</h2>
+    <div class="auto-grid">
+      <div class="grid-item">1</div>
+      <div class="grid-item">2</div>
+      <div class="grid-item">3</div>
+      <div class="grid-item">4</div>
+      <div class="grid-item">5</div>
+      <div class="grid-item">5</div>
+      <div class="grid-item">5</div>
+      <div class="grid-item">5</div>
+      <div class="grid-item">5</div>
+      <div class="grid-item">5</div>
+      <div class="grid-item">5</div>
+      <div class="grid-item">5</div>
+      <div class="grid-item">5</div>
+      <div class="grid-item">5</div>
+      <div class="grid-item">5</div>
+    </div>
+  </body>
+</html>

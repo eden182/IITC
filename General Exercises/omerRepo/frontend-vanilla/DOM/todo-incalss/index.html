@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Todos</title>
+    <link
+      rel="stylesheet"
+      href="style.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Todo App</h1>
+
+      <!-- Form to add a new to-do -->
+      <form id="todo-form">
+        <input
+          id="todo-input"
+          type="text"
+          placeholder="Enter todo Title"
+          required
+        />
+        <button>Add Todo</button>
+      </form>
+
+      <!-- Filter options for the to-do list -->
+      <div id="filter-buttons">
+        <button id="filter-all">All</button>
+        <button id="filter-active">Active</button>
+        <button id="filter-completed">Completed</button>
+      </div>
+
+      <!-- List of Todos -->
+      <ul id="todo-list">
+        <!-- Todos will be rendered here -->
+      </ul>
+
+      <script src="script.js"></script>
+    </div>
+  </body>
+</html>

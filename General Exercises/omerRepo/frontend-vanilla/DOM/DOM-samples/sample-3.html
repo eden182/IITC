@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="content">
+      <p>Original text.</p>
+    </div>
+
+    <script>
+      // Get a element by its id
+      const contentDiv = document.getElementById("content");
+
+      // Change text content
+      contentDiv.querySelector("p").textContent = "Updated text.";
+
+      // Create a new element
+      const newParagraph = document.createElement("p");
+
+      // Set the content to the new element
+      newParagraph.textContent = "This is a new paragraph.";
+
+      newParagraph.setAttribute("id", "myId");
+      newParagraph.setAttribute("class", "dada haha gaga");
+
+      // Add class to the new element
+      newParagraph.classList.add("baba", "mama");
+
+      // Remove "mama" from classList
+      newParagraph.classList.remove("mama");
+
+      newParagraph.classList.toggle("mama");
+      newParagraph.classList.toggle("mama");
+
+      console.log(newParagraph.classList.contains("mama"));
+
+      // Append the new element to a perent element
+      contentDiv.appendChild(newParagraph);
+    </script>
+  </body>
+</html>

@@ -172,6 +172,29 @@
     justify-content: flex-start !important;
   }
 }
+
+@media (max-width: 333px) {
+  .headButton {
+    padding-right: 6px;
+    padding-left: 6px;
+    font-size: 18px;
+  }
+
+  .card-details img {
+    width: 320px;
+    height: 320px;
+    margin-bottom: -150px;
+  }
+
+  .pokeAbout {
+    width: 100%;
+    padding-top: 50px;
+  }
+
+  .card-details {
+    width: 100vw;
+  }
+}
 /* page activation */
 
 .aboutPage {

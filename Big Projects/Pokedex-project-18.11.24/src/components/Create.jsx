@@ -85,7 +85,14 @@ const CreatePokemon = () => {
   };
 
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifySelf: "center",
+        marginTop: "50px",
+      }}
+    >
       <h1>Create Your Pokémon</h1>
       <form onSubmit={handleCreatePokemon}>
         <div>

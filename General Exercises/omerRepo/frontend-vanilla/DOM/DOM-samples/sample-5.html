@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <button id="toggleButton">Toggle Event</button>
+
+    <script>
+      let clickCount = 0;
+
+      // Define the callback function
+      function handleIncrement() {
+        clickCount++;
+        console.log("Button clicked! Count: " + clickCount);
+
+        if (clickCount === 3) {
+          button.removeEventListener("click", handleIncrement);
+          console.log("Event listener removed");
+        }
+      }
+
+      const button = document.getElementById("toggleButton");
+      button.addEventListener("click", handleIncrement); // add the callback
+
+      // After 3 clicks, the button stops logging "Button clicked!" to the console
+
+      // WILL NOT WORK! 👇🏼
+      button.addEventListener("click", function () {
+        alert("You can't remove me!");
+      });
+
+      button.removeEventListener("click", function () {
+        alert("You can't remove me!");
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <ul id="list">
+      <li class="item">Item 1</li>
+      <li class="item">Item 2</li>
+      <li class="item">Item 3</li>
+    </ul>
+
+    <script>
+      let itemNumber = 2;
+      const ul = document.getElementById("list"); // Selects an element by its id attribute
+      const firstItem = ul.querySelector(".item"); // Selects the first element with class 'item'
+      const secondItem = ul.querySelector(`.item:nth-child(${itemNumber})`); // Selects the first element with class 'item'
+      const allItems = ul.querySelectorAll(".item"); // Selects array of all elements with class 'item'
+      console.log(firstItem.textContent); // Outputs: "Item 1"
+      console.log(secondItem.textContent); // Outputs: "Item 2"
+      console.log(allItems.length); // Outputs: 3
+      console.log(allItems[1].textContent);
+      const itemsArray = Array.from(allItems);
+    </script>
+  </body>
+</html>

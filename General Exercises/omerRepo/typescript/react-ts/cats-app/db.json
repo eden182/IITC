@@ -1,0 +1,24 @@
+{
+  "cats": [
+    {
+      "id": "d38d",
+      "name": "baba"
+    },
+    {
+      "id": "ebc4",
+      "name": "omer"
+    },
+    {
+      "id": "e1dd",
+      "name": "omer"
+    },
+    {
+      "id": "64c2",
+      "name": "omer4"
+    }
+  ],
+  "user": {
+    "id": "1",
+    "username": "omer"
+  }
+}

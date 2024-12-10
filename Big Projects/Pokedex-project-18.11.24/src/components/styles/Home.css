@@ -5,35 +5,41 @@
   top: 0;
   left: 0;
   z-index: -1;
-  background-image: url("../images/pokemon-app-background-4.jpg");
+  background-image: url("../images/pokemon-app-background-30.jpg");
   background-size: cover;
   background-position: center;
 }
 
 .mainDiv {
-  background-color: rgba(245, 245, 245, 0.765);
-  padding-left: 10px;
-  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.499);
+  border-radius: 15px;
   display: flex;
   flex-direction: column;
   align-self: center;
   width: auto;
   max-width: 380px;
   gap: 20px;
+  padding: 15px;
+  margin-bottom: 200px;
 }
 
 .oak {
-  width: 180px;
-  height: 300px;
+  width: 195px;
+  height: 320px;
+  margin-left: 15px;
+  z-index: 100;
   background-image: url("../images/pokemon-app-oak.jpg");
   background-position: center;
   background-size: cover;
-  right: -50px;
+}
+
+.oakText {
+  width: 42%;
 }
 
 .lastDiv {
   position: absolute;
-  background-color: rgba(245, 245, 245, 0.765);
+  background-color: rgba(245, 245, 245, 0.547);
   padding: 10px;
   border-radius: 5px;
   width: 30%;
@@ -42,10 +48,29 @@
 
 @media (max-width: 700px) {
   .changingBackground {
-    background-image: url("../images/pokemon-app-background-media-3.jpg");
+    background-image: url("../images/pokemon-app-background-media-10.jpg");
   }
 
   .lastDiv {
     width: 90%;
+  }
+
+  .mainDiv {
+    background-color: transparent;
+    margin-bottom: 100px;
+  }
+
+  .oakText {
+    background-color: rgba(255, 255, 255, 0.642);
+    padding: 14px;
+    border-radius: 20px;
+  }
+}
+
+@media (max-width: 460px) {
+  .oak {
+    width: 150px;
+    height: 260px;
+    margin-left: 10px;
   }
 }

@@ -11,6 +11,16 @@ const Home = () => {
     "Hello Trainer! my name is professor Oak",
     "In our app Shabizard, you can view the pokemons and have a nice getaway to this world.",
     "Explore even more options than you can imagine!",
+    <>
+      Click{" "}
+      <span
+        style={{ color: "blue", cursor: "pointer" }}
+        onClick={() => navigate("../profile")}
+      >
+        here
+      </span>{" "}
+      to create a profile and join the fight!
+    </>,
   ];
 
   function handleCreateRoute() {
@@ -21,7 +31,7 @@ const Home = () => {
     if (currentSentenceIndex < sentences.length - 1) {
       const timer = setTimeout(() => {
         setCurrentSentenceIndex((prevIndex) => prevIndex + 1);
-      }, 5000);
+      }, 4000);
 
       return () => clearTimeout(timer);
     }
@@ -35,6 +45,7 @@ const Home = () => {
           marginTop: "100px",
           display: "Flex",
           justifySelf: "center",
+          justifyContent: "center",
           flexDirection: "column",
           width: "95vw",
           height: "100%",
@@ -43,7 +54,7 @@ const Home = () => {
       >
         <div className="mainDiv">
           <div style={{ display: "flex", alignItems: "center" }}>
-            <p style={{ maxWidth: "42%" }}>{sentences[currentSentenceIndex]}</p>
+            <p className="oakText">{sentences[currentSentenceIndex]}</p>
             <div className="oak"></div>
           </div>
         </div>

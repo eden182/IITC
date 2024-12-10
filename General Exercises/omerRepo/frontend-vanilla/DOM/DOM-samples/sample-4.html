@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <button id="myButton">Click Me</button>
+
+    <input
+      type="text"
+      id="textInput"
+      placeholder="Type here..."
+    />
+
+    <script>
+      const myBtn = document.getElementById("myButton");
+      let inputValue = "";
+
+      myBtn.addEventListener("click", function (ev) {
+        if (ev.shiftKey) {
+          alert(inputValue);
+        } else {
+          console.log("Button was clicked!");
+        }
+      });
+
+      // -------------------------------------------------------------//
+
+      const myInput = document.getElementById("textInput");
+
+      myInput.addEventListener("input", function (ev) {
+        console.log("event:  ", ev);
+        inputValue = ev.target.value;
+      });
+    </script>
+  </body>
+</html>

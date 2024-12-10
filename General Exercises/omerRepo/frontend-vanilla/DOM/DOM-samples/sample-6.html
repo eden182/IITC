@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="parentDiv">
+      <button id="childButton">Click Me</button>
+    </div>
+
+    <script>
+      // JavaScript: Controlling event propagation
+      document
+        .getElementById("parentDiv")
+        .addEventListener("click", function () {
+          console.log("Parent DIV clicked");
+        });
+
+      document
+        .getElementById("childButton")
+        .addEventListener("click", function (event) {
+          console.log("Button clicked");
+          event.stopPropagation(); // Stops the event from bubbling up to the parent DIV
+        });
+      // Only "Button clicked" is logged to the console, not "Parent DIV clicked"
+    </script>
+  </body>
+</html>
