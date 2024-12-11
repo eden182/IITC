@@ -5,7 +5,9 @@
   align-self: flex-start;
   justify-content: center;
   margin: 20px auto;
+  margin-top: 0px;
   padding: 20px;
+  padding-top: 40px;
   width: 100%;
   height: 350px;
   max-width: 900px;
@@ -23,21 +25,21 @@
 .card-details h1 {
   font-size: 32px;
   color: #141414;
-  background-color: #ffffffd5;
+  background-color: #ffffffc1;
   padding: 5px;
   padding-right: 25px;
   padding-left: 25px;
   border-radius: 20px;
   text-transform: capitalize;
   align-self: flex-start;
-  margin-top: 70px;
+  margin-top: 100px;
 }
 
 .card-details img {
   width: 300px;
   height: 300px;
   object-fit: contain;
-  margin-bottom: -30px;
+  margin-top: -60px;
   z-index: 10;
 }
 
@@ -54,7 +56,7 @@
 }
 
 .pokeAbout {
-  margin-top: -20px;
+  margin-top: -20.6px;
   margin-bottom: -7px;
   width: 55%;
   height: 100%;
@@ -97,6 +99,25 @@
   border-right: 0px;
 }
 
+.loadingDiv {
+  height: "98vh";
+  width: "98vw";
+  font-size: 80px;
+  color: red;
+}
+
+.loadImg {
+  width: 450px;
+  height: 300px;
+  background-image: url("../images/pokemon-app-mew-two.jpg");
+  background-position: center;
+  background-size: cover;
+}
+
+.hidden {
+  display: none;
+}
+
 :root {
   --fire: #fa6621;
   --water: #8cadfb;
@@ -118,18 +139,6 @@
   --flying: rgb(204, 211, 254);
 }
 
-@media (max-width: 950px) {
-  .card-details {
-    left: -10px;
-  }
-
-  .pokeAbout {
-    width: 95%;
-    height: 100%;
-    margin-left: 24px;
-    margin-bottom: -100px;
-  }
-}
 @media (max-width: 1156px) {
   .headButton {
     padding-right: 20px;
@@ -137,7 +146,7 @@
   }
 
   .card-details {
-    padding-bottom: 120px;
+    padding-bottom: 20px;
     margin-top: -20px;
   }
 
@@ -146,19 +155,55 @@
     margin-left: -25px;
   }
 
-  .card-details img {
-    margin-bottom: -140px;
+  .card-details h1 {
+    margin-top: 120px;
+  }
+
+  .pokeAbout {
+    width: 80%;
+    height: 100%;
+    margin-bottom: -100px;
   }
 }
-@media (max-width: 655px) {
+
+@media (max-width: 950px) {
+  .pokeAbout {
+    margin-right: -40px;
+    width: 100%;
+  }
+
+  .card-details {
+    width: 100vw;
+  }
+
+  .card-details {
+    margin-left: -10px;
+  }
+}
+
+@media (max-width: 695px) {
   .img2shiny {
     display: none;
   }
 
   .card-details img {
-    width: 360px;
-    height: 360px;
-    margin-bottom: -180px;
+    width: 260px;
+    height: 260px;
+    margin-right: -50px;
+  }
+
+  .loadingDiv {
+    font-size: 40px;
+    justify-content: "center";
+    align-items: "center";
+  }
+  .loadImg {
+    width: 300px;
+    height: 200px;
+  }
+
+  .card-details {
+    margin-left: -7px;
   }
 }
 
@@ -171,6 +216,10 @@
   .evolutionCon {
     justify-content: flex-start !important;
   }
+
+  .card-details {
+    margin-left: -4px;
+  }
 }
 
 @media (max-width: 333px) {
@@ -180,19 +229,9 @@
     font-size: 18px;
   }
 
-  .card-details img {
-    width: 320px;
-    height: 320px;
-    margin-bottom: -150px;
-  }
-
   .pokeAbout {
     width: 100%;
-    padding-top: 50px;
-  }
-
-  .card-details {
-    width: 100vw;
+    padding-top: 80px;
   }
 }
 /* page activation */
@@ -214,9 +253,69 @@ ul {
   list-style-type: none;
 }
 
-.evolutionCon::-webkit-scrollbar {
+.evolutionCon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.formsDiv {
+  background-color: rgb(248, 248, 248);
+  background-image: url("../images/pokemon-app-fullBackground.jpg");
+  background-size: cover;
+  overflow-y: auto;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 20px;
+  font-weight: bold;
+  padding: 20px;
+}
+
+.nextEvolutionCon {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  max-width: 400px;
+  height: 200px;
+  background-color: #f8f8f8;
+  overflow-y: scroll;
+  align-items: flex-start;
+  justify-content: flex-start;
+  font-weight: bold;
+  border-radius: 20px;
+}
+
+.nextEvolutionCon img {
+  width: 140px;
+  height: 138px;
+}
+
+.eeveelution {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.evolutionCon::-webkit-scrollbar,
+.eeveelution::-webkit-scrollbar,
+.formsDiv::-webkit-scrollbar,
+.nextEvolutionCon::-webkit-scrollbar {
   display: none;
 }
+
+.aboutPage.active#page3 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .aboutPage.active#page4 ul {
   display: flex;
   flex-wrap: wrap;
@@ -224,12 +323,14 @@ ul {
   list-style: none;
   padding-top: 50px;
 }
+
 .aboutPage#page4 li {
   cursor: pointer;
   width: 100px;
   font-weight: bold;
   padding-bottom: 50px;
 }
+
 .aboutPage.active#page4 #p1:hover {
   transform: scale(1.4);
   background-color: #f5f5f5;
@@ -238,12 +339,14 @@ ul {
   border-radius: 15px;
   margin-right: 20px;
 }
+
 .active-move {
   color: var(--activeMoveColor);
   font-weight: bold;
   padding-bottom: 4px;
   border-bottom: 1px solid black;
 }
+
 .move-details {
   display: none;
   font-size: 0.9em;
@@ -281,12 +384,4 @@ ul {
   width: 40px;
   height: 20px;
   margin-top: 6px;
-}
-
-.loadImg {
-  width: 450px;
-  height: 300px;
-  background-image: url("../images/pokemon-app-mew-two.jpg");
-  background-position: center;
-  background-size: cover;
 }

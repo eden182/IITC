@@ -35,17 +35,22 @@ const PokeData = ({ selectedMode }) => {
       let fetchStartIndex = startIndex;
       let fetchEndIndex = startIndex + itemsPerPage - 1;
 
-      // Adjust for Mega Pokémon
       if (selectedMode === "mega" || selectedMode === "mega-shiny") {
         fetchStartIndex = startIndexMega;
         fetchEndIndex = fetchStartIndex + itemsPerPage - 1;
       }
 
+      // Fetch the Pokémon data
       for (let i = fetchStartIndex; i <= fetchEndIndex; i++) {
         const response = await axios.get(
           `https://pokeapi.co/api/v2/pokemon/${i}`
         );
         const data = response.data;
+
+        const speciesResponse = await axios.get(
+          `https://pokeapi.co/api/v2/pokemon-species/${i}`
+        );
+        const speciesData = speciesResponse.data;
 
         let spriteUrl =
           data.sprites?.other?.showdown?.front_default ||
@@ -62,29 +67,24 @@ const PokeData = ({ selectedMode }) => {
             spriteUrl;
         }
 
-        if (selectedMode === "back") {
-          spriteUrl = data.sprites?.other?.showdown?.back_default || spriteUrl;
-        }
-
-        if (selectedMode === "shiny-back") {
-          spriteUrl = data.sprites?.other?.showdown?.back_shiny || spriteUrl;
-        }
-
-        if (selectedMode === "shiny") {
-          spriteUrl = data.sprites?.other?.showdown?.front_shiny || spriteUrl;
-        }
-
-        if (!spriteUrl) {
-          spriteUrl = data.sprites?.front_default || "default-sprite-url";
-        }
-
         fetchedPokemon.push({
           ...data,
           sprite: spriteUrl,
+          is_legendary: speciesData.is_legendary,
+          is_mythical: speciesData.is_mythical,
         });
       }
 
-      setPokemonList(fetchedPokemon);
+      // After fetching all Pokémon, filter out Legendary and Mythical Pokémon (if L-M mode)
+      if (selectedMode === "L-M") {
+        const filteredPokemon = fetchedPokemon.filter(
+          (pokemon) => pokemon.is_legendary || pokemon.is_mythical
+        );
+        console.log("Filtered Pokémon (L-M):", filteredPokemon);
+        setPokemonList(filteredPokemon); // Set filtered L-M Pokémon to the state
+      } else {
+        setPokemonList(fetchedPokemon); // Set all Pokémon if not L-M mode
+      }
     } catch (error) {
       console.error("Error fetching Pokémon data:", error);
     }
@@ -98,7 +98,10 @@ const PokeData = ({ selectedMode }) => {
   useEffect(() => {
     if (selectedMode === "mega" || selectedMode === "mega-shiny") {
       setTotalPages(13); // Mega 13 mode
-    } else {
+    }
+    // else if (selectedMode === "L-M") {
+    //   setTotalPages(10);}
+    else {
       setTotalPages(51); // Default mode
     }
   }, [selectedMode]);
@@ -166,12 +169,6 @@ const PokeData = ({ selectedMode }) => {
 
   return (
     <>
-      <div style={{ display: "flex" }}>
-        {/* <h1 className="hl" id="arcadeText">
-          <span className="p"> P</span>okedex
-          <div className="mew1"></div>
-        </h1> */}
-      </div>
       <div
         className="pageButtonsContainer"
         style={{ textAlign: "center", marginTop: "150px" }}

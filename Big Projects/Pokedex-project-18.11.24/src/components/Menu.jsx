@@ -61,8 +61,10 @@ const Menu = ({ onSelectMode }) => {
               { label: "Back", mode: "back" },
               { label: "Shiny ✨", mode: "shiny" },
               { label: "Shiny Back ✨", mode: "shiny-back" },
-              { label: "Other + evolve", mode: "mega" },
-              { label: "Other + evolve Shiny ✨", mode: "mega-shiny" },
+              { label: "Others", mode: "mega" },
+              { label: "Others Shiny ✨", mode: "mega-shiny" },
+              { label: "Types", mode: "types" },
+              { label: "Legend", mode: "L-M" },
             ].map((item, index) => (
               <ListItem
                 button

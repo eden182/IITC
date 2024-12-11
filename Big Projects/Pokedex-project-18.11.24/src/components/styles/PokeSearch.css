@@ -20,6 +20,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
 .fullSearch {
@@ -68,11 +69,32 @@
 }
 @media (max-width: 470px) {
   .pokeSearch {
-    width: 70%;
+    width: 80%;
   }
 
   .h2,
   .search {
     margin-left: 40px;
+  }
+
+  .pokeSearch {
+    flex-wrap: wrap;
+  }
+
+  .pokemon-card {
+    width: 200px;
+    height: auto;
+    transition: all 0.4s ease-in-out;
+  }
+}
+
+@media (max-width: 310px) {
+  .pokemon-card {
+    width: 150px;
+  }
+
+  .h2 {
+    font-size: 24px;
+    margin-right: 0px;
   }
 }

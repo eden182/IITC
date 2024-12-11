@@ -26,9 +26,12 @@ const CardDetails = () => {
   const [isLegendary, setIsLegendary] = useState(false);
   const [isMythical, setIsMythical] = useState(false);
   const [evolutionChain, setEvolutionChain] = useState([]);
+  const [forms, setForms] = useState([]);
+  const [nextEvolution, setNextEvolution] = useState([]);
 
   const location = useLocation();
   const isEevee = name.toLowerCase() === "eevee";
+  const isMeowstic = name.toLowerCase() === "meowstic-female";
   const navigate = useNavigate();
 
   // page remembering
@@ -68,23 +71,22 @@ const CardDetails = () => {
   useEffect(() => {
     const fetchPokemonDetails = async () => {
       try {
-        // Fetch Pokémon details
+        // Fetch Pokémon details for the base Pokémon
         const response = await axios.get(
           `https://pokeapi.co/api/v2/pokemon/${name}`
         );
-        // Fetch the species data Url
+        // Fetch the species data URL
         const speciesResponse = await axios.get(response.data.species.url);
 
-        console.log("Species Response:", speciesResponse.data); // Log for debugging
+        console.log("Species Response:", speciesResponse.data);
 
         setGeneration(speciesResponse.data.generation.name);
-
         setIsLegendary(speciesResponse.data.is_legendary || false);
         setIsMythical(speciesResponse.data.is_mythical || false);
 
         // Fetch cry sound
         const cryUrl = response.data.cries?.latest || null;
-        setCryUrl(cryUrl); // Set the cry URL state
+        setCryUrl(cryUrl);
 
         // Fetch Evolution Chain
         const evolutionChainUrl = speciesResponse.data.evolution_chain.url;
@@ -108,10 +110,10 @@ const CardDetails = () => {
             }
           }
         };
-        // Set states for data
+
         traverseEvolutionChain(chain);
         setEvolutionChain(evolutions);
-        // Set the rest of the Pokémon details
+
         setPokemon(response.data);
         setGenderRate(speciesResponse.data.gender_rate);
         setEggGroups(
@@ -120,10 +122,116 @@ const CardDetails = () => {
         setHatchCounter(speciesResponse.data.hatch_counter);
         setBaseStats(response.data.stats);
         setMoves(response.data.moves);
+
+        // Check if forms exist for the current Pokémon
+        if (
+          Array.isArray(response.data.forms) &&
+          response.data.forms.length > 0
+        ) {
+          const formsDetails = await getFormsDetails(response.data.forms);
+          setForms(formsDetails);
+        } else {
+          setForms([]);
+        }
+
+        const allPokemonResponse = await axios.get(
+          "https://pokeapi.co/api/v2/pokemon?&limit=10240"
+        );
+        const allPokemonNames = allPokemonResponse.data.results;
+
+        const matchingForms = await Promise.all(
+          allPokemonNames
+            .filter((pokemon) => {
+              const baseName = name.split("-")[0];
+              return (
+                pokemon.name !== name &&
+                pokemon.name.includes("-") &&
+                pokemon.name.split("-")[0].toLowerCase() ===
+                  baseName.toLowerCase()
+              );
+            })
+            .map(async (pokemon) => {
+              try {
+                const pokemonDetails = await axios.get(pokemon.url);
+                const formImage = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonDetails.data.id}.png`;
+                return {
+                  id: pokemonDetails.data.id,
+                  name: pokemon.name,
+                  image: formImage,
+                };
+              } catch (error) {
+                console.error(
+                  `Error fetching form details for ${pokemon.name}:`,
+                  error
+                );
+                return null;
+              }
+            })
+        );
+        const uniqueForms = matchingForms.filter((form, index, self) => {
+          return (
+            self.findIndex((f) => f.name === form.name) === index // Check that the full name hasn't been added before
+          );
+        });
+
+        // Separate Gmax and Mega Pokémon for nextEvolution
+        const gmaxOrMegaForms = uniqueForms.filter(
+          (form) =>
+            form.name.includes("gmax") ||
+            form.name.includes("mega") ||
+            form.name.includes("mega-x") ||
+            form.name.includes("mega-y")
+        );
+
+        // Filter for normal forms (excluding Gmax and Mega forms)
+        const normalForms = uniqueForms.filter(
+          (form) =>
+            !form.name.includes("gmax") &&
+            !form.name.includes("mega") &&
+            !form.name.includes("mega-x") &&
+            !form.name.includes("mega-y")
+        );
+
+        console.log("Gmax or Mega Forms:", gmaxOrMegaForms);
+        console.log("Normal Forms:", normalForms);
+        setNextEvolution(gmaxOrMegaForms);
+
+        setForms((prevForms) => [
+          ...prevForms,
+          ...normalForms.filter((form) => form !== null),
+        ]);
       } catch (error) {
         console.error("Error fetching Pokémon details:", error);
       }
     };
+
+    async function getFormsDetails(formsArray) {
+      if (Array.isArray(formsArray) && formsArray.length > 1) {
+        const formsDetails = await Promise.all(
+          formsArray.map(async (form) => {
+            try {
+              const response = await axios.get(form.url);
+              const formData = response.data;
+              return {
+                name: formData.name,
+                image: formData.sprites?.front_default,
+              };
+            } catch (error) {
+              console.error(
+                `Error fetching form data for ${form.name}:`,
+                error
+              );
+              return null;
+            }
+          })
+        );
+
+        return formsDetails.filter((detail) => detail !== null);
+      } else {
+        console.log("No multiple forms found or forms array is empty.");
+        return [];
+      }
+    }
 
     fetchPokemonDetails();
   }, [name]);
@@ -149,16 +257,15 @@ const CardDetails = () => {
   if (!pokemon)
     return (
       <div
+        className="loadingDiv"
         style={{
-          height: "98vh",
-          width: "98vw",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
         }}
       >
-        <p style={{ color: "red", fontSize: "80px" }}>
+        <p>
           <b>Loading...</b>
         </p>
         <div className="loadImg"></div>
@@ -212,6 +319,17 @@ const CardDetails = () => {
           {isLegendary && " ⭐"}
           {isMythical && " 💫"}
         </h1>
+        <span
+          style={{
+            backgroundColor: "#ffffffc1",
+            borderRadius: "20px",
+            padding: "10px",
+            display: "flex",
+            alignSelf: "flex-start",
+          }}
+        >
+          <b>#{pokemon.id}</b>
+        </span>
         <div
           style={{
             marginRight: "25px",
@@ -238,22 +356,20 @@ const CardDetails = () => {
             Play Cry <div className="soundImg"></div>
           </button>
         </div>
-        <div>
+        <div style={{ display: "flex" }}>
           {/* images */}
           <img
             src={
               pokemon.sprites?.other?.["official-artwork"]?.front_default ||
-              pokemon.sprites?.home.front_default
+              pokemon.sprites?.home?.front_default
             }
-            alt={pokemon.name}
           />
           <img
             src={
               pokemon.sprites?.other?.["official-artwork"]?.front_shiny ||
-              pokemon.sprites?.home.front_default
+              pokemon.sprites?.home?.front_shiny
             }
-            alt={pokemon.name}
-            className="img2shiny"
+            className={isMeowstic ? "hidden" : "img2shiny"}
           />
         </div>
       </div>
@@ -320,10 +436,10 @@ const CardDetails = () => {
             Gen: <b>{generation}</b>
           </p>
           <p>
-            Height: <b>{pokemon.height} feet</b>
+            Height: <b>{(pokemon.height * 0.1).toFixed(1)} meter</b>
           </p>
           <p>
-            Weight: <b>{pokemon.weight} ibs</b>
+            Weight: <b>{(pokemon.weight * 0.1).toFixed(2)} k"g</b>
           </p>
           <p>
             Abilities:
@@ -418,15 +534,10 @@ const CardDetails = () => {
           className={`aboutPage ${activePage === "page3" ? "active" : ""}`}
           id="page3"
         >
-          <div
-            className="evolutionCon"
-            style={{
-              display: "flex",
-              justifyContent: isEevee ? "flex-start" : "center",
-              alignItems: "center",
-              overflowX: "scroll",
-            }}
-          >
+          <h3 style={{ fontSize: "30px", marginTop: "80px" }}>
+            <b>Evolution</b>
+          </h3>
+          <div className={isEevee ? "eeveelution" : "evolutionCon"}>
             {evolutionChain.length > 0 ? (
               evolutionChain.map((evolution, index) => {
                 const evolutionId = evolution.url.split("/")[6];
@@ -455,11 +566,11 @@ const CardDetails = () => {
                         alt={evolution.name}
                         onError={(e) => {
                           e.target.onerror = null; // Prevent infinite loop
-                          e.target.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${evolutionId}.png`; // Fallback image
+                          e.target.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${evolutionId}.png`; // Fallback image
                         }}
                         style={{
-                          width: "80px",
-                          height: "80px",
+                          width: "120px",
+                          height: "120px",
                           marginRight: "30px",
                           marginLeft: "30px",
                         }}
@@ -470,6 +581,60 @@ const CardDetails = () => {
               })
             ) : (
               <p>No evolution data available...</p>
+            )}
+          </div>
+          <h3 style={{ fontSize: "30px", marginTop: "100px" }}>
+            <b>Forms</b>
+          </h3>
+          <div className="formsDiv">
+            {forms.length > 0 ? (
+              forms.map((form, index) => (
+                <div
+                  key={index}
+                  style={{
+                    margin: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <p>{form.name}</p>
+                  <img
+                    src={form.image}
+                    alt={form.name}
+                    style={{
+                      width: "160px",
+                      height: "160px",
+                      padding: "0",
+                    }}
+                  />
+                </div>
+              ))
+            ) : (
+              <p>No forms available.</p>
+            )}
+          </div>
+          <h3 style={{ fontSize: "30px", marginTop: "100px" }}>
+            <b>gmax & Mega Evolutions</b>
+          </h3>
+          <div className="nextEvolutionCon">
+            {nextEvolution.length > 0 ? (
+              <ul>
+                {nextEvolution.map((evolution) => (
+                  <li key={evolution.id}>
+                    <p>{evolution.name}</p>
+                    <img
+                      src={evolution.image}
+                      alt={`Evolution of ${evolution.name}`}
+                    />
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p style={{ marginLeft: "20px", color: "darkred" }}>
+                No Gmax or Mega evolutions for this pokemon.
+              </p>
             )}
           </div>
         </div>

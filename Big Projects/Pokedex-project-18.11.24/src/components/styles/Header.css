@@ -55,7 +55,6 @@ header::-webkit-scrollbar {
 
 .navButton.active {
   color: rgb(81, 203, 255);
-  background-color: rgba(243, 243, 243, 0.872);
 }
 
 .navButtonsCon {
@@ -99,5 +98,16 @@ header::-webkit-scrollbar {
 
   .navButton {
     font-size: 20px;
+  }
+}
+
+@media (max-width: 330px) {
+  .navButton {
+    font-size: 18px;
+  }
+}
+@media (max-width: 300px) {
+  .navButton {
+    font-size: 15px;
   }
 }

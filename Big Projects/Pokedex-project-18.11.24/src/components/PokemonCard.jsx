@@ -21,8 +21,10 @@ const PokemonCard = ({ id, name, types, sprite }) => {
       className="pokemon-card"
       data-type={primaryType}
       style={{
-        backgroundColor: `var(--${primaryType}-bg)`,
-        boxShadow: `5px 5px 10px var(--${primaryType}-shadow)`,
+        backgroundImage: `var(--${primaryType}-bg)`,
+        backgroundSize: "250%",
+        backgroundPosition: "center",
+        boxShadow: `2px 2px 5px var(--${primaryType}-shadow)`,
       }}
     >
       <h2 className="pokemonName">
