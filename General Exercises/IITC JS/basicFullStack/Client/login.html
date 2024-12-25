@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Page</title>
+    <link rel="stylesheet" href="logStyles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- sign page -->
+      <h1 class="hl" id="hl1">Sign Up</h1>
+      <div class="con" id="signCon">
+        <input class="input" id="userNameInput" placeholder="enter user name" />
+        <br />
+        <div class="inputCon">
+          <input
+            class="input"
+            id="passwordInput"
+            type="password"
+            placeholder="enter password"
+          />
+          <span class="eyeButton" id="eye1"> &#x1F441; </span>
+        </div>
+        <br />
+        <div class="inputCon">
+          <input
+            class="input"
+            id="passwordVerInput"
+            type="password"
+            placeholder="verify password"
+          />
+          <span class="eyeButton" id="eye2"> &#x1F441; </span>
+        </div>
+        <br />
+        <input class="input" id="emailInput" placeholder="enter email" />
+        <br />
+        <button class="button" id="signButton">sign up</button>
+      </div>
+      <!-- log page -->
+      <h1 class="hl" id="hl2">Log in</h1>
+      <div class="con" id="logCon">
+        <input class="input" id="userNameInput2" placeholder="enter name" />
+        <br />
+        <div class="inputCon">
+          <input
+            class="input"
+            id="passwordInput2"
+            type="password"
+            placeholder="enter password"
+          />
+          <span class="eyeButton" id="eye3"> &#x1F441; </span>
+        </div>
+        <br />
+        <button class="button" id="logButton">log in</button>
+      </div>
+      <div class="p">
+        <p class="changePage"><b>If you already have a user click</b></p>
+        <span class="changeButton"><b>here</b></span>
+      </div>
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="module" src="login.js"></script>
+  </body>
+</html>

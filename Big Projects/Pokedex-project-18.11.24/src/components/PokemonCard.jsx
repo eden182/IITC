@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const PokemonCard = ({ id, name, types, sprite }) => {
-  const primaryType = types[0]?.type.name;
+  const primaryType = types[0]?.type?.name;
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -34,8 +34,8 @@ const PokemonCard = ({ id, name, types, sprite }) => {
       <img src={sprite} alt={`${name} sprite`} className="pokemonSprite" />
       <div className="pokemonTypes">
         {types.map((type) => (
-          <span key={type.type.name} className={`type ${type.type.name}`}>
-            {type.type.name.toUpperCase()}
+          <span key={type.type?.name} className={`type ${type.type?.name}`}>
+            {type.type?.name.toUpperCase()}
           </span>
         ))}
       </div>

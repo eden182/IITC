@@ -21,7 +21,7 @@ const Header = () => {
         </span>
         <span
           className={`navButton ${currentRoute === "/pokedex" ? "active" : ""}`}
-          onClick={() => handleNavigation("/pokedex")}
+          onClick={() => handleNavigation("/pokedex/1")}
         >
           Pokedex
         </span>

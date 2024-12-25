@@ -1,0 +1,74 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    height: 100vh;
+    background-color: rgb(106, 105, 105);
+    /* display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center; */
+}
+
+.form{
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+#add-form{
+    padding: 1rem;
+    border: 1px solid black;
+    border-radius: 3px;
+}
+
+.jokes-container{
+    margin: 1rem;
+    padding: 1rem;
+    text-align: center;
+    /* border: 1px solid black;
+    border-radius: 3px; */
+}
+
+.each-joke{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin: 1.2rem;
+    padding-block: 1.2rem;
+    list-style-type: none;
+    border-bottom: 1px solid black;
+}
+
+li{
+    display: inline;
+}
+.delete-btn{
+   background-color: rgb(198, 11, 11); 
+
+}
+
+input{
+   
+        width: 100%;
+        padding: 0.4rem;
+        margin: 0.2rem 0;
+        box-sizing: border-box;
+        border: 2px solid #6c6b6b;
+        border-radius: 6px;
+        outline: none; 
+}
+button {
+    margin: 0.2rem 0;
+    background-color: black;
+    color: aliceblue;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+
+  }
+  

@@ -28,6 +28,10 @@ const CardDetails = () => {
   const [evolutionChain, setEvolutionChain] = useState([]);
   const [forms, setForms] = useState([]);
   const [nextEvolution, setNextEvolution] = useState([]);
+  const [habitat, setHabitat] = useState("unknown");
+  const [growthRate, setGrowthRate] = useState("none");
+  const [captureRate, setCaptureRate] = useState(0);
+  const [encounterLocations, setEncounterLocations] = useState([]);
 
   const location = useLocation();
   const isEevee = name.toLowerCase() === "eevee";
@@ -69,18 +73,19 @@ const CardDetails = () => {
 
   // axios fetch for default and species Urls
   useEffect(() => {
-    const fetchPokemonDetails = async () => {
+    const fetchPokemonDetails = async (name) => {
       try {
         // Fetch Pokémon details for the base Pokémon
         const response = await axios.get(
           `https://pokeapi.co/api/v2/pokemon/${name}`
         );
+        console.log("Pokemon Response:", response.data);
+
         // Fetch the species data URL
         const speciesResponse = await axios.get(response.data.species.url);
-
         console.log("Species Response:", speciesResponse.data);
 
-        setGeneration(speciesResponse.data.generation.name);
+        setGeneration(speciesResponse.data.generation?.name || "Unknown");
         setIsLegendary(speciesResponse.data.is_legendary || false);
         setIsMythical(speciesResponse.data.is_mythical || false);
 
@@ -89,39 +94,45 @@ const CardDetails = () => {
         setCryUrl(cryUrl);
 
         // Fetch Evolution Chain
-        const evolutionChainUrl = speciesResponse.data.evolution_chain.url;
-        const evolutionChainResponse = await axios.get(evolutionChainUrl);
+        const evolutionChainUrl = speciesResponse.data.evolution_chain?.url;
+        if (evolutionChainUrl) {
+          const evolutionChainResponse = await axios.get(evolutionChainUrl);
+          console.log("Evolution Chain Response:", evolutionChainResponse.data);
 
-        const evolutions = [];
-        let chain = evolutionChainResponse.data.chain;
+          const evolutions = [];
+          let chain = evolutionChainResponse.data.chain;
 
-        // Traverse the evolution chain and get the ID and names of the evolutions
-        const traverseEvolutionChain = (chain) => {
-          if (chain) {
-            const evolution = {
-              name: chain.species.name,
-              url: chain.species.url,
-            };
-            evolutions.push(evolution);
-            if (chain.evolves_to.length > 0) {
-              chain.evolves_to.forEach((evolution) => {
-                traverseEvolutionChain(evolution);
-              });
+          // Traverse the evolution chain and get the ID and names of the evolutions
+          const traverseEvolutionChain = (chain) => {
+            if (chain && chain.species && chain.species.name) {
+              const evolution = {
+                name: chain.species.name,
+                url: chain.species.url,
+              };
+              evolutions.push(evolution);
+              if (chain.evolves_to.length > 0) {
+                chain.evolves_to.forEach((evolution) => {
+                  traverseEvolutionChain(evolution);
+                });
+              }
             }
-          }
-        };
+          };
 
-        traverseEvolutionChain(chain);
-        setEvolutionChain(evolutions);
+          traverseEvolutionChain(chain);
+          setEvolutionChain(evolutions);
+        }
 
         setPokemon(response.data);
         setGenderRate(speciesResponse.data.gender_rate);
         setEggGroups(
-          speciesResponse.data.egg_groups.map((group) => group.name)
+          speciesResponse.data.egg_groups?.map((group) => group.name) || []
         );
-        setHatchCounter(speciesResponse.data.hatch_counter);
+        setHatchCounter(speciesResponse.data.hatch_counter || 0);
         setBaseStats(response.data.stats);
         setMoves(response.data.moves);
+        setHabitat(speciesResponse.data.habitat?.name || "Unknown");
+        setGrowthRate(speciesResponse.data.growth_rate?.name || "Unknown");
+        setCaptureRate(speciesResponse.data.capture_rate || 0);
 
         // Check if forms exist for the current Pokémon
         if (
@@ -129,13 +140,15 @@ const CardDetails = () => {
           response.data.forms.length > 0
         ) {
           const formsDetails = await getFormsDetails(response.data.forms);
+          console.log("Forms Details:", formsDetails);
           setForms(formsDetails);
         } else {
+          console.log("No forms found for this Pokémon.");
           setForms([]);
         }
 
         const allPokemonResponse = await axios.get(
-          "https://pokeapi.co/api/v2/pokemon?&limit=10240"
+          "https://pokeapi.co/api/v2/pokemon?&limit=10277"
         );
         const allPokemonNames = allPokemonResponse.data.results;
 
@@ -169,10 +182,10 @@ const CardDetails = () => {
             })
         );
         const uniqueForms = matchingForms.filter((form, index, self) => {
-          return (
-            self.findIndex((f) => f.name === form.name) === index // Check that the full name hasn't been added before
-          );
+          return form && self.findIndex((f) => f.name === form.name) === index;
         });
+
+        console.log("Unique Forms:", uniqueForms);
 
         // Separate Gmax and Mega Pokémon for nextEvolution
         const gmaxOrMegaForms = uniqueForms.filter(
@@ -214,7 +227,7 @@ const CardDetails = () => {
               const formData = response.data;
               return {
                 name: formData.name,
-                image: formData.sprites?.front_default,
+                image: formData.sprites?.front_default || null,
               };
             } catch (error) {
               console.error(
@@ -233,7 +246,7 @@ const CardDetails = () => {
       }
     }
 
-    fetchPokemonDetails();
+    fetchPokemonDetails(name);
   }, [name]);
 
   // axios fetch for moves
@@ -252,6 +265,31 @@ const CardDetails = () => {
       console.error("Error fetching move details:", error);
     }
   };
+
+  const fetchEncounters = async (id) => {
+    try {
+      const encounterResponse = await axios.get(
+        `https://pokeapi.co/api/v2/pokemon/${id}/encounters`
+      );
+
+      const encounters = encounterResponse.data;
+
+      const locations = encounters.map(
+        (encounter) => encounter.location_area.name
+      );
+
+      setEncounterLocations(locations);
+    } catch (err) {
+      console.error(`Error fetching encounter locations:`, err);
+      setError("Unable to fetch encounter locations.");
+    }
+  };
+
+  useEffect(() => {
+    if (pokemon && pokemon.id) {
+      fetchEncounters(pokemon.id);
+    }
+  }, [pokemon]);
 
   // Loading
   if (!pokemon)
@@ -460,9 +498,12 @@ const CardDetails = () => {
               {genderRate === 0
                 ? "Genderless"
                 : genderRate === 8
-                ? "Always Male"
-                : "Male/Female Possible"}
+                ? "stays the same"
+                : "Male \u2642 / Female \u2640"}
             </b>
+          </p>
+          <p>
+            Capture rate: <b>{captureRate} / 255</b>
           </p>
           <p>
             Egg Groups: <b>{eggGroups.join(", ")}</b>
@@ -470,6 +511,27 @@ const CardDetails = () => {
           <p>
             Hatch Counter: <b>{hatchCounter}</b>
           </p>
+          <p>
+            Habitat in: <b>{habitat}</b>
+          </p>
+          <p>
+            Growth Rate: <b>{growthRate}</b>
+          </p>
+          <h3 style={{ fontSize: "26px" }}>
+            <b>Encounters</b>
+          </h3>
+          <div>
+            <h4>Location list</h4>
+            {encounterLocations.length > 0 ? (
+              <ul className="locationEncounterList">
+                {encounterLocations.map((location, index) => (
+                  <li key={index}>{location.replace("-", " ")}</li>
+                ))}
+              </ul>
+            ) : (
+              <p style={{ color: "red" }}>No encounter locations found.</p>
+            )}
+          </div>
         </div>
         {/* page 2 */}
         <div
