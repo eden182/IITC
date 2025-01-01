@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { signUp } from "../utils/api.service";
+// import { signUp } from "../utils/api.service";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -197,7 +197,7 @@ const SignUp = () => {
             <span
               className="text-indigo-500 hover:underline cursor-pointer"
               onClick={() => {
-                navigate("/login");
+                navigate("/log-in");
               }}
             >
               Log in

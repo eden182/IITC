@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { isUserValid, signIn } from "../utils/api.service";
-import { setUser } from "../store/slices/userSlice";
-import { useAppDispatch } from "../store";
+// import { isUserValid, signIn } from "../utils/api.service";
+// import { setUser } from "../store/slices/userSlice";
+// import { useAppDispatch } from "../store";
 
 const Login = () => {
   const [userName, setUserName] = useState("");
@@ -10,7 +10,7 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const passRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -35,6 +35,7 @@ const Login = () => {
       })();
       navigate("/");
     }
+    s;
   };
 
   return (
@@ -91,7 +92,7 @@ const Login = () => {
             Don't have an account?{" "}
             <span
               className="text-indigo-500 hover:underline cursor-pointer"
-              onClick={() => navigate("/signUp")}
+              onClick={() => navigate("/sign-up")}
             >
               Sign up
             </span>

@@ -7,17 +7,17 @@ import {
   signUp,
   updateUser,
   getSuggestedUsers,
-} from "../Controllers/UserController.js";
-import protectRoute from "../Middlewares/ProtectRoute.js";
+} from "../Controllers/UserController";
+// import protectRoute from "../Middlewares/ProtectRoute";
 
 const router = express.Router();
 
 router.get("/profile/:query", getUserProfile);
-router.get("/suggested", protectRoute, getSuggestedUsers);
+router.get("/suggested", getSuggestedUsers);
 router.post("/sign-up", signUp);
 router.post("/login", loginUser);
 router.post("/logout", logoutUser);
-router.post("/follow/:id", protectRoute, followUnFollowUser);
-router.put("/update/:id", protectRoute, updateUser);
+router.post("/follow/:id", followUnFollowUser);
+router.put("/update/:id", updateUser);
 
 export default router;
