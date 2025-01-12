@@ -15,19 +15,6 @@ function App() {
           path: "/",
           element: <Landing />,
         },
-        // {
-        //   path: "/About",
-        //   element: <About />,
-        // },
-        // {
-        //   path: "/Profile/:id",
-        //   element: <Profile />,
-        // },
-        // {
-        //   path: "/Chat",
-        //   element: <Chat />
-
-        // },
         {
           path: "/templates",
           element: <TemplatesPage />,

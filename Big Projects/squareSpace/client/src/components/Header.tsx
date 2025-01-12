@@ -9,9 +9,11 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "./ui/navigation-menu";
+import ProfileDropdown from "./Profile";
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [isTop, setIsTop] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -156,6 +158,11 @@ const Header: React.FC = () => {
                   <b>PRODUCTS</b>
                 </NavigationMenuTrigger>
                 <NavigationMenuContent
+                  className={`overflow-hidden transition-all duration-1000 ease-in-out transform origin-top border-t-2 border-white ${
+                    isMenuOpen
+                      ? "scale-y-100 opacity-100"
+                      : "scale-y-0 opacity-0"
+                  }`}
                   onMouseEnter={handleMouseEnter}
                   onMouseLeave={handleMouseLeave}
                 >
@@ -185,7 +192,11 @@ const Header: React.FC = () => {
                   <b>RESOURCES</b>
                 </NavigationMenuTrigger>
                 <NavigationMenuContent
-                  className=""
+                  className={`overflow-hidden transition-all duration-1000 ease-in-out transform origin-top ${
+                    isMenuOpen
+                      ? "scale-y-100 opacity-100"
+                      : "scale-y-0 opacity-0"
+                  }`}
                   onMouseEnter={handleMouseEnter}
                   onMouseLeave={handleMouseLeave}
                 >
@@ -199,10 +210,10 @@ const Header: React.FC = () => {
         </div>
         {/* Get Started button div */}
         <div className="flex gap-5">
-          <div className="w-20 h-20 rounded-full bg-black"></div>
+          <ProfileDropdown />
           <button
             onClick={() => navigate("/templates")}
-            className={`text-black px-6 py-2 bg-white font-semibold hover:bg-slate-100 ${headerStartButton}`}
+            className={`text-black px-6 py-1 h-12 mt-1 bg-white text-sm font-semibold hover:bg-slate-100 ${headerStartButton}`}
           >
             Get Started
           </button>
