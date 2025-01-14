@@ -4,8 +4,8 @@ import EditorSideBar from "./EditorSidebar";
 import EditorPage from "./EditorPage";
 
 function Layout() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true); // Sidebar state
-  const [isMobileView, setIsMobileView] = useState(false); // Mobile view toggle state
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isMobileView, setIsMobileView] = useState(false);
 
   // Function to toggle sidebar layout
   const toggleSidebarLayout = () => {
@@ -29,7 +29,6 @@ function Layout() {
       >
         <EditorSideBar />
       </div>
-
       {/* Main content */}
       <div className="flex-1 flex flex-col relative">
         {/* Header */}
@@ -37,14 +36,15 @@ function Layout() {
           toggleSidebarLayout={toggleSidebarLayout}
           setMobileView={setMobileView}
         />
-
         {/* EditorPage */}
         <div
           className={`absolute top-24 bottom-0 ${
             isMobileView
               ? "w-[375px] mx-auto left-0 right-0"
               : "w-full left-0 right-0"
-          } overflow-y-auto bg-gray-100 shadow transition-all duration-300`}
+          } ${
+            isSidebarOpen ? "overflow-x-scroll" : "overflow-auto"
+          } bg-gray-100 shadow transition-all duration-300`}
         >
           <EditorPage isMobileView={isMobileView} /> {/* Pass isMobileView */}
         </div>

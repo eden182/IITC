@@ -15,7 +15,7 @@ const EditorPage: React.FC<EditorPageProps> = ({ isMobileView }) => {
       <div
         className={`bg-white mx-auto flex ${
           isMobileView
-            ? "w-[375px] h-[667px] border border-gray-300 shadow-md"
+            ? "w-[375px] min-h-[667px] h-full border border-gray-300 shadow-md"
             : "w-full h-full"
         }`}
         style={{
@@ -40,7 +40,7 @@ const EditorPage: React.FC<EditorPageProps> = ({ isMobileView }) => {
               className={`${
                 isMobileView
                   ? "max-w-full max-h-[300px] mb-4"
-                  : "max-w-[800px] max-h-[650px]"
+                  : "max-w-[700px] max-h-[600px]"
               }`}
               src="https://images.squarespace-cdn.com/content/v1/624b503ae7dc6c1b936dfc4c/1649102907377-5QD9AHIFDPK57TLORYUY/Stocksy_txp46315712VFE200_Large_2317055.jpg?format=1500w"
               alt="Preview"
