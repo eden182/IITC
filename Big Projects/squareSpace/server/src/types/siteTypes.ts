@@ -1,10 +1,12 @@
-import mongoose, { Document } from "mongoose";
+import { Types } from "mongoose";
 
-export interface ISite extends Document {
-  owner: mongoose.Schema.Types.ObjectId;
+export interface ISite {
+  data: string;
+  owner: Types.ObjectId;
+  screenShot?: string;
   name: string;
-  domain?: string; 
-  pages: mongoose.Schema.Types.ObjectId[];
-  createdAt: Date;
-  theme: string;
+  domain: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+  save: () => void;
 }
