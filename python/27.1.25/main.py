@@ -1,20 +1,20 @@
-# class Person:
-#     def __init__(self, name, age, phone ):
-#           self.name = name
-#           self.age = age
-#           self.phone = phone
+class Person:
+    def __init__(self, name, age, phone ):
+          self.name = name
+          self.age = age
+          self.phone = phone
 
-#     def greet(self):
-#           print(f"hello {self.name}")
+    def greet(self):
+          print(f"hello {self.name}")
 
-# person1 = Person(name = "eden", age = 24, phone = 507771542)
+person1 = Person(name = "eden", age = 24, phone = 507771542)
 
-# person1.greet()
-
-
+person1.greet()
 
 
-#  # # # # # # # # # # # #
+
+
+ # # # # # # # # # # # #  superhuman
 
 class Sup:
      def __init__(self, name, alterAgo, ability, weakness, team, strength, is_secret = True, is_active = True):
@@ -76,3 +76,28 @@ sup3.fight("Thanos")
 sup3.fight("Thanos")
 sup3.fight("Thanos")
 sup3.fight("Thanos")
+
+
+
+# # # # # # # # # # # # # # # # # ATM
+class account:
+    def __init__ (self, id, holder, balance):
+        self.id = id
+        self.holder = holder
+        self.balance = balance
+    
+    def viewBalance(self):
+        print(f"hello {self.holder}, your balance is:{self.balance}")
+
+    def withdraw(self, amount):
+        self.balance -= int(amount)
+        print(f"{self.holder}, your new balance is:{self.balance}")
+    
+    def deposit(self, amount):
+        self.balance += int(amount)
+        print(f"{self.holder}, your new balance is:{self.balance}")
+
+user1 = account(1234, "eden", 10000)
+
+user1.viewBalance()
+user1.deposit(2025)
