@@ -101,3 +101,13 @@ user1 = account(1234, "eden", 10000)
 
 user1.viewBalance()
 user1.deposit(2025)
+
+class savings(account):
+     def deposit(self, amount):
+        increased_amount = amount + (amount * 0.05) 
+        print(f"Adding 5% bonus to the deposit amount: {increased_amount}")
+        super().deposit(increased_amount)
+
+user2 = savings(4321, "shabi", 1000)
+
+user2.deposit(100)
