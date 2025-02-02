@@ -4,8 +4,8 @@ from selenium.webdriver.common.by import By
 import time
 
 service = Service("./chromedriver.exe")
-driver = webdriver.Chrome(service=service)
 options = webdriver.ChromeOptions()
+driver = webdriver.Chrome(service=service, options=options)
 
 driver.get("http://atid.store")
 driver.maximize_window()
@@ -17,7 +17,7 @@ shop_button = driver.find_element(
 )
 
 shop_button.click()
-time.sleep(100)
+time.sleep(10)
 
 
 
