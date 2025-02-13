@@ -35,6 +35,10 @@ export const useDeleteUserMutation = () => {
       queryClient.invalidateQueries({
         queryKey: ["userProfile"],
       });
+      window.location.href = "/";
+    },
+    onError: (error) => {
+      console.error("Failed to delete profile:", error);
     },
   });
 };

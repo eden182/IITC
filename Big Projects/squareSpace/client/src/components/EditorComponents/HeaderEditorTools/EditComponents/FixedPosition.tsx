@@ -1,6 +1,6 @@
 import { Switch } from "../../../ui/switch";
 
-const FixedPosition = ({ isFixed ,handleToggle}) => {
+const FixedPosition = ({ isFixed, handleToggle }: any) => {
   return (
     <div className="flex justify-between ">
       <span>Fixed position</span>

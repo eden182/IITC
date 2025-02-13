@@ -4,7 +4,7 @@ import { useSiteById } from "../hooks/useSite";
 import { useParams, useNavigate } from "react-router-dom";
 
 function UserWebsite() {
-  const [website, setWebsite] = useState<string | null>(null);
+  const [website, setWebsite]: any = useState<string | null>(null);
   const { id } = useParams();
   const navigate = useNavigate();
 

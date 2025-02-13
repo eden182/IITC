@@ -1,17 +1,10 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import BasicEditor3Pro from "./BasicEditor3Pro";
-import {
-  BasicEditor3Page,
-  BasicEditor3User,
-  BasicEditor3Website,
-} from "./BasicEditor3ProTypes";
-import { Header3Data } from "./Header3";
-import { Footer3Data } from "./Footer3";
-import { useCreateSite } from "../../hooks/useSite";
-import { useUserProfile } from "../../hooks/useUser";
+import { BasicEditor3User, BasicEditor3Website } from "./BasicEditor3ProTypes";
+// import { Header3Data } from "./Header3";
 
-const defaultHeaderData: Header3Data = {
+const defaultHeaderData: any = {
   logo: { text: "LOGO1", imgSrc: null },
   pages: [],
   hasExtraButton: false,
@@ -32,8 +25,7 @@ const defaultWebsite: BasicEditor3Website = {
   name: "defaultWebsite0",
   headerData: defaultHeaderData,
   pages: [
-    { name: "Home2", renderElements: [] },
-    { name: "Home3", renderElements: [] },
+    // { name: "HomeFromDefaultWebsite", renderElements: [] }
   ],
   footerData: {},
 };
@@ -48,15 +40,15 @@ export type Wrapper3ProProps = {
 //for adding a new website:
 //conform to the BasicEditor3Website type, can use the addWebsite function here for reference.
 
-interface EditorWrapperProps {
-  templete: any;
-  websiteToEdit: any;
-  saveCurrentWebsite: () => void;
-  currentWebsite: any;
-  setCurrentWebsite: (website: any) => void;
-  saveTrigger: boolean;
-  setSaveTrigger: Dispatch<SetStateAction<boolean>>;
-}
+// interface EditorWrapperProps {
+//   templete: any;
+//   websiteToEdit: any;
+//   saveCurrentWebsite?: () => void;
+//   currentWebsite: any;
+//   setCurrentWebsite: (website: any) => void;
+//   saveTrigger: boolean;
+//   setSaveTrigger: Dispatch<SetStateAction<boolean>>;
+// }
 
 function EditorWrapper({
   templete,
@@ -66,32 +58,17 @@ function EditorWrapper({
   setCurrentWebsite,
   saveTrigger,
   setSaveTrigger,
-}: EditorWrapperProps) {
+}: any) {
   useEffect(() => {
     if (websiteToEdit) {
       setCurrentWebsite(websiteToEdit);
     } else if (templete) {
       setCurrentWebsite(templete);
-    } else {
+    } 
+    else {
       setCurrentWebsite(defaultWebsite);
     }
   }, [websiteToEdit, templete]);
-
-  // function addWebsite(
-  //   name: string,
-  //   owner: BasicEditor3User = currentUser,
-  //   headerData: Header3Data = defaultHeaderData,
-  //   pages: BasicEditor3Page[] = [],
-  //   footerData: Footer3Data = {}
-  // ) {
-  //   const newWebsite: BasicEditor3Website = {
-  //     owner,
-  //     name,
-  //     headerData,
-  //     pages,
-  //     footerData,
-  //   };
-  // }
 
   return (
     <>

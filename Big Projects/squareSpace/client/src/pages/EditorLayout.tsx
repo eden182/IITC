@@ -1,4 +1,11 @@
-import { useEffect, useState } from "react";
+import {
+  useEffect,
+  useState,
+  createContext,
+  SetStateAction,
+  Dispatch,
+  useRef,
+} from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import EditorHeader from "../components/EditorComponents/EditorHeader";
 import EditorSideBar from "../components/EditorComponents/EditorSidebar";
@@ -10,21 +17,50 @@ import { dataStringToWebsite } from "../components/basicEditor3Pro/utils";
 import LoadingSpinner from "../components/LoadingSpinner";
 import WebsiteNameDialog from "../components/WebsiteNameDialog";
 import { BasicEditor3Website } from "../components/basicEditor3Pro/BasicEditor3ProTypes";
+import ScreenshotCapture from "../components/ScreenShot";
+
+export type EditorLayoutContextType = {
+  currentWebsite?: BasicEditor3Website | undefined;
+  pageNameFromLayout?: string;
+  setPageNameFromLayout?: Dispatch<SetStateAction<string>>;
+  setSaveTrigger?: Dispatch<SetStateAction<boolean>>;
+  setCurrentWebsite?: Dispatch<SetStateAction<BasicEditor3Website | undefined>>;
+};
+
+export const EditorLayoutContext = createContext<EditorLayoutContextType>({});
 
 function EditorLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isMobileView, setIsMobileView] = useState(false);
-  const [templete, setTemplete] = useState();
+  const [template, setTemplate] = useState<BasicEditor3Website | undefined>(
+    undefined
+  );
   const [websiteToEdit, setWebsiteToEdit]: any = useState(null);
   const [isOpenDialogName, setIsOpenDialogName] = useState(false);
   const [websiteName, setWebsiteName] = useState("");
   const [websiteToSave, setWebsiteToSave]: any = useState();
   const [currentWebsite, setCurrentWebsite] = useState<BasicEditor3Website>();
   const [saveTrigger, setSaveTrigger] = useState(false);
+  const [imageData, setImageData] = useState("");
+  const screenshotRef = useRef<{ captureScreenshot: () => void }>(null);
+
+  const [pageNameFromLayout, setPageNameFromLayout] = useState<string>(
+    currentWebsite?.lastEditorPage || currentWebsite?.pages[0]?.name!// || "HomeFromLayout"//test. Should fix the ts here
+  );
 
   const { id } = useParams();
   const location = useLocation();
+  const dataTemplete = location?.state;
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!dataTemplete) {
+      return;
+    }
+    const hydrateTemplate = dataStringToWebsite(dataTemplete);
+    setTemplate(hydrateTemplate);
+  }, []);
 
   const { mutate: createNewSite } = useCreateSite({
     onSuccess: (data: any) => {
@@ -56,13 +92,16 @@ function EditorLayout() {
 
   // Handle save action
   function saveCurrentWebsite(currentWebsite: ISite) {
+    //this makes the system fragile.
+    // if (!imageData) return;
+    //the image data should be sent separately from the website data.
+    //they should not depend on each other.
     const websiteDataString = JSON.stringify(currentWebsite);
     setWebsiteToSave(websiteDataString);
-
     if (websiteToEdit) {
       updateSite({
         siteId: id!,
-        updatedData: { data: websiteDataString },
+        updatedData: { data: websiteDataString, screenShot: imageData },
       });
     } else {
       if (!websiteName) {
@@ -78,10 +117,9 @@ function EditorLayout() {
       createNewSite({
         data: websiteToSave,
         owner: userData?.user?._id,
-        screenShot:
-          "https://images.squarespace-cdn.com/content/624b503a44c70245022f56eb/4f087c54-b53a-44f7-9234-01f8e58d8ffb/image-asset.jpeg?content-type=image%2Fjpeg&amp;format=1000w",
+        screenShot: imageData,
         name: websiteName,
-        domain: `${websiteName}SquarespaceServices`,
+        domain: `https://squarespaceclone.onrender.com/userwebsite/${websiteName}SquarespaceServices`,
       });
     }
   }, [websiteName]);
@@ -117,65 +155,82 @@ function EditorLayout() {
   }
 
   if (!isLoading && !userData) {
-    navigate("/login");
+    navigate("/login", {
+      state: {
+        toastMessage:
+          "Hold up! You need to log in first to start building your awesome website!",
+      },
+    });
     return null;
   }
 
   return (
-    <div className="flex min-h-screen bg-gray-50 overflow-hidden relative ">
-      {/* Sidebar */}
-      <div
-        className={`flex-shrink-0 ${
-          isSidebarOpen ? "w-72" : "w-0"
-        } overflow-hidden transition-all duration-300 ease-in-out`}
-        style={{ height: "100vh" }}
-      >
-        <EditorSideBar siteId={id} />
-      </div>
-
-      {/* Main content */}
-      <div className="flex-1 flex flex-col relative">
-        {/* Header */}
-        <EditorHeader
-          setSaveTrigger={setSaveTrigger}
-          siteId={id!}
-          toggleSidebarLayout={toggleSidebarLayout}
-          setMobileView={setMobileView}
-          isMobileView={isMobileView}
-          isSidebarOpen={isSidebarOpen}
-        />
-
-        {/* Editor Page */}
+    <EditorLayoutContext.Provider
+      value={{
+        currentWebsite,
+        pageNameFromLayout,
+        setPageNameFromLayout,
+        setSaveTrigger,
+        setCurrentWebsite,
+      }}
+    >
+      <div className="flex min-h-screen bg-gray-50 overflow-hidden relative ">
+        {/* Sidebar */}
         <div
-          className={`absolute ${counterPageTop} transition-all duration-500 bottom-0 ${
-            isMobileView
-              ? "w-[375px] mx-auto left-0 right-0"
-              : "w-full h-screen left-0 right-0"
-          } ${
-            isSidebarOpen ? "overflow-x-scroll" : "overflow-auto"
-          } bg-white shadow transition-all duration-300 overflow-y-scroll`}
+          className={`flex-shrink-0 ${
+            isSidebarOpen ? "w-72" : "w-0"
+          } overflow-hidden transition-all duration-300 ease-in-out`}
+          style={{ height: "100vh" }}
         >
-          <EditorWrapper
-            saveTrigger={saveTrigger}
-            setSaveTrigger={setSaveTrigger}
-            currentWebsite={currentWebsite}
-            setCurrentWebsite={setCurrentWebsite}
-            templete={templete}
-            websiteToEdit={websiteToEdit}
-            saveCurrentWebsite={saveCurrentWebsite}
-          />
+          <EditorSideBar siteId={id} />
         </div>
-      </div>
 
-      {isOpenDialogName && (
-        <WebsiteNameDialog
-          setWebsiteName={(name) => {
-            setWebsiteName(name);
-          }}
-          setIsOpen={(isOpen) => setIsOpenDialogName(isOpen)}
-        />
-      )}
-    </div>
+        {/* Main content */}
+        <div className="flex-1 flex flex-col relative">
+          <ScreenshotCapture setImageData={setImageData} ref={screenshotRef} />
+          {/* Header */}
+          <EditorHeader
+            screenshotRef={screenshotRef}
+            setSaveTrigger={setSaveTrigger}
+            siteId={id!}
+            toggleSidebarLayout={toggleSidebarLayout}
+            setMobileView={setMobileView}
+            isMobileView={isMobileView}
+            isSidebarOpen={isSidebarOpen}
+          />
+
+          {/* Editor Page */}
+          <div
+            className={`absolute ${counterPageTop} transition-all duration-500 bottom-0 ${
+              isMobileView
+                ? "w-[375px] mx-auto left-0 right-0"
+                : "w-full h-screen left-0 right-0"
+            } ${
+              isSidebarOpen ? "overflow-x-scroll" : "overflow-auto"
+            } bg-white shadow transition-all duration-300 overflow-y-scroll`}
+          >
+            <EditorWrapper
+              saveTrigger={saveTrigger}
+              setSaveTrigger={setSaveTrigger}
+              currentWebsite={currentWebsite}
+              setCurrentWebsite={setCurrentWebsite}
+              templete={template}
+              websiteToEdit={websiteToEdit}
+              saveCurrentWebsite={saveCurrentWebsite}
+            />
+          </div>
+        </div>
+
+        {isOpenDialogName && (
+          <WebsiteNameDialog
+            setWebsiteName={(name) => {
+              setWebsiteName(name);
+            }}
+            setIsOpen={(isOpen) => setIsOpenDialogName(isOpen)}
+          />
+        )}
+      </div>
+    </EditorLayoutContext.Provider>
   );
 }
 

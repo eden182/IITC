@@ -3,14 +3,14 @@ import { ArrowUp, ArrowDown, MoveVertical, ChevronDown } from "lucide-react";
 
 interface PositionContentProps {
   isOpen: boolean;
-  setIsOpen: () => void;
+  setIsOpen: (string: boolean) => void;
 }
 
 const PositionContent: React.FC<PositionContentProps> = ({
   isOpen,
   setIsOpen,
 }) => {
-  const [position, setPosition] = useState<string>("middle");
+  const [position, setPosition]: any = useState<string>("middle");
 
   const getPositionIcon = () => {
     switch (position) {

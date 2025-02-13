@@ -47,11 +47,11 @@ const ListDashboard: React.FC<ListDashboardProps> = ({
   };
 
   const handleMoveDisplayWeb = (id: string, domain: string) => {
-    navigate(`/userwebsite/${domain}/${id}`);
+    window.location.href = `${domain}/${id}`;
   };
 
   const handleMoveEditWeb = (id: string) => {
-    navigate(`/edituserwebsite/${id}`);
+    navigate(`/editor-page/website/${id}`);
   };
 
   const confirmDelete = (siteId: string): void => {
@@ -86,11 +86,11 @@ const ListDashboard: React.FC<ListDashboardProps> = ({
               key={index}
               className="border relative shadow-lg flex flex-col lg:flex-row items-center lg:items-start mb-10"
             >
-              <div className="relative group w-full lg:w-[350px] h-[260px]">
+              <div className="relative group w-full lg:w-[450px] h-[260px]">
                 <img
                   src={site.screenShot}
                   alt={site.name}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain"
                 />
                 <div className="absolute inset-0 bg-white bg-opacity-0 group-hover:bg-opacity-25 transition duration-300 flex items-center justify-center">
                   <button
@@ -112,10 +112,13 @@ const ListDashboard: React.FC<ListDashboardProps> = ({
                 </div>
 
                 <h3 className="text-lg font-semibold">{site.name}</h3>
-                <p className="text-sm text-gray-600">{site.domain}</p>
+                <p className="text-sm text-gray-600 flex truncate">
+                  {site.domain + "/" + site._id}
+                </p>
+
                 <p className="text-sm text-gray-600">
                   Website trial expires on{" "}
-                  {new Date(site.creationDate).toLocaleDateString("en-US", {
+                  {new Date(site.createdAt).toLocaleDateString("en-US", {
                     month: "short",
                     day: "numeric",
                     year: "numeric",

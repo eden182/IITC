@@ -26,8 +26,8 @@ const EmailPreferences = () => {
     unfold: true,
   });
 
-  const handleToggle = (key: keyof Preferences) => {
-    setPreferences((prev) => ({
+  const handleToggle = (key: any) => {
+    setPreferences((prev: any) => ({
       ...prev,
       [key]: !prev[key],
     }));
@@ -74,9 +74,11 @@ const EmailPreferences = () => {
               </label>
               <Switch
                 id={key}
-                checked={preferences[key]}
+                checked={preferences[key as keyof Preferences]}
                 onCheckedChange={() => handleToggle(key)}
-                className={preferences[key] ? "bg-green-400" : ""}
+                className={
+                  preferences[key as keyof Preferences] ? "bg-green-400" : ""
+                }
               />
             </div>
           ))}

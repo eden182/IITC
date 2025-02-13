@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import BasicEditor3Pro from "./BasicEditor3Pro";
 import {
@@ -10,11 +10,10 @@ import WebsiteNav3 from "./WebsiteNav3";
 import { Header3Data } from "./Header3";
 import { hydrateWebsites } from "./utils";
 import { Footer3Data } from "./Footer3";
-import DisplayWebsite3 from "../basicDisplay3Pro/DisplayWebsite3";
 import { useCreateSite } from "../../hooks/useSite";
 import { useUserProfile } from "../../hooks/useUser";
 
-const defaultHeaderData: Header3Data = {
+const defaultHeaderData: any = {
   logo: { text: "LOGO1", imgSrc: null },
   pages: [],
   hasExtraButton: false,
@@ -45,7 +44,7 @@ export type Wrapper3ProProps = {
   currentUser: BasicEditor3User;
 };
 
-function Wrapper3Pro({ currentUser = defaultUser }: Wrapper3ProProps) {
+function Wrapper3Pro({ currentUser = defaultUser }: any) {
   const [websites, setWebsites] = useState<BasicEditor3Website[]>([
     defaultWebsite,
   ]);
@@ -54,7 +53,7 @@ function Wrapper3Pro({ currentUser = defaultUser }: Wrapper3ProProps) {
   );
   const websiteDataString = JSON.stringify(currentWebsite);
 
-  const { mutate: createNewSite } = useCreateSite();
+  const { mutate: createNewSite } = useCreateSite(() => console.log(""));
   const { data: userData } = useUserProfile();
 
   useEffect(() => {

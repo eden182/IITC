@@ -1,4 +1,4 @@
-import React, {
+import {
   useState,
   useRef,
   useEffect,
@@ -9,12 +9,13 @@ import React, {
   SetStateAction,
 } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { Plus } from "lucide-react";
 
-import { Position } from "../basicEditor/basicEditorTypes";
+import { Position } from "./BasicEditor3ProTypes";
+
 import {
   DataObject3Content,
   DataObject3Style,
-  DataObject3,
   RenderElement3,
   RenderElementNames,
   BasicEditorContextType,
@@ -22,37 +23,14 @@ import {
   BasicEditor3Website,
 } from "./BasicEditor3ProTypes";
 
-import PageNav3 from "./PageNav3Pro";
 import DraggableFrame3 from "./DraggableFrame3Pro";
-import {
-  RedRectangle3,
-  ColorRectangle3,
-  TextBox3,
-  RedTextRectangle3,
-} from "./BasicEditor3ProComponents";
-import { isEmpty, hydrateRenderElement, hydratePage } from "./utils";
-import styles from "./BasicEditor3ProStyles";
-import Header3, { Header3Data } from "./Header3";
-import MouseLocator from "./MouseLocator";
-import DisplayWebsite3 from "../basicDisplay3Pro/DisplayWebsite3";
 
-//goal 0.
-// Update the data structure of BasicEditor3 to fit the new data structure:
-// Website {
-//
-//       Header{
-//           image/logo block
-//           navigation blocks
-//       }
-//       Page(s){
-//           blocks(5 different options)
-//       }
-//       Footer{
-//           navigation blocks
-//           social blocks
-//       }
-//
-// }
+import { hydrateRenderElement } from "./utils";
+import Header3 from "./Header3";
+
+import { EditorLayoutContext } from "../../pages/EditorLayout";
+import { DialogAddElement } from "../EditorComponents/Element/DialogAddElements";
+import BackgroundGrid from "./BackgroundGrid";
 
 //task DONE.
 //create a basic header element that is editable, saveable, retrievable and serves to navigate the website
@@ -88,16 +66,38 @@ import DisplayWebsite3 from "../basicDisplay3Pro/DisplayWebsite3";
 //create editor mode. the components should not be editable/moveable when not in editor mode
 
 export type BasicEditor3ProProps = {
-  // websites: BasicEditor3Website[]
-  currentWebsite: BasicEditor3Website;
-  saveCurrentWebsite?: () => void;
+  currentWebsite?: BasicEditor3Website;
+  saveCurrentWebsite?: (newWebsite?: any) => void;
   isEditModeProp?: boolean;
-  saveTrigger: boolean;
-  setSaveTrigger: Dispatch<SetStateAction<boolean>>;
-  // setCurrentWebsite:Dispatch<SetStateAction<string>>
+  saveTrigger?: boolean;
+  setSaveTrigger?: Dispatch<SetStateAction<boolean>>;
+  // pageNameFromLayout?: string
 };
 
-export const BasicEditorContext = createContext<BasicEditorContextType>({});
+const defaultContext: BasicEditorContextType = {
+  closestPosition: { x: 0, y: 0 },
+  offset: { x: 0, y: 0 },
+  setOffset: () => { },
+  headerData: {
+    logo: { text: "defaultFromDefaultContext", imgSrc: "", linkedPage: "Home" },
+    pages: [],
+    style: {
+      headerStyle: {},
+      logoContainerStyle: {},
+      navContainerStyle: {},
+      navItemStyle: {}
+    },
+    hasAccount: false,
+    hasCart: false,
+    hasExtraButton: false,
+    hasLanguageSwitch: false,
+    hasSocialLinks: false
+  },
+  setHeaderData: () => { }, // Or a function that updates the headerData
+  // ... initialize other properties
+};
+export const BasicEditorContext = createContext<BasicEditorContextType>(defaultContext);
+
 
 function BasicEditor3Pro({
   currentWebsite,
@@ -105,23 +105,44 @@ function BasicEditor3Pro({
   isEditModeProp = undefined,
   saveTrigger,
   setSaveTrigger,
-}: BasicEditor3ProProps) {
+}: // pageNameFromLayout
+  BasicEditor3ProProps) {
   const [isEditMode, setIsEditMode] = useState(true);
   const [headerEditMode, setHeaderEditMode] = useState(false);
-  const [originOfCoordinates, setOriginOfCoordinates] = useState<Position>({
-    x: 0,
-    y: 0,
-  });
+  const [originOfCoordinates, setOriginOfCoordinates] = useState<Position>();
 
-  const [headerData, setHeaderData] = useState(currentWebsite.headerData);
-  const [pages, setPages] = useState<BasicEditor3Page[]>(currentWebsite.pages);
-  const [currentPage, setCurrentPage] = useState<string>(pages[0]?.name);
+  const [closestPosition, setClosestPosition] = useState<Position>({ x: 0, y: 0 });
+  const [offset, setOffset] = useState<Position>({ x: 0, y: 0 });
+
+  const [headerData, setHeaderData]: any = useState(currentWebsite?.headerData);
+  const [pages, setPages] = useState<BasicEditor3Page[]>(
+    currentWebsite?.pages || []
+  );
+  const [currentPage, setCurrentPage] = useState<string>(currentWebsite?.lastEditorPage || pages[0]?.name);
+  const [prevPage, setPrevPage] = useState<string>(currentWebsite?.lastEditorPage || pages[0]?.name);
   const [renderElements, setRenderElements] = useState<RenderElement3[]>([]);
+
+  const [addBlockMenuVisible, setAddBlockMenuVisible] = useState<boolean>(false);
+
+  // const defaultContext: BasicEditorContextType = {
+  //   closestPosition: closestPosition,
+  //   offset: offset,
+  //   setOffset: setOffset,
+  //   headerData:headerData,
+  //   setHeaderData:setHeaderData
+  // }
+
+  // const BasicEditorContext = createContext<BasicEditorContextType>(defaultContext);
+
+  const isFirstRender = useRef(true)
+
+  const { pageNameFromLayout } = useContext(EditorLayoutContext) || {};
 
   const isPages = !(pages.length === 0);
   const isRenderElements = !(renderElements.length === 0);
-  const isPagesFetched = useRef(false);
-  const editorRef = useRef();
+  // const isPagesFetched = useRef(false);
+  const editorRef = useRef<HTMLDivElement>(null);
+  const TOLERANCE = 1;
 
   useEffect(() => {
     if (typeof isEditModeProp !== "undefined") {
@@ -133,46 +154,57 @@ function BasicEditor3Pro({
   useEffect(() => {
     if (saveTrigger) {
       saveChangesToWebsite();
-      setSaveTrigger(false);
-      console.log(saveTrigger + "is saving");
+      if (setSaveTrigger) {
+        setSaveTrigger(false);
+      }
     }
-    console.log(saveTrigger + "is Not !!!!!");
   }, [saveTrigger]);
 
-  //resize event? look for a react hooks that checks for a change in div position?
-  const TOLERANCE = 1;
-  function updateOOC() {
-    //SHOULD REFACTOR currently works, but wasteful. For some reason the position is always considered different.
-    if (!editorRef.current) return;
-    const rect: DOMRect = editorRef.current.getBoundingClientRect();
-    const newPosition: Position = { x: rect.left, y: rect.top };
-    const updateRule2 =
-      Math.abs(newPosition.x - originOfCoordinates.x) > TOLERANCE ||
-      Math.abs(newPosition.y - originOfCoordinates.y) > TOLERANCE;
-    if (updateRule2) {
-      setOriginOfCoordinates(newPosition);
-      // console.log("new OoC:", newPosition);
-    }
-    setTimeout(updateOOC, 300);
-  }
-
   useEffect(() => {
+    if (!currentWebsite) {
+      return;
+    }
     setPages(currentWebsite.pages);
     if (currentWebsite.pages[0]) {
-      setCurrentPage(currentWebsite.pages[0].name);
+      setCurrentPage(currentWebsite.lastEditorPage || currentWebsite.pages[0].name)
+    }
+    if (!isPages) {
+      setCurrentPage("HomeFromEditor")
     }
     setHeaderData(currentWebsite.headerData);
   }, [currentWebsite]);
 
   useEffect(() => {
+    if (!currentWebsite || !headerData) {
+      return;
+    }
     currentWebsite.headerData = headerData;
   }, [headerData]);
 
   useEffect(() => {
     //displays the current page
+    if (!currentWebsite) return;
+    if (!isFirstRender) {
+      saveSnapshotToPages(prevPage, renderElements)
+      console.log(prevPage, renderElements)
+    }
+    isFirstRender.current = false;
     displayPage(currentPage);
-    currentWebsite.pages = pages;
+    currentWebsite.pages = pages;//what is the use of this line?
+    currentWebsite.lastEditorPage = currentPage
+    setPrevPage(currentPage)
   }, [currentPage, pages]);
+
+  useEffect(() => {
+    if (
+      pageNameFromLayout &&
+      pages.find((page) => page.name === pageNameFromLayout)
+    ) {
+      setCurrentPage(pageNameFromLayout);
+    } else if (pageNameFromLayout) {
+      // saveSnapshotToPages(pageNameFromLayout, []);
+    }
+  }, [pageNameFromLayout]);
 
   const baseFunctions = {
     deleteObject: function (id: string) {
@@ -185,9 +217,9 @@ function BasicEditor3Pro({
         prev.map((element) =>
           element.data.id === id
             ? {
-                data: { ...element.data, position: newPosition },
-                body: element.body,
-              }
+              data: { ...element.data, position: newPosition },
+              body: element.body,
+            }
             : element
         )
       );
@@ -197,9 +229,9 @@ function BasicEditor3Pro({
         prev.map((element) =>
           element.data.id === id
             ? {
-                data: { ...element.data, content: newContent },
-                body: element.body,
-              }
+              data: { ...element.data, content: newContent },
+              body: element.body,
+            }
             : element
         )
       );
@@ -214,12 +246,32 @@ function BasicEditor3Pro({
         )
       );
     },
-    saveChanges: () => saveCurrentWebsite(currentWebsite),
+
+    saveChanges: () => {
+      if (saveCurrentWebsite) {
+        saveCurrentWebsite(currentWebsite);
+      }
+    },
   };
+
+  //resize event? look for a react hooks that checks for a change in div position?
+  function updateOOC() {
+    //SHOULD REFACTOR currently works, but wasteful. For some reason the position is always considered different.
+    if (!editorRef.current) return;
+    const rect: DOMRect = editorRef.current.getBoundingClientRect();
+    const newPosition: Position = { x: rect.left, y: rect.top };
+    const updateRule2 =
+      Math.abs(newPosition.x - (originOfCoordinates?.x || 0)) > TOLERANCE ||
+      Math.abs(newPosition.y - (originOfCoordinates?.y || 0)) > TOLERANCE;
+    if (updateRule2) {
+      setOriginOfCoordinates(newPosition);
+    }
+    setTimeout(updateOOC, 300);
+  }
 
   function addRenderElement(
     renderElementName: RenderElementNames,
-    position: Position = { x: 0, y: 0 },
+    position: Position = { x: 225, y: 225 },
     content: DataObject3Content = {},
     style: DataObject3Style = {}
   ) {
@@ -240,11 +292,30 @@ function BasicEditor3Pro({
     }
   }
 
+  function duplicateElement(element: RenderElement3) {
+    const { renderElementName, position, content, style } = element.data;
+    addRenderElement(
+      renderElementName,
+      { x: position.x + 10, y: position.y + 10 },
+      content,
+      style
+    );
+  }
+
   function mapRenderElements(): ReactNode[] {
     return isRenderElements
-      ? renderElements.map((element) => (
+      ? renderElements.map((element) => {
+        // if(element.data.extraData?.isBackground){
+        //   // baseFunctions.setPosition(element.data.id, originOfCoordinates);
+        //   // baseFunctions.setStyle(element.data.id, {...element.data.style, width:'100vw'})
+        //   element.data.style = {...element.data.style, position:'absolute', left:'0', top:'0', zIndex:'0'}
+        //   return element.body;
+        // }
+        // else return <DraggableFrame3 key={element.data.id} renderElement={element} />
+        return (
           <DraggableFrame3 key={element.data.id} renderElement={element} />
-        ))
+        );
+      })
       : [];
   }
 
@@ -270,6 +341,7 @@ function BasicEditor3Pro({
 
   function saveChangesToWebsite() {
     saveSnapshotToPages(currentPage, renderElements);
+    if (!saveCurrentWebsite) return;
     saveCurrentWebsite(currentWebsite);
   }
 
@@ -282,100 +354,64 @@ function BasicEditor3Pro({
     }
   }
 
+  function closeMenuAndRemoveListener() {
+    setAddBlockMenuVisible(false);
+    window.removeEventListener("click", closeMenuAndRemoveListener);
+  }
+
+  function handleAddMenuClick(e: any) {
+    e.stopPropagation();
+    setAddBlockMenuVisible(true);
+    window.addEventListener("click", closeMenuAndRemoveListener);
+  }
+
   return (
     <BasicEditorContext.Provider
-      value={{ renderElements, baseFunctions, isEditMode, originOfCoordinates }}
+      value={{
+        renderElements,
+        baseFunctions,
+        isEditMode,
+        originOfCoordinates,
+        duplicateElement,
+        closestPosition,
+        offset,
+        setOffset,
+        headerData,
+        setHeaderData
+      }}
     >
       <div ref={editorRef} style={{ position: "relative" }}>
-        {isEditMode && (
-          <div>
-            BasicEditor3
-            <button onClick={saveChangesToWebsite}>
-              save changes from Basic editor
-            </button>
-            {/* <button onClick={() => { retrievePagesFromLS() }}>Retrieve pages</button> */}
-            <button
-              onClick={() => {
-                setIsEditMode((prev) => !prev);
-              }}
-            >
-              toggle edit mode
-            </button>
-            {/* <button onClick={saveHeaderToLS}>save header data</button> */}
-            {/* <button onClick={retrieveHeaderFromLS}>retrieve header data</button> */}
-            {isEditMode && (
-              <label style={{ border: "1px solid red" }}>edit mode on</label>
-            )}
-            <PageNav3
-              pages={pages}
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-              saveSnapshotToPages={saveSnapshotToPages}
-              savePagesToLS={saveCurrentWebsite}
-            />
-            <div>
-              <button
-                onClick={() => addRenderElement(RenderElementNames.Text_Block3)}
-              >
-                +TextBlock3
-              </button>
-              <button
-                onClick={() =>
-                  addRenderElement(RenderElementNames.red_rectangle3)
-                }
-              >
-                +RedRectangle3
-              </button>
-              <button
-                onClick={() =>
-                  addRenderElement(RenderElementNames.red_text_rectangle3)
-                }
-              >
-                +RedTextRectangle3
-              </button>
-              <button
-                onClick={() =>
-                  addRenderElement(RenderElementNames.color_rectangle3)
-                }
-              >
-                +ColorRectangle3
-              </button>
-              <button
-                onClick={() => addRenderElement(RenderElementNames.text_box3)}
-              >
-                +TextBox3
-              </button>
-              <button>
-                <span
-                  onClick={() =>
-                    addRenderElement(RenderElementNames.ImgContainer)
-                  }
-                >
-                  +ImgContainer
-                </span>
-              </button>
-              <button>
-                <span
-                  onClick={() =>
-                    addRenderElement(RenderElementNames.VideoContainer)
-                  }
-                >
-                  +VideoContainer
-                </span>
-              </button>
-            </div>
-          </div>
-        )}
         <Header3
           pages={pages}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
           headerEditMode={headerEditMode}
           setHeaderEditMode={setHeaderEditMode}
-          data={headerData}
-          setData={setHeaderData}
+        // data={headerData}
+        // setData={setHeaderData}
         />
-        <div>{mapRenderElements()}</div>
+        {isEditMode && <div style={{ position: 'relative', top: '200px' }}>
+          {!addBlockMenuVisible ? (
+            <div style={{ position: 'absolute', zIndex: '100' }}>
+              <button
+                onClick={(e) => handleAddMenuClick(e)}
+                className="flex font-bold items-center gap-2 bg-gray-100 text-gray-700 px-5 py-3 rounded-lg hover:bg-gray-200 transition-colors duration-200 shadow-sm"
+              >
+                <Plus size={26} />
+                <span className="font-medium">Add Block</span>
+              </button>
+            </div>
+          ) : (
+            <div style={{ zIndex: '100' }}>
+              <DialogAddElement addRenderElement={addRenderElement} />
+            </div>
+          )}
+        </div>
+        }
+        <div>
+          {isEditMode && <BackgroundGrid setClosestPosition={setClosestPosition} />}
+          {mapRenderElements()}
+        </div>
       </div>
     </BasicEditorContext.Provider>
   );

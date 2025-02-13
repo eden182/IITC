@@ -1,6 +1,15 @@
-import { ReactNode, ComponentType, Dispatch, SetStateAction } from "react";
+import { ReactNode, SetStateAction, Dispatch } from "react";
 import { Header3Data } from "./Header3";
 import { Footer3Data } from "./Footer3";
+
+export type CssPosition = 'absolute' | 'relative' | 'fixed' | 'sticky' | 'static';
+
+export type MarkerDivStyleType = {
+  width: string,
+  height: string,
+  position: CssPosition,
+  [key:string]:any
+}
 
 export type Position = {
   x: number;
@@ -26,6 +35,11 @@ export type DataObject3 = {
   position: Position;
   content: DataObject3Content;
   style: DataObject3Style;
+  extraData: {
+    zIndex?: string;
+    isBackground?: boolean;
+    [key: string]: any;
+  };
 };
 
 export type RenderElement3 = {
@@ -51,6 +65,7 @@ export type BasicEditor3Website = {
   name: string;
   headerData: Header3Data;
   pages: BasicEditor3Page[];
+  lastEditorPage?: string;
   footerData: Footer3Data;
 };
 
@@ -70,12 +85,21 @@ export enum RenderElementNames {
   color_rectangle3 = "color_rectangle3",
   ImgContainer = "ImgContainer",
   VideoContainer = "VideoContainer",
-  Text_Block3 = "Text_Block3"
+  Text_Block3 = "Text_Block3",
+  Accordion = "Accordion",
+  Button = "Button",
+  Form = "Form",
 }
 
 export type BasicEditorContextType = {
-  renderElements: RenderElement3[];
-  baseFunctions: BaseFunctions;
-  isEditMode: boolean;
-  originOfCoordinates: Position;
+  renderElements?: RenderElement3[];
+  baseFunctions?: BaseFunctions;
+  isEditMode?: boolean;
+  originOfCoordinates?: Position;
+  duplicateElement?: (element: RenderElement3) => void;
+  closestPosition:Position;
+  offset:Position,
+  setOffset:Dispatch<SetStateAction<Position>>,
+  headerData:Header3Data,
+  setHeaderData:Dispatch<SetStateAction<Header3Data>>
 };

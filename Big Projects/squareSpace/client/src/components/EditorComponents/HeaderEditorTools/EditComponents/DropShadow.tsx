@@ -1,5 +1,5 @@
 import { ArrowLeftIcon, ChevronLeftIcon } from "lucide-react";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Slider } from "../../../ui/slider";
 import { Popover, PopoverContent, PopoverTrigger } from "../../../ui/popover";
 import ColorPicker from "../../ColorPicker";

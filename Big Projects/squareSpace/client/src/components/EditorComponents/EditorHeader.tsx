@@ -1,5 +1,6 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { reviewgIcon } from "../../lib/icon";
+import { useNavigate } from "react-router-dom";
 
 interface EditorHeaderProps {
   toggleSidebarLayout: () => void;
@@ -8,6 +9,7 @@ interface EditorHeaderProps {
   isSidebarOpen: boolean;
   siteId: string;
   setSaveTrigger: Dispatch<SetStateAction<boolean>>;
+  screenshotRef: any;
 }
 
 const EditorHeader: React.FC<EditorHeaderProps> = ({
@@ -17,7 +19,9 @@ const EditorHeader: React.FC<EditorHeaderProps> = ({
   isSidebarOpen,
   siteId,
   setSaveTrigger,
+  screenshotRef,
 }) => {
+  const navigate = useNavigate();
   const editorHeaderHide =
     location.pathname === "/"
       ? "hidden p-0 m-0"
@@ -27,7 +31,6 @@ const EditorHeader: React.FC<EditorHeaderProps> = ({
         location.pathname === `/editor-page/website/pages/${siteId}`
       ? "flex p-5 mt-2"
       : "hidden p-0 m-0";
-  console.log(siteId);
 
   return (
     <div
@@ -41,16 +44,15 @@ const EditorHeader: React.FC<EditorHeaderProps> = ({
         >
           {isSidebarOpen ? "Edit" : "Exit"}
         </span>
-        {isSidebarOpen ? (
-          <span className="hidden"></span>
-        ) : (
-          <span
-            onClick={() => setSaveTrigger((prev: boolean) => !prev)}
-            className="flex justify-center items-center font-bold bg-black text-white rounded-lg px-5 cursor-pointer"
-          >
-            Save
-          </span>
-        )}
+        <span
+          onClick={() => {
+            screenshotRef.current?.captureScreenshot();
+            setSaveTrigger((prev: boolean) => !prev);
+          }}
+          className="flex justify-center items-center font-bold bg-black text-white rounded-lg px-5 cursor-pointer"
+        >
+          Save
+        </span>
       </div>
       {/* Buttons for switching views */}
       <div className="flex gap-4">
@@ -101,9 +103,17 @@ const EditorHeader: React.FC<EditorHeaderProps> = ({
         </button>
 
         {siteId && (
-          <button className="hover:bg-gray-300 p-2 rounded">
-            {reviewgIcon()}
-          </button>
+          <div className="relative group">
+            <button
+              onClick={() => navigate(`/userwebsite/${siteId}`)}
+              className="hover:bg-gray-300 p-2 rounded"
+            >
+              {reviewgIcon()}
+            </button>
+            <span className="absolute left-1/2 top-full mt-2 w-max -translate-x-1/2 scale-0 rounded bg-gray-800 text-white text-sm px-2 py-1 group-hover:scale-100 transition-transform z-50">
+              Preview
+            </span>
+          </div>
         )}
       </div>
     </div>

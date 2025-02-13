@@ -1,14 +1,55 @@
-import React, { useState } from "react";
+import { useState, useContext, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Trash2 } from "lucide-react";
+import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 
 // Import your other sidebar components
 import SystemPagesSidebar from "./SystemPagesSidebar";
 import WebsiteTools from "./WebsiteTools";
-import TrashSidebar from "./TrashSidebar";
+// import TrashSidebar from "./TrashSidebar";
+import { EditorLayoutContext } from "../../../pages/EditorLayout";
+
+const addPageFormStyle: React.CSSProperties = {
+  display: "flex",
+  flexDirection: "column",
+};
 
 function PagesSidebar() {
   const navigate = useNavigate();
   const [activeSidebar, setActiveSidebar] = useState("main");
+  const { currentWebsite, setPageNameFromLayout, setSaveTrigger }: any = useContext(EditorLayoutContext);
+  const [addPageFormVisible, setAddPageFormVisible] = useState<boolean>(false);
+  const defaultPageName = (currentWebsite) ? currentWebsite.pages[0]?.name : undefined
+  const [currentPage, setCurrentPage] = useState<string>(currentWebsite?.lastEditorPage || defaultPageName);
+
+  const newPageNameInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    setCurrentPage(currentWebsite?.lastEditorPage)
+  }, [currentWebsite?.lastEditorPage])
+
+  function handleAddPage(pageName: string) {
+    setAddPageFormVisible(false);
+    if (!pageName || typeof pageName !== "string" || pageName === "") return;
+    setPageNameFromLayout(pageName);
+    setTimeout(() => setSaveTrigger(true), 1);
+  }
+
+  function handleDeletePage(pageName: string) {
+    const index = currentWebsite?.pages.findIndex(
+      (page: any) => page.name === pageName
+    );
+    if (index === -1 || (!index && index !== 0) || currentWebsite.pages.length === 1) return;
+
+    currentWebsite?.pages.splice(index, 1);
+    setTimeout(() => setSaveTrigger(true), 1);
+  }
+
+  function handlePageClick(pageName: string) {
+    setPageNameFromLayout(pageName);
+    console.log("attempted to move to:", pageName)
+    // setTimeout(() => setSaveTrigger(true), 1);
+  }
 
   // Function to render the correct sidebar based on `activeSidebar`
   const renderSidebar = () => {
@@ -17,8 +58,8 @@ function PagesSidebar() {
         return <SystemPagesSidebar setActiveSidebar={setActiveSidebar} />;
       case "websiteTools":
         return <WebsiteTools setActiveSidebar={setActiveSidebar} />;
-      case "trash":
-        return <TrashSidebar />;
+      // case "trash":
+        // return <TrashSidebar />;
       default:
         return null;
     }
@@ -78,25 +119,65 @@ function PagesSidebar() {
           {/* Main Navigation Items */}
           <div className="mt-16 text-xl">
             <ul className="space-y-2 mb-4">
-              <li className="flex justify-between items-center p-2 rounded-md">
-                <span>Main Navigation </span>
-                <button className="text-gray-600 hover:text-black hover:bg-gray-200 p-3 cursor-pointer">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth="2"
+              {currentWebsite && currentWebsite.pages &&
+                currentWebsite.pages.map((page: any) => (
+                  <li
+                    key={page.name}
+                    className="flex justify-between items-center p-2 rounded-md"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M12 5v14M5 12h14"
-                    />
-                  </svg>
+                    <button onClick={() => handlePageClick(page.name)}>
+                      {currentPage === page.name && ">"}
+                      {page.name}
+                    </button>
+                    <button
+                      onClick={() => handleDeletePage(page.name)}
+                      className="flex mr-[80px] items-center gap-2 px-3 py-2 text-gray-600 hover:text-red-600 transition-colors duration-200 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-red-200"
+                      aria-label="Delete"
+                    >
+                      <Trash2 size={18} />
+                    </button>
+                  </li>
+                ))}
+              <li className="flex justify-between items-center p-2 rounded-md">
+                <button
+                  onClick={() => setAddPageFormVisible((prev) => !prev)}
+                  className="text-gray-600 hover:text-black hover:bg-gray-200 p-3 cursor-pointer"
+                >
+                  {addPageFormVisible ? (
+                    <AiOutlineMinus className="h-5 w-5" />
+                  ) : (
+                    <AiOutlinePlus className="h-5 w-5" />
+                  )}
                 </button>
               </li>
+
+              {addPageFormVisible && (
+                <div style={addPageFormStyle}>
+                  <label className="mb-3">New page:</label>
+                  <div className="flex">
+                    <div className="relative group w-[70%]">
+                      <input
+                        type="text"
+                        className="peer w-full p-2 outline-none border-b border-gray-200 "
+                        placeholder="Page Name..."
+                        ref={newPageNameInputRef}
+                      />
+                      <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-1000 group-focus-within:w-full" />
+                    </div>
+                    <button
+                      className="ml-2"
+                      onClick={() => {
+                        if (newPageNameInputRef.current) {
+                          handleAddPage(newPageNameInputRef.current.value);
+                        }
+                      }}
+                    >
+                      <AiOutlinePlus size={20} />
+                    </button>
+                  </div>
+                </div>
+              )}
+
               <li className="flex justify-between items-center p-2 rounded-md">
                 <span>Not Linked</span>
                 <button className="text-gray-600 hover:text-black hover:bg-gray-200 p-3 cursor-pointer">

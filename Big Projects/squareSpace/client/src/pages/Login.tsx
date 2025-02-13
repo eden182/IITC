@@ -1,14 +1,17 @@
 import GoogleIcon from "../assets/google.png";
 import AppleeIcon from "../assets/apple-logo.png";
 import FacebookIcon from "../assets//communication.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ChevronLeftIcon, ArrowLeftIcon } from "@heroicons/react/24/solid";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { loginService } from "../services/userService";
+import toast, { Toaster } from "react-hot-toast";
+import { GoogleLogin } from '@react-oauth/google';
 
 const Login = () => {
+  const location = useLocation();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -16,6 +19,12 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const isFormValid = email !== "" && password !== "";
+
+  useEffect(() => {
+    if (location.state?.toastMessage) {
+      toast(location.state.toastMessage);
+    }
+  }, [location.state]);
 
   const navigateToSignUp = () => {
     navigate("/signup");
@@ -62,8 +71,14 @@ const Login = () => {
     }
   };
 
+  const handleGoogleLoginSuccess = () => {
+    window.location.href = 'https://squarespaceclone.onrender.com/api/auth/google';
+  };
+
+
   return (
     <div className="flex flex-col items-center justify-center min-w-[330px]">
+      <Toaster position="top-center" reverseOrder={false} />
       <header className="flex items-center justify-between w-full p-6 font-medium mt-6 px-8">
         <button
           onClick={() => navigateToRoot()}
@@ -162,11 +177,10 @@ const Login = () => {
             </div>
             <button
               disabled={!isFormValid}
-              className={`w-full py-2 rounded font-medium transition-all ${
-                isFormValid
-                  ? "bg-black text-white hover:bg-gray-800"
-                  : "bg-gray-300 text-gray-600 cursor-not-allowed "
-              }`}
+              className={`w-full py-2 rounded font-medium transition-all ${isFormValid
+                ? "bg-black text-white hover:bg-gray-800"
+                : "bg-gray-300 text-gray-600 cursor-not-allowed "
+                }`}
             >
               LOG IN
             </button>
@@ -184,6 +198,17 @@ const Login = () => {
               <span className="relative flex items-center gap-2 px-4 py-2 text-black group-hover:text-white z-10">
                 <img src={GoogleIcon} alt="Google logo" className="w-4 h-4" />
                 <span className="pl-[50px]">Continue with Google</span>
+                <GoogleLogin
+                  onSuccess={handleGoogleLoginSuccess}
+                  containerProps={{
+                    style: {
+                      position: "absolute",
+                      width: "100%",
+                      height: "100%",
+                      opacity: 0,
+                    },
+                  }}
+                />
               </span>
             </button>
             <button className="relative overflow-hidden border border-black group min-w-[285px]">

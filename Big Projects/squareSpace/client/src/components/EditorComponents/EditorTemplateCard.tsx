@@ -27,7 +27,7 @@ const EditorPage: React.FC<EditorPageProps> = ({ isMobileView }) => {
           className={`flex ${
             isMobileView
               ? "flex-col" // Force column layout when isMobileView is true
-              : "flex-row xl:flex-row flex-col" // Default responsive behavior for media queries
+              : "flex-row xl:flex-row " // Default responsive behavior for media queries
           } w-full h-screen text-black bg-orange-50 justify-center items-center`}
         >
           {/* Image Section */}

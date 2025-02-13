@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { SidebarProvider } from "../../components/ui/sidebar";
 import { AppSidebar } from "./SideBar";
 import { SidebarTrigger } from "../../components/ui/sidebar";
 import Card from "./TemplateCard";
 import CardsData from "./CardData";
+import { useNavigate } from "react-router-dom";
 
 function DesignCon() {
   const [markedTypes, setMarkedTypes] = useState<Record<string, boolean>>({});
-
+  const navigate = useNavigate();
   // Filter cards based on the marked "Types" from the sidebar
   const filteredCards = CardsData.filter((card) =>
     Object.keys(markedTypes).some(
@@ -15,10 +16,23 @@ function DesignCon() {
     )
   );
 
+  const handleTempleteClick = (data: any) => {
+    if (!data) {
+      return;
+    }
+    navigate("/editor-page", { state: data });
+  };
+
   // Show all cards if no type is selected
   const cardsToRender = Object.values(markedTypes).some(Boolean)
     ? filteredCards
     : CardsData;
+
+  // Remove duplicate titles
+  const uniqueCards = cardsToRender.filter(
+    (card, index, self) =>
+      index === self.findIndex((t) => t.title === card.title)
+  );
 
   return (
     <SidebarProvider>
@@ -38,20 +52,24 @@ function DesignCon() {
           </div>
           {/* Render Cards */}
           <div>
-            {cardsToRender.length === 0 ? (
+            {uniqueCards.length === 0 ? (
               <p className="text-center text-gray-500 mt-10">
                 No templates match the selected filters.
               </p>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 overflow-y-auto max-h-screen scrollbar-hide">
-                {cardsToRender.map((card) => (
-                  <Card
-                    key={card.title}
-                    title={card.title}
-                    type={card.type}
-                    imageUrl={card.imageUrl}
-                    id={card.id}
-                  />
+              <div className="grid grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-6 overflow-y-auto max-h-screen scrollbar-hide">
+                {uniqueCards.map((card) => (
+                  <div>
+                    <Card
+                      handleTempleteClick={handleTempleteClick}
+                      key={card.id} // Use id as the unique key
+                      title={card.title}
+                      type={card.type}
+                      imageUrl={card.imageUrl}
+                      id={card.id}
+                      data={card?.data}
+                    />
+                  </div>
                 ))}
               </div>
             )}

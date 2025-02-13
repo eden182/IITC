@@ -84,7 +84,7 @@ const AccountDashboard = () => {
             <button
               className={
                 activeButton === "Domains"
-                  ? "relative text-black font-semibold group hover:text-gray-900 focus:outline-none active:text-black text-black"
+                  ? "relative  font-semibold group hover:text-gray-900 focus:outline-none active:text-black text-black"
                   : "relative text-[rgba(0,0,0,0.6)] font-semibold group hover:text-gray-900 focus:outline-none active:text-black"
               }
               onClick={() => handleClick("Domains")}

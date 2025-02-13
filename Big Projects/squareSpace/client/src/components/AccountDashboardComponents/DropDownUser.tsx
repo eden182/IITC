@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { useUserProfile } from "../../hooks/useUser";
 import { deleteToken } from "../../lib/api";
 import ProfileDialog from "../../components/AccountDashboardComponents/ProfileDialog";
@@ -8,10 +7,10 @@ function DropDownUser() {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { data: userData } = useUserProfile();
-  const btnName = "Profile";
 
   useEffect(() => {
     setIsLoggedIn(!!userData);
+    console.log(isLoggedIn);
   }, [userData]);
 
   // Toggle the dropdown menu visibility
